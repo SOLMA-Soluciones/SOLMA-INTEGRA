@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Motivo;
+use Exception;
 
 class MotivoController extends Controller
 {
@@ -14,11 +15,10 @@ class MotivoController extends Controller
      */
     public function index()
     {
-            $motivos = Motivo::orderBy('id', 'DESC')->get();
-            return view('timer.index', compact('motivos'));
-        
+        $motivos = Motivo::orderBy('id', 'DESC')->get();
+        return view('timer.index', compact('motivos'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,15 +38,18 @@ class MotivoController extends Controller
      */
     public function store(Request $request)
     {
-        $NotiUpdate = Motivo::findOrFail($request->id)->update(['estatus' => $request->estatus]); 
-    
-        if($request->estatus == 0)  {
+        // $NotiUpdate = Motivo::findOrFail($request->id)->update(['estatus' => $request->estatus]);
+        $productos = Motivo::find($request->id);
+        $productos->estatus = $request->get("estatus");
+
+        $productos->save();
+        if ($request->estatus == 0) {
             $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        }else{
-            $newStatus ='<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+        } else {
+            $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
         }
-    
-        return response()->json(['var'=>''.$newStatus.'']);
+
+        return response()->json(['var' => '' . $newStatus . '']);
     }
 
     /**
@@ -66,9 +69,11 @@ class MotivoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($data)
     {
-        //
+        // throw new Exception("Entro");
+        // $NotiUpdate = Motivo::findOrFail($data->id)->update(['estatus' => $data->estatus]); 
+        // return $NotiUpdate;
     }
 
     /**
