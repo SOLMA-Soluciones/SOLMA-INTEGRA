@@ -44,6 +44,7 @@ Route::get('/tab5', [App\Http\Controllers\ConfiguracionController::class, 'index
 
 
 Route::get('store', 'MotivoController@store')->name('store');
+// Route::post('/motivos/edit', 'MotivoController@edit')->name('motivos.edit');
 //Rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
@@ -54,4 +55,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('motivos', MotivoController::class);
     Route::resource('productos', ProductoController::class);
 });
+
 
