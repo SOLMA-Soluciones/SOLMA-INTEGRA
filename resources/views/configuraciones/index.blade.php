@@ -178,11 +178,11 @@
                                                     <td id="resp{{ $stop->id }}">
                                                         <br>
                                                         @if ($stop->estatus == 1)
-                                                            <button type="button"
-                                                                class="btn btn-sm btn-success">Activa</button>
+                                                            <button  type="button"
+                                                                class="stoppage{{ $stop->id }} btn btn-sm btn-success">Activa</button>
                                                         @else
-                                                            <button type="button"
-                                                                class="btn btn-sm btn-danger">Inactiva</button>
+                                                            <button  type="button"
+                                                                class="stoppage{{ $stop->id }} btn btn-sm btn-danger">Inactiva</button>
                                                         @endif
 
                                                     </td>
@@ -331,18 +331,30 @@
             estatus: estatus
         };
 
+        if(estatus==1){
+            $(".stoppage"+id).removeClass("btn-danger");
+            $(".stoppage"+id).addClass("btn-success");
+            $(".stoppage"+id).html("Activa");
+            // $(".slider.round:before").css("background-color: #47c363;");
+        }else{
+            $(".stoppage"+id).removeClass("btn-success");
+            $(".stoppage"+id).addClass("btn-danger");
+            $(".stoppage"+id).html("Inactiva");
+            // $(".slider.round:before").css("background-color: #FFFFFF;");
+        }
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
         $.ajax({
             url: 'motivos',
             data: data,
             type: 'post',
             success: function(response) {
-                alert(response);
+                // alert(response);
                 console.log(response);
             },
             statusCode: {
