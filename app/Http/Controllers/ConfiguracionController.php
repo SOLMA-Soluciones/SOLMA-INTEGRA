@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Linea;
+use App\Models\Line;
 use App\Models\User;
-use App\Models\Producto;
+use App\Models\Product;
 use App\Models\Motivo;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -27,11 +27,11 @@ class ConfiguracionController extends Controller
      */
     public function index()
     {
-        $lineas = Linea::all();
+        $lineas = Line::all();
         $motivos = Motivo::all();
-        $productos = Producto::paginate(5);;
+        $products = Product::paginate(5);;
         $usuarios = User::paginate(5);
-        return view('configuraciones.index',compact('lineas','usuarios','productos','motivos'));
+        return view('configuraciones.index',compact('lineas','usuarios','products','motivos'));
     }
 
     /**

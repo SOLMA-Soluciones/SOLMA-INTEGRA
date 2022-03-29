@@ -23,21 +23,21 @@
                                   <th style="color:#fff;">Acciones</th>                                                                   
                               </thead>
                               <tbody>
-                                @foreach ($productos as $producto)
+                                @foreach ($products as $product)
                                   <tr>
-                                    <td style="display: none;">{{ $producto->id }}</td>
-                                    <td>{{ $producto->numero }}</td>
-                                    <td>{{ $producto->costo }}</td>
-                                    <td>{{ $producto->max_hora }}</td>
-                                    <td>{{$producto->unidad}}</td>
-                                    <td>{{$producto->linea->nombre}}</td>	
-                                   
+                                    <td style="display: none;">{{ $product->id }}</td>
+                                    <td>{{ $product->part_number }}</td>
+                                    <td>{{ $product->cost }}</td>
+                                    <td>{{ $product->cycle }}</td>
+                                    <td>{{$product->unit}}</td>
+                                    <td>{{$product->line->name}}</td>	
+
                                     <td>                                  
-                                      <a class="btn btn-info" href="{{ route('productos.edit',$producto->id) }}">Editar</a>
+                                      <a class="btn btn-info" href="{{ route('productos.edit',$product->id) }}">Editar</a>
                                       @can('borrar-rol')
 
 
-                                      {!! Form::open(['method' => 'DELETE','route' => ['productos.destroy', $producto->id],'style'=>'display:inline']) !!}
+                                      {!! Form::open(['method' => 'DELETE','route' => ['productos.destroy', $product->id],'style'=>'display:inline']) !!}
                                           {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                       {!! Form::close() !!}
                                       @endcan
@@ -48,7 +48,7 @@
                             </table>
                             <!-- Centramos la paginacion a la derecha -->
                           <div class="pagination justify-content-end">
-                            {!! $productos->links() !!}
+                            {!! $products->links() !!}
                           </div>     
                             
                       </div>

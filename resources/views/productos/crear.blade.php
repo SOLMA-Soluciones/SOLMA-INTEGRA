@@ -27,35 +27,35 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="numero">Numero</label>
-                                    {!! Form::text('numero', null, array('class' => 'form-control')) !!}
+                                    <label for="part_number">Numero</label>
+                                    {!! Form::text('part_number', null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="costo">Costo</label>
-                                    {!! Form::number('costo', null, ['class' => 'form-control','step' => '0.02']) !!}
+                                    <label for="cost">Costo</label>
+                                    {!! Form::number('cost', null, ['class' => 'form-control','step' => '0.02']) !!}
 
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="max_hora">Max. Hora</label>
-                                    {!! Form::number('max_hora', null, array('class' => 'form-control')) !!}
+                                    <label for="cycle">Max. Hora</label>
+                                    {!! Form::number('cycle', null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                <label for="unidad">Unidad</label>
-                                    {!! Form::text('unidad', null, array('class' => 'form-control')) !!}
+                                <label for="unit">Unidad</label>
+                                    {!! Form::text('unit', null, array('class' => 'form-control')) !!}
                                    
                                 </div>
                             </div>
-                           
+
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="linea_id">Linea</label>
-                                    {{ Form::select('linea_id', $lineas , $producto->linea_id, ['class'=>'form-control' . ($errors->has('linea_id') ? 'is-invalid' : '')]) }}
+                                    <label for="productionline_id">Linea</label>
+                                    {{ Form::select('productionline_id', $lineas , $product->productionline_id, ['class'=>'form-control' . ($errors->has('productionline_id') ? 'is-invalid' : '')]) }}
                                     
                                 </div>
                             </div>

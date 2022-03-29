@@ -52,7 +52,7 @@
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="name">Agregue Lineas de Fabricacion</label>
-                                                {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
                                             </div>
 
                                         </div>
@@ -69,7 +69,7 @@
                                             @foreach ($lineas as $line)
                                                 <tr>
 
-                                                    <td>{{ $line->nombre }}</td>
+                                                    <td>{{ $line->name }}</td>
                                                     <td>
 
                                                         {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
@@ -109,14 +109,14 @@
                                         <th style="color:#fff;">Acciones</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($productos as $product)
+                                        @foreach ($products as $product)
                                             <tr>
                                                 <td style="display: none;">{{ $product->id }}</td>
-                                                <td>{{ $product->numero }}</td>
-                                                <td>{{ $product->costo }}</td>
-                                                <td>{{ $product->max_hora }}</td>
-                                                <td>{{ $product->unidad }}</td>
-                                                <td>{{ $product->linea->nombre }}</td>
+                                                <td>{{ $product->part_number }}</td>
+                                                <td>{{ $product->cost }}</td>
+                                                <td>{{ $product->cycle }}</td>
+                                                <td>{{ $product->unit }}</td>
+                                                <td>{{ $product->line->name }}</td>
 
                                                 <td>
                                                     <a class="btn btn-info"
@@ -133,7 +133,7 @@
                                 </table>
                                 <!-- Centramos la paginacion a la derecha -->
                                 <div class="pagination justify-content-end">
-                                    {!! $productos->links() !!}
+                                    {!! $products->links() !!}
                                 </div>
 
                                 <div class="text-right">

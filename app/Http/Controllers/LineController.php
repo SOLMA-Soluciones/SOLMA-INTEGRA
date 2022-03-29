@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Linea;
+use App\Models\Line;
 
 
 
-class LineaController extends Controller
+class LineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,10 +39,10 @@ class LineaController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'nombre' => 'required',
+            'name' => 'required',
         ]);
     
-        Linea::create($request->all());
+        Line::create($request->all());
     
         return redirect()->route('tab1');
     }
@@ -87,7 +87,7 @@ class LineaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Linea $linea)
+    public function destroy(Line $linea)
     {
         $linea->delete();
     

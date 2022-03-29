@@ -6,9 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ConfiguracionController;
-use App\Http\Controllers\LineaController;
+use App\Http\Controllers\LineController;
 use App\Http\Controllers\TimerController;
-use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MotivoController;
 
 /*
@@ -50,10 +50,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('settings', ConfiguracionController::class);
-    Route::resource('lineas', LineaController::class);
+    Route::resource('lineas', LineController::class);
     Route::resource('timers', TimerController::class);
     Route::resource('motivos', MotivoController::class);
-    Route::resource('productos', ProductoController::class);
+    Route::resource('productos', ProductController::class);
 });
 
 

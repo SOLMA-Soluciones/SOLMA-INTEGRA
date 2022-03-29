@@ -23,11 +23,11 @@
                             </div>
                         @endif
 
-                        {!! Form::model($productos, ['route'=>['productos.update',$productos->id]]) !!}
+                        {!! Form::model($products, ['route'=>['productos.update',$products->id]]) !!}
                         <input type="hidden" name="_method" value="PUT">
                         <div class="form-group">
-                            <label for="numero" >Numero</label>
-                            {!! Form::text('numero',null,array(
+                            <label for="part_number" >Numero</label>
+                            {!! Form::text('part_number',null,array(
                             'class'=>'form-control',
                             'required'=>'required',
                             'placeholder'=>'Numero'
@@ -36,34 +36,34 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="costo" >Costo</label>
-                            {!! Form::number('costo', null, ['class' => 'form-control','step' => '0.02']) !!}
+                            <label for="cost" >Costo</label>
+                            {!! Form::number('cost', null, ['class' => 'form-control','step' => '0.02']) !!}
 
 
                         </div>
                         <div class="form-group">
-                            <label for="max_hora" >Max.Hora</label>
-                            {!! Form::number('max_hora',null,array(
+                            <label for="cycle" >Max.Hora</label>
+                            {!! Form::number('cycle',null,array(
                             'class'=>'form-control',
                             'required'=>'required',
                             'placeholder'=>'Max.Hora'
                             ))
                             !!}
-
                         </div>
+
                         <div class="form-group">
-                            <label for="unidad" >Unidad</label>
-                            {!! Form::text('unidad',null,array(
+                            <label for="unit" >Unidad</label>
+                            {!! Form::text('unit',null,array(
                             'class'=>'form-control',
                             'required'=>'required',
-                            'placeholder'=>'Unidad...'
+                            'placeholder'=>'unit...'
                             ))
                             !!}
 
                         </div>
 
-                        <label for="linea-id" >Linea</label>
-                            {!! Form::select('linea_id', $lineas,null, ['class' => 'form-control'])
+                        <label for="productionline_id" >Linea</label>
+                            {!! Form::select('productionline_id', $lineas,null, ['class' => 'form-control'])
                             !!}
                             <br>
 

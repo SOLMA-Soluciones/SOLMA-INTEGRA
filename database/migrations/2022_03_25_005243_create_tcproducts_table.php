@@ -21,7 +21,6 @@ class CreateTcproductsTable extends Migration
             $table->integer('unit');
             $table->unsignedBigInteger('productionline_id');
             $table->foreign('productionline_id')-> references ('id')->on('tcproductionline')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
