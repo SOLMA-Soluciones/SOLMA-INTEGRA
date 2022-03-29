@@ -14,11 +14,14 @@ class CreateTcproductsTable extends Migration
     public function up()
     {
         Schema::create('tcproducts', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('part_number');
+            $table->decimal('cost', 8, 2);
             $table->integer('cycle');
             $table->integer('unit');
-            $table->bigInteger('productionline_id');
+            $table->unsignedBigInteger('productionline_id');
+            $table->foreign('productionline_id')-> references ('id')->on('tcproductionline')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
