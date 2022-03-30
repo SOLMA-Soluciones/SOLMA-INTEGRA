@@ -38,7 +38,7 @@ class MotivoController extends Controller
      */
     public function store(Request $request)
     {
-        // $NotiUpdate = Motivo::findOrFail($request->id)->update(['estatus' => $request->estatus]);
+        // $Productos = Productionstop::findOrFail($request->id)->update(['estatus' => $request->estatus]);
         $productos = Productionstop::find($request->id);
         $productos->estatus = $request->get("estatus");
 
