@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Line;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Motivo;
+use App\Models\Productionstop;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -28,10 +28,10 @@ class ConfiguracionController extends Controller
     public function index()
     {
         $lineas = Line::all();
-        $motivos = Motivo::all();
+        $productionstoppages = Productionstop::all();
         $products = Product::paginate(5);;
         $usuarios = User::paginate(5);
-        return view('configuraciones.index',compact('lineas','usuarios','products','motivos'));
+        return view('configuraciones.index',compact('lineas','usuarios','products','productionstoppages'));
     }
 
     /**
@@ -51,14 +51,7 @@ class ConfiguracionController extends Controller
      */
     public function store(Request $request)
     {
-        $NotiUpdate = Motivo::findOrFail($request->id)->update(['estatus' => $request->estatus]); 
-    
-        if($request->estatus == 0)  {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        }else{
-            $newStatus ='<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-        }
-        return response()->json(['var'=>''.$newStatus.'']);
+
     }
 
     /**

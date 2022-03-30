@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Motivo extends Model
+class Productionstop extends Model
 {
-    protected $table = 'motivos';
-    protected $fillable = ['nombre','status'];
+    protected $table = 'tcproductionstoppages';
+    protected $fillable = ['name','status'];
 
 }

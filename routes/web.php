@@ -9,7 +9,7 @@ use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\LineController;
 use App\Http\Controllers\TimerController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\MotivoController;
+use App\Http\Controllers\ProductionstopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('settings', ConfiguracionController::class);
     Route::resource('lineas', LineController::class);
     Route::resource('timers', TimerController::class);
-    Route::resource('motivos', MotivoController::class);
+    Route::resource('motivos', ProductionstopController::class);
     Route::resource('products', ProductController::class);
 });
 

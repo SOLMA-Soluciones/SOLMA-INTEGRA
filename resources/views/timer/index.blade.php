@@ -19,13 +19,13 @@
                                                                                                               
                                         </thead>
                                         <tbody>
-                                            @foreach ($motivos as $motivo)
+                                            @foreach ($productionstoppages as $stop)
                                             <tr>
-                                                <td style="display: none;">{{ $motivo->id }}</td>
-                                                <td id="resp{{ $motivo->id }}">
+                                                <td style="display: none;">{{ $stop->id }}</td>
+                                                <td id="resp{{ $stop->id }}">
                                                 <br>
-                                                    @if($motivo->estatus == 1)
-                                                    <button type="button" class="btn btn-sm btn-success">{{ $motivo->nombre }}</button>
+                                                    @if($stop->estatus == 1)
+                                                    <button type="button" class="btn btn-sm btn-success">{{ $stop->name }}</button>
                                                     @endif
                                                 </td>
                                                 

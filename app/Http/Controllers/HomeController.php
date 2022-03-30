@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Motivo;
+use App\Models\Productionstop;
 
 class HomeController extends Controller
 {
@@ -24,8 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-            $motivos = Motivo::orderBy('id', 'DESC')->get();
-            return view('timer.index', compact('motivos'));
+            $productionstoppages = Productionstop::orderBy('id', 'DESC')->get();
+            return view('timer.index', compact('productionstoppages'));
         
     }
     

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Motivo;
+use App\Models\Productionstop;
 use Exception;
 
 class MotivoController extends Controller
@@ -15,8 +15,8 @@ class MotivoController extends Controller
      */
     public function index()
     {
-        $motivos = Motivo::orderBy('id', 'DESC')->get();
-        return view('timer.index', compact('motivos'));
+        $productionstoppages = Productionstop::orderBy('id', 'DESC')->get();
+        return view('timer.index', compact('productionstoppages'));
     }
 
 
@@ -39,7 +39,7 @@ class MotivoController extends Controller
     public function store(Request $request)
     {
         // $NotiUpdate = Motivo::findOrFail($request->id)->update(['estatus' => $request->estatus]);
-        $productos = Motivo::find($request->id);
+        $productos = Productionstop::find($request->id);
         $productos->estatus = $request->get("estatus");
 
         $productos->save();
