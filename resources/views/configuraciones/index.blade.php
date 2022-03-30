@@ -96,7 +96,7 @@
                             </div>
                             <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
                                 id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <a class="btn btn-warning" href="{{ route('productos.create') }}">Nuevo</a>
+                                <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
 
                                 <table class="table table-striped mt-2">
                                     <thead style="background-color:#6777ef">
@@ -120,9 +120,9 @@
 
                                                 <td>
                                                     <a class="btn btn-info"
-                                                        href="{{ route('productos.edit', $product->id) }}">Editar</a>
+                                                        href="{{ route('products.edit', $product->id) }}">Editar</a>
                                                     @can('borrar-rol')
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['productos.destroy', $product->id], 'style' => 'display:inline']) !!}
+                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline']) !!}
                                                         {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                                         {!! Form::close() !!}
                                                     @endcan

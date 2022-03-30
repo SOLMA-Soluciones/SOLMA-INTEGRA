@@ -23,7 +23,7 @@
                             </div>
                         @endif
 
-                        {!! Form::model($products, ['route'=>['productos.update',$products->id]]) !!}
+                        {!! Form::model($products, ['route'=>['products.update',$products->id]]) !!}
                         <input type="hidden" name="_method" value="PUT">
                         <div class="form-group">
                             <label for="part_number" >Numero</label>

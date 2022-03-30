@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(5);;
-        return view('productos.index',compact('products'));
+        return view('products.index',compact('products'));
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $product = new Product();
         $lineas = Line::pluck('name','id');
-        return view('productos.crear',compact('product','lineas'));
+        return view('products.create',compact('product','lineas'));
     }
 
     /**
@@ -82,7 +82,7 @@ class ProductController extends Controller
     {
         $products= Product::find($id);
         $lineas = Line::pluck('name','id');
-        return view('productos.editar',compact('products','lineas'));
+        return view('products.edit',compact('products','lineas'));
     }
 
     /**
@@ -121,7 +121,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    public function destroy(Producto $product)
+    public function destroy(Product $product)
     {
         
         $product->delete();

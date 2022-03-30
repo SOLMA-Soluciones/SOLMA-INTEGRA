@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('lineas', LineController::class);
     Route::resource('timers', TimerController::class);
     Route::resource('motivos', MotivoController::class);
-    Route::resource('productos', ProductController::class);
+    Route::resource('products', ProductController::class);
 });
 
 
