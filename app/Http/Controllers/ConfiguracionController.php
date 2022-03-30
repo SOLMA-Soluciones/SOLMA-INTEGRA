@@ -28,10 +28,10 @@ class ConfiguracionController extends Controller
     public function index()
     {
         $lineas = Line::all();
-        $productionstoppages = Productionstop::all();
+        $motivos = Productionstop::all();
         $products = Product::paginate(5);;
         $usuarios = User::paginate(5);
-        return view('configuraciones.index',compact('lineas','usuarios','products','productionstoppages'));
+        return view('configuraciones.index',compact('lineas','usuarios','products','motivos'));
     }
 
     /**
@@ -51,19 +51,9 @@ class ConfiguracionController extends Controller
      */
     public function store(Request $request)
     {
-        // $Productos = Productionstop::findOrFail($request->id)->update(['estatus' => $request->estatus]);
-        $productos = Productionstop::find($request->id);
-        $productos->estatus = $request->get("estatus");
 
-        $productos->save();
-        if ($request->estatus == 0) {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        } else {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-        }
-
-        return response()->json(['var' => '' . $newStatus . '']);
     }
+
     /**
      * Display the specified resource.
      *

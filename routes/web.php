@@ -9,6 +9,8 @@ use App\Http\Controllers\LineController;
 use App\Http\Controllers\TimerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionstopController;
+use App\Http\Controllers\MachineController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +28,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/hola', function () {
-    return 'Hola mundo';
-});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -42,7 +41,7 @@ Route::get('/tab4', [App\Http\Controllers\ConfiguracionController::class, 'index
 Route::get('/tab5', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('tab5');
 
 
-Route::get('store', 'MotivoController@store')->name('store');
+Route::get('store', 'ProductionstopController@store')->name('store');
 // Route::post('/motivos/edit', 'MotivoController@edit')->name('motivos.edit');
 //Rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {
@@ -53,6 +52,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('timers', TimerController::class);
     Route::resource('motivos', ProductionstopController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('machines', MachineController::class);
+
 });
 
 

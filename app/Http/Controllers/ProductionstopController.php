@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Productionstop;
 use Exception;
 
-class MotivoController extends Controller
+class ProductionstopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,10 +40,10 @@ class MotivoController extends Controller
     {
         // $Productos = Productionstop::findOrFail($request->id)->update(['estatus' => $request->estatus]);
         $productos = Productionstop::find($request->id);
-        $productos->estatus = $request->get("estatus");
+        $productos->status = $request->get("status");
 
         $productos->save();
-        if ($request->estatus == 0) {
+        if ($request->status == 0) {
             $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
         } else {
             $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';

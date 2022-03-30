@@ -171,10 +171,10 @@
 
                                         </thead>
                                         <tbody>
-                                            @foreach ($productionstoppages as $stop)
+                                            @foreach ($motivos as $stop)
                                                 <tr>
                                                     <td style="display: none;">{{ $stop->id }}</td>
-                                                    <td>{{ $stop->name }}</td>
+                                                    <td>{{ $stop->nombre}}</td>
                                                     <td id="resp{{ $stop->id }}">
                                                         <br>
                                                         @if ($stop->estatus == 1)
