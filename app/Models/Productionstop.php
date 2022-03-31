@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Productionstop extends Model
 {
     protected $table = 'tcproductionstoppages';
-    protected $fillable = ['name','status'];
+    protected $fillable = ['id','name','status'];
 
 }

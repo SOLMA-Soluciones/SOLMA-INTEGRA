@@ -10,5 +10,4 @@ class Machine extends Model
     protected $table = 'tcmachines';
     protected $fillable = ['name','description'];
  
-
 }

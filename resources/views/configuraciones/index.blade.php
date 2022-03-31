@@ -174,10 +174,10 @@
                                             @foreach ($motivos as $stop)
                                                 <tr>
                                                     <td style="display: none;">{{ $stop->id }}</td>
-                                                    <td>{{ $stop->nombre}}</td>
+                                                    <td>{{ $stop->name}}</td>
                                                     <td id="resp{{ $stop->id }}">
                                                         <br>
-                                                        @if ($stop->estatus == 1)
+                                                        @if ($stop->status == 1)
                                                             <button  type="button"
                                                                 class="stoppage{{ $stop->id }} btn btn-sm btn-success">Activa</button>
                                                         @else
@@ -195,7 +195,7 @@
                                                                 type="checkbox" data-onstyle="success"
                                                                 data-offstyle="danger" data-toggle="toggle" data-on="Active"
                                                                 data-off="InActive"
-                                                                {{ $stop->estatus ? 'checked' : '' }}>
+                                                                {{ $stop->status ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
 
 
@@ -325,13 +325,12 @@
 <script type="text/javascript">
     function actualizarEstatus(element) {
         let id = $(element).attr("data-id");
-        let estatus = ($(element).is(':checked')) ? 1 : 0;
+        let status = ($(element).is(':checked')) ? 1 : 0;
         var data = {
             id: id,
-            estatus: estatus
+            status: status
         };
-
-        if(estatus==1){
+        if(status==1){
             $(".stoppage"+id).removeClass("btn-danger");
             $(".stoppage"+id).addClass("btn-success");
             $(".stoppage"+id).html("Activa");
@@ -342,8 +341,6 @@
             $(".stoppage"+id).html("Inactiva");
             // $(".slider.round:before").css("background-color: #FFFFFF;");
         }
-
-
         // $.ajaxSetup({
         //     headers: {
         //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

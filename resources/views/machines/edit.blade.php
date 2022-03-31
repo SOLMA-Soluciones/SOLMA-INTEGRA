@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Editar Producto</h3>
+            <h3 class="page__heading">Editar Maquina</h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -36,7 +36,6 @@
 
                         </div>
                      
-
                         <div class="form-group">
                             <label for="description" >Descripcion</label>
                             {!! Form::text('description',null,array(
@@ -45,15 +44,9 @@
                             'placeholder'=>'descripcion...'
                             ))
                             !!}
-
                         </div>
-
-                    
-
-                        
-
                         <div class="form-group">
-                            {!! Form::submit('Actualizar Producto',array('class'=>'btn btn-primary'))!!}
+                            {!! Form::submit('Actualizar',array('class'=>'btn btn-primary'))!!}
                         </div>
                             
                         {!! Form::close()!!}

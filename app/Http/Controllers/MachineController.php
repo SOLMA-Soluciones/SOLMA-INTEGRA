@@ -50,7 +50,7 @@ class MachineController extends Controller
                 ];
         
                $machine= Machine::create($data);
-                $message = $machine ? 'Producto agregado correctamente!' : 'NO se pudo agregar!';    
+                $message = $machine ? ' Maquina agregada!' : 'NO se pudo agregar!';    
                 return redirect()->route('machines.index')->with('message', $message);
 
     }
@@ -110,7 +110,7 @@ class MachineController extends Controller
     public function destroy(Machine $machine)
     {
         $machine->delete();
-        return redirect()->route('machine.index')->with('eliminar', 'ok');
+        return redirect()->route('machines.index')->with('eliminar', 'ok');
     }
 
 }

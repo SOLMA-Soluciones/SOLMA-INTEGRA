@@ -24,7 +24,7 @@
                                                 <td style="display: none;">{{ $stop->id }}</td>
                                                 <td id="resp{{ $stop->id }}">
                                                 <br>
-                                                    @if($stop->estatus == 1)
+                                                    @if($stop->status == 1)
                                                     <button type="button" class="btn btn-sm btn-success">{{ $stop->name }}</button>
                                                     @endif
                                                 </td>

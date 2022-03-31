@@ -16,7 +16,7 @@ class CreateTcproductionstoppagesTable extends Migration
         Schema::create('tcproductionstoppages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('estatus');
+            $table->string('status');
             $table->timestamps();
         });
     }
