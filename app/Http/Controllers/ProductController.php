@@ -123,7 +123,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        
         $product->delete();
         return redirect()->route('tab2')->with('eliminar', 'ok');
     }

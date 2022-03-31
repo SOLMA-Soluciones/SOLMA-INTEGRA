@@ -98,9 +98,7 @@ class MachineController extends Controller
         $machines->name = $request->get("name");
         $machines->description = $request->get("description");
         $machines->save();
-        return view('machines.index');
-
-        
+        return redirect()->route('machines.index');   
     }
 
     /**

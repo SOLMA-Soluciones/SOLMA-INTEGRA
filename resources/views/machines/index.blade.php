@@ -26,13 +26,9 @@
                                     <td style="display: none;">{{ $machine->id }}</td>
                                     <td>{{ $machine->name }}</td>
                                     <td>{{ $machine->description }}</td>
-                                    
-
                                     <td>                                  
                                       <a class="btn btn-info" href="{{ route('machines.edit',$machine->id) }}">Editar</a>
                                       @can('borrar-rol')
-
-
                                       {!! Form::open(['method' => 'DELETE','route' => ['machines.destroy', $machine->id],'style'=>'display:inline']) !!}
                                           {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                       {!! Form::close() !!}
@@ -42,10 +38,9 @@
                                 @endforeach
                               </tbody>
                             </table>
-                            <!-- Centramos la paginacion a la derecha -->
+                            <!-- Paginacion a la derecha -->
                           <div class="pagination justify-content-end">
                           </div>     
-                            
                       </div>
                   </div>
               </div>

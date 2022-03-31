@@ -52,7 +52,6 @@
                           <div class="pagination justify-content-end">
                             {!! $usuarios->links() !!}
                           </div>     
-                            
                       </div>
                   </div>
               </div>
