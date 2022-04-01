@@ -10,6 +10,7 @@ use App\Http\Controllers\TimerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionstopController;
 use App\Http\Controllers\MachineController;
+use App\Http\Controllers\ScheduleController;
 
 
 /*
@@ -53,7 +54,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('motivos', ProductionstopController::class);
     Route::resource('products', ProductController::class);
     Route::resource('machines', MachineController::class);
-
+    Route::resource('schedules', ScheduleController::class);
 });
 
 

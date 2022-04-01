@@ -31,21 +31,21 @@
                                 id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="card-body">
                                     <!--   {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-                                                                <div class="row">
-                                                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="name">Nombre de la Organizacion</label>
-                                                                            {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                              
-                                                                {!! Form::close() !!}
-                                                                -->
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                            <div class="form-group">
+                                                                                                                                <label for="name">Nombre de la Organizacion</label>
+                                                                                                                                {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                    </div>
+                                                                                                                  
+                                                                                                                    {!! Form::close() !!}
+                                                                                                                    -->
 
                                     {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
                                     <div class="row">
@@ -100,6 +100,7 @@
 
                                 <table class="table table-striped mt-2">
                                     <thead style="background-color:#6777ef">
+
                                         <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Num. Parte</th>
                                         <th style="color:#fff;">Costo ($)</th>
@@ -107,6 +108,7 @@
                                         <th style="color:#fff;">Unidad</th>
                                         <th style="color:#fff;">Linea</th>
                                         <th style="color:#fff;">Acciones</th>
+
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $product)
@@ -146,17 +148,52 @@
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
                                 <div class="container">
-                                    <div class="text-center">
-                                        <a class="btn btn-warning" href="">Linea 1</a>
-                                    </div>
-                                    <div class="row" class="text-center">
+                                    <table class="table table-striped mt-2">
+                                        <tr>
+                                            <th>Linea</th>
+                                            <th>Dia</th>
+                                            <th>Hora Inicio</th>
+                                            <th>Hora Fin</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        <tbody>
+                                            @foreach ($schedules as $schedule)
+                                                <tr>
+                                                    <td>{{ $schedule->line }}</td>
+                                                    <td>
+                                                        @if ($schedule->day != null)
+                                                            {{ $schedule->day }}
+                                                        @else
+                                                            Sin datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($schedule->start_time != null)
+                                                            {{ $schedule->start_time }}
+                                                        @else
+                                                            No hay Datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($schedule->end_time != null)
+                                                            {{ $schedule->end_time }}
+                                                        @else
+                                                            No hay Datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="#"
+                                                            onclick="editarCalendario({{ $schedule->productionline_id }})"><span
+                                                                class="material-icons md-48">edit</span></a>
 
-
-
-                                    </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
 
                                 </div>
-
+                                <br>
                                 <div class="text-right">
                                     <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
                                         aria-pressed="true">Siguiente</a>
@@ -174,14 +211,14 @@
                                             @foreach ($motivos as $stop)
                                                 <tr>
                                                     <td style="display: none;">{{ $stop->id }}</td>
-                                                    <td>{{ $stop->name}}</td>
+                                                    <td>{{ $stop->name }}</td>
                                                     <td id="resp{{ $stop->id }}">
                                                         <br>
                                                         @if ($stop->status == 1)
-                                                            <button  type="button"
+                                                            <button type="button"
                                                                 class="stoppage{{ $stop->id }} btn btn-sm btn-success">Activa</button>
                                                         @else
-                                                            <button  type="button"
+                                                            <button type="button"
                                                                 class="stoppage{{ $stop->id }} btn btn-sm btn-danger">Inactiva</button>
                                                         @endif
 
@@ -194,8 +231,7 @@
                                                                 data-id="{{ $stop->id }}" class="mi_checkbox"
                                                                 type="checkbox" data-onstyle="success"
                                                                 data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                                                data-off="InActive"
-                                                                {{ $stop->status ? 'checked' : '' }}>
+                                                                data-off="InActive" {{ $stop->status ? 'checked' : '' }}>
                                                             <span class="slider round"></span>
 
 
@@ -272,10 +308,67 @@
 
         </div>
     </section>
+
+    <!-- Button trigger modal -->
+    <a id="displayModalEditSchedule" style="display:none" href="#" data-toggle="modal" data-target="#exampleModal"></a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Horario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group ">
+                                <select id="selectSchedule" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
+                                    <option value="7">Domingo</option>
+                                </select>
+                                <br>
+                                <label for="name">Hora Inicio</label>
+                                {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6',"id"=>"start_time"]) !!}
+
+                                <label for="name">Hora Fin</label>
+                                {!! Form::time('end_time',null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6',"id"=>"end_time"]) !!}
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioBD()">Guardar</button>
+                </div>
+                {!! Form::close() !!}
+
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     @if (session('eliminar') == 'ok')
         <script>
             Swal.fire(
@@ -285,84 +378,105 @@
             )
         </script>
     @endif
-    <script>
-        const panel = document.querySelector('#panel-control');
-
-        panel.addEventListener('click', eliminarItem);
-
-        function eliminarItem(e) {
-
-            if (e.target.classList.contains('btn-eliminar')) {
-                e.preventDefault();
-                const itemName = e.target.dataset.name;
-                const itemId = e.target.dataset.id;
 
 
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                        if (result.isConfirmed) {
-                            /*Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                            )
-                            */
-                            this.submit();
-                        }
-                    }
-                });
+
+    <script type="text/javascript">
+        // $(document).ready(function() {
+        //     $('#example').DataTable({
+        //         "ajax": "motivos",
+        //         "columns": [{
+        //                 "data": "name"
+        //             },
+        //             {
+        //                 "data": "status"
+        //             },
+
+        //         ]
+        //     });
+        // });
+        function guardarCalendarioBD() {
+
+            let start_time = $("#start_time").val();
+            let end_time = $("#end_time").val();
+            console.log(start_time);
+            console.log(end_time);
+
         }
+
+        function editarCalendario(id) {
+            // console.log(id);
+            $.ajax({
+                url: 'schedules/' + id,
+                type: 'get',
+                success: function(response) {
+                    var arr = [];
+                    response.forEach(function(oSchedule) {
+                        arr.push(oSchedule.day);
+                    });
+                    $("#selectSchedule").val(arr);
+                    $("#selectSchedule").change();
+                    if (response.length > 0) {
+                        let oSchedule = response[0];
+                        console.log(oSchedule.start_time);
+                        $("#start_time").val(oSchedule.start_time);
+                        $("#start_time").change();
+                        $("#end_time").val(oSchedule.end_time);
+                        $("#end_time").change();
+                    }
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
+            $("#displayModalEditSchedule").click();
+            var data = $("#selectSchedule").val();
+            // console.log(data);
+        }
+
+
+
+
+        function actualizarEstatus(element) {
+            let id = $(element).attr("data-id");
+            let status = ($(element).is(':checked')) ? 1 : 0;
+            var data = {
+                id: id,
+                status: status
+            };
+            if (status == 1) {
+                $(".stoppage" + id).removeClass("btn-danger");
+                $(".stoppage" + id).addClass("btn-success");
+                $(".stoppage" + id).html("Activa");
+                // $(".slider.round:before").css("background-color: #47c363;");
+            } else {
+                $(".stoppage" + id).removeClass("btn-success");
+                $(".stoppage" + id).addClass("btn-danger");
+                $(".stoppage" + id).html("Inactiva");
+                // $(".slider.round:before").css("background-color: #FFFFFF;");
+            }
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+            $.ajax({
+                url: 'motivos',
+                data: data,
+                type: 'post',
+                success: function(response) {
+                    // alert(response);
+                    console.log(response);
+                },
+                statusCode: {
+                    // 404: function() {
+                    //     alert('web not found');
+                    // }
+                },
+                error: function(x, xs, xt) {
+                    // window.open(JSON.stringify(x));
+                    //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+                }
+            });
         }
     </script>
 @endsection
-<script type="text/javascript">
-    function actualizarEstatus(element) {
-        let id = $(element).attr("data-id");
-        let status = ($(element).is(':checked')) ? 1 : 0;
-        var data = {
-            id: id,
-            status: status
-        };
-        if(status==1){
-            $(".stoppage"+id).removeClass("btn-danger");
-            $(".stoppage"+id).addClass("btn-success");
-            $(".stoppage"+id).html("Activa");
-            // $(".slider.round:before").css("background-color: #47c363;");
-        }else{
-            $(".stoppage"+id).removeClass("btn-success");
-            $(".stoppage"+id).addClass("btn-danger");
-            $(".stoppage"+id).html("Inactiva");
-            // $(".slider.round:before").css("background-color: #FFFFFF;");
-        }
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-        $.ajax({
-            url: 'motivos',
-            data: data,
-            type: 'post',
-            success: function(response) {
-                // alert(response);
-                console.log(response);
-            },
-            statusCode: {
-                // 404: function() {
-                //     alert('web not found');
-                // }
-            },
-            error: function(x, xs, xt) {
-                // window.open(JSON.stringify(x));
-                //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
-            }
-        });
-    }
-</script>

@@ -3,24 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Line;
-use App\Models\User;
-use App\Models\Product;
-use App\Models\Productionstop;
 use App\Models\Schedule;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
-class ConfiguracionController extends Controller
+class ScheduleController extends Controller
 {
-    function __construct()
-    {
-         $this->middleware('permission:ver-user|editar-user|borrar-user', ['only' => ['index']]);
-         $this->middleware('permission:crear-user', ['only' => ['create','store']]);
-         $this->middleware('permission:editar-user', ['only' => ['edit','update']]);
-         $this->middleware('permission:borrar-user', ['only' => ['destroy']]);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,23 +14,20 @@ class ConfiguracionController extends Controller
      */
     public function index()
     {
-        $lineas = Line::all();
-        $motivos = Productionstop::all();
-        $products = Product::paginate(5);;
-        $usuarios = User::paginate(5);
-        $schedules = Schedule::getSchedules();
-        return view('configuraciones.index',compact('lineas','usuarios','products','motivos','schedules'));
+        //
+
     }
 
     /**
      * Show the form for creating a new resource.
-     *  
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        
+        //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,7 +36,7 @@ class ConfiguracionController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -64,7 +47,9 @@ class ConfiguracionController extends Controller
      */
     public function show($id)
     {
-        //
+        $schedule = Schedule::getScheduleById($id);
+
+        return response()->json($schedule);
     }
 
     /**
@@ -96,8 +81,10 @@ class ConfiguracionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $linea)
+    public function destroy($id)
     {
-       
+        //
     }
+
+    
 }

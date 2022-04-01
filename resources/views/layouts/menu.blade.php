@@ -1,18 +1,18 @@
 
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
     @can('ver-user')
-    <a class="nav-link" href="/">
+    <a class="nav-link" href="{{ route('tab1') }}">
         <i class=" fas fa-building"></i><span>Panel OEE</span>
     </a>
-    <a class="nav-link" href="/">
+    <a class="nav-link" href="{{ route('tab1') }}">
         <i class=" fas fa-plus-circle"></i><span>Orden de Produccion</span>
     </a>
     @endcan
-    <a class="nav-link" href="/motivos">
+    <a class="nav-link" href="{{ route('tab1') }}">
         <i class=" fas fa-clock"></i><span>Timer</span>
     </a>
     @can('ver-user')
-    <a class="nav-link" href="/tab1">
+    <a class="nav-link" href="{{ route('tab1') }}">
         <i class=" fas fa-cog"></i><span>Configuración </span>
     </a>
     @endcan

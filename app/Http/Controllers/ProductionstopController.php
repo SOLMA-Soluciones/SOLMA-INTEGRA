@@ -61,6 +61,8 @@ class ProductionstopController extends Controller
     public function show($id)
     {
         //
+        $productionstoppages = Productionstop::orderBy('id', 'DESC')->get();
+        return response()->json($productionstoppages);
     }
 
     /**
