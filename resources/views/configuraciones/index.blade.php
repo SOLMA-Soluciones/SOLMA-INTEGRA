@@ -330,6 +330,7 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group ">
+                                <input type="hidden" value="" id="schedule_id">
                                 <select id="selectSchedule" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
                                     <option value="1">Lunes</option>
                                     <option value="2">Martes</option>
@@ -399,13 +400,32 @@
 
             let start_time = $("#start_time").val();
             let end_time = $("#end_time").val();
-            console.log(start_time);
-            console.log(end_time);
+            let schedule_id = $("#schedule_id").val();
+            let days = $("#selectSchedule").val();
+
+            let oDatos = {
+                id: schedule_id,
+                start_time: start_time,
+                end_time: end_time,
+                days: days
+            }
+            // console.log(oDatos);
+            $.ajax({
+                url: 'schedules/'+schedule_id,
+                type: 'put',
+                data: oDatos,
+                success: function(response) {
+                   console.log(response);
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
 
         }
 
         function editarCalendario(id) {
             // console.log(id);
+            $("#schedule_id").val(id);
             $.ajax({
                 url: 'schedules/' + id,
                 type: 'get',

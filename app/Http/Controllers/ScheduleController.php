@@ -34,9 +34,9 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($oDatos)
     {
-        //
+        
     }
 
     /**
@@ -61,6 +61,9 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         //
+        return "edit";
+        // return response()->json($oDatos);
+        
     }
 
     /**
@@ -70,9 +73,15 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
+
+        $days = Schedule::guardarDatos($request);
+        return redirect()->route('tab3');
+        // return $days;
         //
+        // return response()->json($oDatos);
+
     }
 
     /**

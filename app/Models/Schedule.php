@@ -27,4 +27,21 @@ class Schedule extends Model
         return $schedule;
     
     }
+    public static function guardarDatos($oDatos){
+        
+        // $id = null;
+        $days = $oDatos->days;
+        $id = (int)$oDatos->id;
+        foreach ($days as $key => $day) {
+            $ids = DB::select("SELECT id FROM tdschedules WHERE productionline_id = $id and day = $day");
+            if(count($ids)>0){
+                $ids = $ids[0];
+                $id_schedule = $ids->id;
+                DB::update('UPDATE tdschedules SET day=?,start_time = ?, end_time=? WHERE id = ?', [$day,$oDatos->start_time,$oDatos->end_time,$id_schedule]);
+            }else{
+                DB::insert('insert into tdschedules (productionline_id, day,start_time,end_time) values (?, ?,?,?)', [$id,$day,$oDatos->start_time,$oDatos->end_time]);
+            }
+        }
+         return null;
+    }
 }
