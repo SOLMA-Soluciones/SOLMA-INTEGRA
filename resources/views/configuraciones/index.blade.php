@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    function replaceDay($string){
+        $string = str_replace("1", "Lunes", $string);
+        $string = str_replace("2", "Martes", $string);
+        $string = str_replace("3", "Miercoles", $string);
+        $string = str_replace("4", "Jueves", $string);
+        $string = str_replace("5", "Viernes", $string);
+        $string = str_replace("6", "Sabado", $string);
+        $string = str_replace("7", "Domingo", $string);
+        return $string;
+    }
+@endphp
+
     <section class="section">
         <div class="section-header">
             <h3 class="page__heading">Configuracion</h3>
@@ -151,6 +164,7 @@
                                     <table class="table table-striped mt-2">
                                         <tr>
                                             <th>Linea</th>
+                                            <th>Turno</th>
                                             <th>Dia</th>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
@@ -160,9 +174,11 @@
                                             @foreach ($schedules as $schedule)
                                                 <tr>
                                                     <td>{{ $schedule->line }}</td>
+                                                    <td>{{ $schedule->turn }}</td>
                                                     <td>
                                                         @if ($schedule->day != null)
-                                                            {{ $schedule->day }}
+                                                        {{replaceDay($schedule->day)}}
+                                                           
                                                         @else
                                                             Sin datos
                                                         @endif
