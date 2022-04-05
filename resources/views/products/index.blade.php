@@ -6,12 +6,14 @@
       <h3 class="page__heading">Productos y Tiempo de Ciclo</h3>
   </div>
       <div class="section-body">
+      <div class="container">
           <div class="row">
               <div class="col-lg-12">
                   <div class="card">
                       <div class="card-body">                           
                           <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>        
-                         
+                          <div class="table-responsive">
+
                             <table class="table table-striped mt-2">
                               <thead style="background-color:#6777ef">                                     
                                   <th style="display: none;">ID</th>
@@ -46,6 +48,7 @@
                                 @endforeach
                               </tbody>
                             </table>
+                            </div>
                             <!-- Centramos la paginacion a la derecha -->
                           <div class="pagination justify-content-end">
                             {!! $products->links() !!}
@@ -53,6 +56,7 @@
                             
                       </div>
                   </div>
+              </div>
               </div>
           </div>
       </div>

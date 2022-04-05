@@ -18,7 +18,7 @@ class CreateTcproductsTable extends Migration
             $table->string('part_number');
             $table->decimal('cost', 8, 2);
             $table->integer('cycle');
-            $table->integer('unit');
+            $table->string('unit');
             $table->unsignedBigInteger('productionline_id');
             $table->foreign('productionline_id')-> references ('id')->on('tcproductionline')->onDelete('cascade');
             $table->timestamps();
