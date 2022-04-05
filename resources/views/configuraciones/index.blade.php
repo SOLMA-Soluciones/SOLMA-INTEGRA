@@ -147,15 +147,17 @@
                                 <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                     id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                    <div class="container">
-                                        <table class="table table-striped mt-2">
-                                            <tr>
-                                                <th>Linea</th>
-                                                <th>Dia</th>
-                                                <th>Hora Inicio</th>
-                                                <th>Hora Fin</th>
-                                                <th>Acciones</th>
-                                            </tr>
+                                    <div class="table-responsive">
+                                            <table class="table table-striped">
+                                            <thead style="background-color:#6777ef">
+                                        
+                                                <th style="color: #fff">Linea</th>
+                                                <th style="color: #fff">Dia</th>
+                                                <th style="color: #fff">Hora Inicio</th>
+                                                <th style="color: #fff">Hora Fin</th>
+                                                <th style="color: #fff">Acciones</th>
+                                                </thead>
+                                          
                                             <tbody>
                                                 @foreach ($schedules as $schedule)
                                                     <tr>
@@ -191,8 +193,8 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-
                                     </div>
+                                    
                                     <br>
                                     <div class="text-right">
                                         <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
@@ -405,7 +407,6 @@
                 statusCode: {},
                 error: function(x, xs, xt) {}
             });
-
         }
 
         function editarCalendario(id) {
