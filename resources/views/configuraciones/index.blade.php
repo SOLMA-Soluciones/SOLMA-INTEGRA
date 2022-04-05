@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    function replaceDay($string){
+        $string = str_replace("1", "Lunes", $string);
+        $string = str_replace("2", "Martes", $string);
+        $string = str_replace("3", "Miercoles", $string);
+        $string = str_replace("4", "Jueves", $string);
+        $string = str_replace("5", "Viernes", $string);
+        $string = str_replace("6", "Sabado", $string);
+        $string = str_replace("7", "Domingo", $string);
+        return $string;
+    }
+@endphp
+
     <section class="section">
         <div class="section-header">
             <h3 class="page__heading">Configuracion</h3>
@@ -255,28 +268,47 @@
 
                                     <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
 
-                                            <table class="table table-striped mt-2">
-                                                <thead style="background-color:#6777ef">
-                                                    <th style="display: none;">ID</th>
-                                                    <th style="color:#fff;">Nombre</th>
-                                                    <th style="color:#fff;">E-mail</th>
-                                                    <th style="color:#fff;">Rol</th>
-                                                    <th style="color:#fff;">Acciones</th>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($usuarios as $user)
-                                                        <tr>
-                                                            <td style="display: none;">{{ $user->id }}</td>
-                                                            <td>{{ $user->name }}</td>
-                                                            <td>{{ $user->email }}</td>
-                                                            <td>
-                                                                @if (!empty($user->getRoleNames()))
-                                                                    @foreach ($user->getRoleNames() as $rolNombre)
-                                                                        <h5><span class="badge badge-dark">{{ $rolNombre }}</span>
-                                                                        </h5>
-                                                                    @endforeach
-                                                                @endif
-                                                            </td>
+                                <div class="container">
+                                    <table class="table table-striped mt-2">
+                                        <tr>
+                                            <th>Linea</th>
+                                            <th>Turno</th>
+                                            <th>Dia</th>
+                                            <th>Hora Inicio</th>
+                                            <th>Hora Fin</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        <tbody>
+                                            @foreach ($schedules as $schedule)
+                                                <tr>
+                                                    <td>{{ $schedule->line }}</td>
+                                                    <td>{{ $schedule->turn }}</td>
+                                                    <td>
+                                                        @if ($schedule->day != null)
+                                                        {{replaceDay($schedule->day)}}
+                                                           
+                                                        @else
+                                                            Sin datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($schedule->start_time != null)
+                                                            {{ $schedule->start_time }}
+                                                        @else
+                                                            No hay Datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($schedule->end_time != null)
+                                                            {{ $schedule->end_time }}
+                                                        @else
+                                                            No hay Datos
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="#"
+                                                            onclick="editarCalendario({{ $schedule->productionline_id }})"><span
+                                                                class="material-icons md-48">edit</span></a>
 
                                                             <td>
                                                                 <a class="btn btn-info"

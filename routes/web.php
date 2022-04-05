@@ -42,7 +42,7 @@ Route::get('/tab4', [App\Http\Controllers\ConfiguracionController::class, 'index
 Route::get('/tab5', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('tab5');
 
 
-// Route::get('store', 'ProductionstopController@store')->name('store');
+Route::get('store', 'ProductionstopController@store')->name('store');
 // Route::post('/motivos/edit', 'MotivoController@edit')->name('motivos.edit');
 //Rutas protegidas para los controladores
 Route::group(['middleware' => ['auth']], function() {

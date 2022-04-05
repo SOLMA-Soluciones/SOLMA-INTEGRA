@@ -16,13 +16,13 @@ class Schedule extends Model
 
 
     public static function getSchedules(){
-        $schedules = DB::select('SELECT A.id AS productionline_id,B.id AS schedule_id,A.name AS line,A.name,B.day,B.start_time,B.end_time FROM tcproductionline A LEFT JOIN tdschedules B ON A.id = B.productionline_id');
+        $schedules = DB::select('SELECT A.id AS productionline_id,B.id AS schedule_id,A.name AS line,A.name,GROUP_CONCAT(B.day ORDER BY B.day) AS day,B.start_time,B.end_time,B.turn FROM tcproductionline A LEFT JOIN tdschedules B ON A.id = B.productionline_id GROUP BY A.id');
  
         return $schedules;
     
     }
     public static function getScheduleById($id){
-        $schedule = DB::select("SELECT A.id AS productionline_id,B.id AS schedule_id,A.name AS line,A.name,B.day,B.start_time,B.end_time FROM tcproductionline A LEFT JOIN tdschedules B ON A.id = B.productionline_id where A.id = $id");
+        $schedule = DB::select("SELECT A.id AS productionline_id,B.id AS schedule_id,A.name AS line,A.name,B.day,B.start_time,B.end_time,B.turn FROM tcproductionline A LEFT JOIN tdschedules B ON A.id = B.productionline_id where A.id = $id");
  
         return $schedule;
     
