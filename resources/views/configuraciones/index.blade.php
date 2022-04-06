@@ -1,18 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-@php
-    function replaceDay($string){
-        $string = str_replace("1", "Lunes", $string);
-        $string = str_replace("2", "Martes", $string);
-        $string = str_replace("3", "Miercoles", $string);
-        $string = str_replace("4", "Jueves", $string);
-        $string = str_replace("5", "Viernes", $string);
-        $string = str_replace("6", "Sabado", $string);
-        $string = str_replace("7", "Domingo", $string);
+    @php
+    function replaceDay($string)
+    {
+        $string = str_replace('1', 'Lunes', $string);
+        $string = str_replace('2', 'Martes', $string);
+        $string = str_replace('3', 'Miercoles', $string);
+        $string = str_replace('4', 'Jueves', $string);
+        $string = str_replace('5', 'Viernes', $string);
+        $string = str_replace('6', 'Sabado', $string);
+        $string = str_replace('7', 'Domingo', $string);
         return $string;
     }
-@endphp
+    @endphp
 
     <section class="section">
         <div class="section-header">
@@ -44,21 +45,21 @@
                                 id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="card-body">
                                     <!--   {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                            <div class="form-group">
-                                                                                                                                <label for="name">Nombre de la Organizacion</label>
-                                                                                                                                {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                                                                                                            <div class="row">
+                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                                    <div class="form-group">
+                                                                                                                                        <label for="name">Nombre de la Organizacion</label>
+                                                                                                                                        {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                                                                                                </div>
+                                                                                                                                
                                                                                                                             </div>
-                                                                                                                        </div>
-                                                                                                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                                                                                                        </div>
-                                                                                                                        
-                                                                                                                    </div>
-                                                                                                                  
-                                                                                                                    {!! Form::close() !!}
-                                                                                                                    -->
+                                                                                                                          
+                                                                                                                            {!! Form::close() !!}
+                                                                                                                            -->
 
                                     {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
                                     <div class="row">
@@ -161,6 +162,12 @@
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
                                 <div class="container">
+                                    <br>
+                                    <div class="text-right">
+                                        <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
+                                            data-toggle="modal" data-target="#addTurn">Agregar
+                                            turno</a>
+                                    </div>
                                     <table class="table table-striped mt-2">
                                         <tr>
                                             <th>Linea</th>
@@ -177,8 +184,7 @@
                                                     <td>{{ $schedule->turn }}</td>
                                                     <td>
                                                         @if ($schedule->day != null)
-                                                        {{replaceDay($schedule->day)}}
-                                                           
+                                                            {{ replaceDay($schedule->day) }}
                                                         @else
                                                             Sin datos
                                                         @endif
@@ -198,22 +204,23 @@
                                                         @endif
                                                     </td>
                                                     <td>
+                                                        <a href="#"><span class="material-icons md-48">delete</span></a>
                                                         <a href="#"
                                                             onclick="editarCalendario({{ $schedule->productionline_id }})"><span
                                                                 class="material-icons md-48">edit</span></a>
+                                                        
 
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    {{-- <div class="text-right">
+                                        <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
+                                            aria-pressed="true">Siguiente</a>
+                                    </div> --}}
+                                </div>
 
-                                </div>
-                                <br>
-                                <div class="text-right">
-                                    <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
-                                </div>
                             </div>
 
                             <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
@@ -339,7 +346,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
+                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
                 <div class="modal-body">
 
                     <div class="row">
@@ -358,28 +365,82 @@
                                 </select>
                                 <br>
                                 <label for="name">Hora Inicio</label>
-                                {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6',"id"=>"start_time"]) !!}
+                                {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time']) !!}
 
                                 <label for="name">Hora Fin</label>
-                                {!! Form::time('end_time',null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6',"id"=>"end_time"]) !!}
+                                {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time']) !!}
                             </div>
-
-
-
                         </div>
-
-
                     </div>
-
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="guardarCalendarioBD()">Guardar</button>
                 </div>
-                {!! Form::close() !!}
+                {{-- {!! Form::close() !!} --}}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal agregar turno -->
+    {{-- <a id="displayModalAddTurn" style="display:none" href="#" data-toggle="modal" data-target="#addTurn"></a> --}}
+
+    <!-- Modal Agregar turno -->
+    <div class="modal fade" id="addTurn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar turno</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group ">
+                                {{-- @foreach ($lineas as $line) --}}
+                                <label for="select_line">Linea de producción</label>
+                                <select id="select_line" class="selectpicker col-xs-12 col-sm-12 col-md-12" required>
+                                    <option value="" selected disabled>Seleccione una opción</option>
+                                    @foreach ($lineas as $line)
+                                        <option value="{{ $line->id }}">{{ $line->name }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                                <input type="hidden" value="" id="schedule_id">
+                                <label for="selectScheduleTurn">Frecuencia semanal</label>
+                                <select id="selectScheduleTurn" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple
+                                    required>
+                                    {{-- <option selected disabled>Seleccione una opción</option> --}}
+                                    <option value="1">Lunes</option>
+                                    <option value="2">Martes</option>
+                                    <option value="3">Miércoles</option>
+                                    <option value="4">Jueves</option>
+                                    <option value="5">Viernes</option>
+                                    <option value="6">Sábado</option>
+                                    <option value="7">Domingo</option>
+                                </select>
+                                <br>
+                                <label for="name">Hora Inicio</label>
+                                {!! Form::time('start_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
+
+                                <label for="name">Hora Fin</label>
+                                {!! Form::time('end_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioTurno()">Guardar</button>
+                </div>
+                {{-- {!! Form::close() !!} --}}
 
             </div>
         </div>
@@ -427,11 +488,11 @@
             }
             // console.log(oDatos);
             $.ajax({
-                url: 'schedules/'+schedule_id,
+                url: 'schedules/' + schedule_id,
                 type: 'put',
                 data: oDatos,
                 success: function(response) {
-                   console.log(response);
+                    console.log(response);
                 },
                 statusCode: {},
                 error: function(x, xs, xt) {}
