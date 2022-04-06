@@ -469,14 +469,17 @@
         //             {
         //                 "data": "status"
         //             },
+
         //         ]
         //     });
         // });
         function guardarCalendarioBD() {
+
             let start_time = $("#start_time").val();
             let end_time = $("#end_time").val();
             let schedule_id = $("#schedule_id").val();
             let days = $("#selectSchedule").val();
+
             let oDatos = {
                 id: schedule_id,
                 start_time: start_time,
@@ -494,7 +497,9 @@
                 statusCode: {},
                 error: function(x, xs, xt) {}
             });
+
         }
+
         function editarCalendario(id) {
             // console.log(id);
             $("#schedule_id").val(id);
@@ -524,6 +529,10 @@
             var data = $("#selectSchedule").val();
             // console.log(data);
         }
+
+
+
+
         function actualizarEstatus(element) {
             let id = $(element).attr("data-id");
             let status = ($(element).is(':checked')) ? 1 : 0;
