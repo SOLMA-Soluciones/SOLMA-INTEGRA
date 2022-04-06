@@ -11,6 +11,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionstopController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\OrderController;
+
 
 
 /*
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', ProductController::class);
     Route::resource('machines', MachineController::class);
     Route::resource('schedules', ScheduleController::class);
+    Route::resource('orders', OrderController::class);
 });
 
 
