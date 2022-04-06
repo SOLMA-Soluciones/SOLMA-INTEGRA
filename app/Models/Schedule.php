@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class Schedule extends Model
 {
-    
+    use HasFactory;
 
     protected $table = 'tdschedules';
     protected $fillable = ['productionline_id','day','start_time','end_time'];
