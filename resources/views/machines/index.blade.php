@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('css')
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+@endsection
 
 @section('content')
 <section class="section">
@@ -12,7 +16,7 @@
                       <div class="card-body">                           
                           <a class="btn btn-warning" href="{{ route('machines.create') }}">Nuevo</a>        
                          
-                            <table class="table table-striped mt-2">
+                            <table id="example" class="table table-striped mt-2">
                               <thead style="background-color:#6777ef">                                     
                                   <th style="display: none;">ID</th>
                                   <th style="color:#fff;">Nombre</th>
@@ -38,6 +42,7 @@
                                 @endforeach
                               </tbody>
                             </table>
+
                             <!-- Paginacion a la derecha -->
                           <div class="pagination justify-content-end">
                           </div>     
@@ -47,4 +52,15 @@
           </div>
       </div>
     </section>
+@section('js')
+   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+   <script type="text/javascript">
+               $(document).ready(function() {
+    $('#example').DataTable();
+    responsive: true
+} );    
+   </script>
+   @endsection
 @endsection

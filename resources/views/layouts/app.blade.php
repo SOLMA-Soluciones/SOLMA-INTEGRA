@@ -23,22 +23,17 @@
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
     <link rel="stylesheet" href="{{ asset('web/css/clockpicker.css') }}">
-
     @yield('page_css')
-
-
     @yield('css')
 </head>
 <body>
 
 
 <div id="app">
-    
     <div class="main-wrapper main-wrapper-1">
         <div class="navbar-bg"></div>
         <nav class="navbar navbar-expand-lg main-navbar">
             @include('layouts.header')
-
         </nav>
         <div class="main-sidebar main-sidebar-postion">
             @include('layouts.sidebar')
@@ -58,8 +53,6 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
-
-@yield('js')
 
 
 
@@ -99,6 +92,7 @@
 <!-- Template JS File -->
 
 @yield('page_js')
+@yield('js')
 @yield('scripts')
 <script>
     let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());

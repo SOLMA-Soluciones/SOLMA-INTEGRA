@@ -1,5 +1,9 @@
 @extends('layouts.app')
+@section('css')
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" rel="stylesheet">
 
+@endsection
 @section('content')
     @php
     function replaceDay($string)
@@ -112,10 +116,9 @@
                                 id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
 
-                                <table class="table table-striped mt-2">
+                                <table id="example" class="table table-striped  display responsive nowrap" style="width:100%">
                                     <thead style="background-color:#6777ef">
 
-                                        <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Num. Parte</th>
                                         <th style="color:#fff;">Costo ($)</th>
                                         <th style="color:#fff;">Max.Hora</th>
@@ -127,7 +130,6 @@
                                     <tbody>
                                         @foreach ($products as $product)
                                             <tr>
-                                                <td style="display: none;">{{ $product->id }}</td>
                                                 <td>{{ $product->part_number }}</td>
                                                 <td>{{ $product->cost }}</td>
                                                 <td>{{ $product->cycle }}</td>
@@ -147,10 +149,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
-                                    {!! $products->links() !!}
-                                </div>
 
                                 <div class="text-right">
                                     <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
@@ -276,7 +274,7 @@
 
                                 <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
 
-                                <table class="table table-striped mt-2">
+                                <table id="example" class="table table-striped mt-2">
                                     <thead style="background-color:#6777ef">
                                         <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Nombre</th>
@@ -287,7 +285,7 @@
                                     <tbody>
                                         @foreach ($usuarios as $user)
                                             <tr>
-                                                <td style="display: none;">{{ $user->id }}</td>
+                                                <td >{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>
@@ -447,6 +445,19 @@
     </div>
 @endsection
 @section('js')
+
+   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+   <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+   <script>
+               $(document).ready(function() {
+    $('#example').DataTable();
+    responsive: true
+} );    
+   </script>
+   
+
+       
     @if (session('eliminar') == 'ok')
         <script>
             Swal.fire(
@@ -456,10 +467,8 @@
             )
         </script>
     @endif
-
-
-
     <script type="text/javascript">
+
         // $(document).ready(function() {
         //     $('#example').DataTable({
         //         "ajax": "motivos",
