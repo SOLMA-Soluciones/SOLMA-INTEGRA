@@ -4,7 +4,7 @@
     <a class="nav-link" href="{{ route('tab1') }}">
         <i class=" fas fa-building"></i><span>Panel OEE</span>
     </a>
-    <a class="nav-link" href="/orders">
+    <a class="nav-link" href="{{'orders'}}">
         <i class=" fas fa-plus-circle"></i><span>Orden de Produccion</span>
     </a>
     @endcan

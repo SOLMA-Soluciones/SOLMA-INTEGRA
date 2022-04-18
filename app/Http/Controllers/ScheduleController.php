@@ -34,9 +34,10 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($oDatos)
+    public function store(Request $request)
     {
-        
+        Schedule::insertarDatos($request);
+        return redirect()->route('tab3');
     }
 
     /**
@@ -45,10 +46,13 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($b64)
     {
-        $schedule = Schedule::getScheduleById($id);
-
+        $json  = base64_decode($b64);
+        $data = json_decode($json);
+        $id = $data->id;
+        $turn = $data->turn;
+        $schedule = Schedule::getScheduleById($id, $turn);
         return response()->json($schedule);
     }
 
@@ -63,7 +67,7 @@ class ScheduleController extends Controller
         //
         return "edit";
         // return response()->json($oDatos);
-        
+
     }
 
     /**
@@ -73,15 +77,17 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-
-        $days = Schedule::guardarDatos($request);
+        $oDatos = (object)[
+            "start_time" => $request->start_time,
+            "end_time" => $request->end_time,
+            "productionline_id" => $request->productionline_id,
+            "days" => $request->selectSchedule,
+            "turn" => $request->turn,
+        ];
+        $result = Schedule::guardarDatos($oDatos);
         return redirect()->route('tab3');
-        // return $days;
-        //
-        // return response()->json($oDatos);
-
     }
 
     /**
@@ -90,10 +96,13 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($b64)
     {
-        //
+        $json  = base64_decode($b64);
+        $data = json_decode($json);
+        $id = $data->id;
+        $turn = $data->turn;
+        Schedule::deleteScheduleById($id, $turn);
+        return redirect()->route('tab3')->with('eliminar', 'ok');
     }
-
-    
 }

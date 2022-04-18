@@ -1,6 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .chip {
+            display: inline-block;
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+        }
+
+        .chip img {
+            float: left;
+            margin: 0 10px 0 -25px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+    </style>
     @php
     function replaceDay($string)
     {
@@ -45,21 +65,21 @@
                                 id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="card-body">
                                     <!--   {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-                                                                                                                            <div class="row">
-                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                                    <div class="form-group">
-                                                                                                                                        <label for="name">Nombre de la Organizacion</label>
-                                                                                                                                        {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                                                                                                </div>
-                                                                                                                                
-                                                                                                                            </div>
-                                                                                                                          
-                                                                                                                            {!! Form::close() !!}
-                                                                                                                            -->
+                                                                                                                                        <div class="row">
+                                                                                                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                                                <div class="form-group">
+                                                                                                                                                    <label for="name">Nombre de la Organizacion</label>
+                                                                                                                                                    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                                                                                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                                                                                                                            </div>
+                                                                                                                                            
+                                                                                                                                        </div>
+                                                                                                                                      
+                                                                                                                                        {!! Form::close() !!}
+                                                                                                                                        -->
 
                                     {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
                                     <div class="row">
@@ -204,11 +224,14 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a href="#"><span class="material-icons md-48">delete</span></a>
-                                                        <a href="#"
-                                                            onclick="editarCalendario({{ $schedule->productionline_id }})"><span
+                                                        <a href="javascript:void(0)"
+                                                            onclick="borrarCalendario({{ $schedule->productionline_id }},{{ $schedule->turn }})"><span
+                                                                class="material-icons md-48">delete</span></a>
+
+                                                        <a href="javascript:void(0)"
+                                                            onclick="editarCalendario({{ $schedule->productionline_id }},{{ $schedule->turn }})"><span
                                                                 class="material-icons md-48">edit</span></a>
-                                                        
+
 
                                                     </td>
                                                 </tr>
@@ -346,15 +369,28 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                {!! Form::open(['route' => ['schedules.update', 1], 'method' => 'PATCH']) !!}
                 <div class="modal-body">
 
                     <div class="row">
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group ">
-                                <input type="hidden" value="" id="schedule_id">
-                                <select id="selectSchedule" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
+                                <input type="hidden" value="" id="productionline_id" name="productionline_id">
+                                <input type="hidden" value="" id="turn" name="productionline_id">
+                                {{-- <input type="hidden" value="" id="productionline_id" name="productionline_id"> --}}
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="chip" id="cLineaEditar">
+
+                                    </div>
+                                    <div class="chip" id="cTurnoEditar">
+
+                                    </div>
+                                </div>
+                                <br>
+                                <label for="selectSchedule">Frecuencia semanal</label>
+                                <select id="selectSchedule" name="selectSchedule[]"
+                                    class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
                                     <option value="1">Lunes</option>
                                     <option value="2">Martes</option>
                                     <option value="3">Miércoles</option>
@@ -375,9 +411,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioBD()">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-                {{-- {!! Form::close() !!} --}}
+                {!! Form::close() !!}
 
             </div>
         </div>
@@ -397,25 +433,24 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                {!! Form::open(['route' => 'schedules.store', 'method' => 'POST']) !!}
                 <div class="modal-body">
-
                     <div class="row">
-
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group ">
                                 {{-- @foreach ($lineas as $line) --}}
-                                <label for="select_line">Linea de producción</label>
-                                <select id="select_line" class="selectpicker col-xs-12 col-sm-12 col-md-12" required>
+                                <label for="productionline_id">Linea de producción</label>
+                                <select id="productionline_id" name="productionline_id"
+                                    class="selectpicker col-xs-12 col-sm-12 col-md-12" required>
                                     <option value="" selected disabled>Seleccione una opción</option>
                                     @foreach ($lineas as $line)
                                         <option value="{{ $line->id }}">{{ $line->name }}</option>
                                     @endforeach
                                 </select>
                                 <br>
-                                <input type="hidden" value="" id="schedule_id">
-                                <label for="selectScheduleTurn">Frecuencia semanal</label>
-                                <select id="selectScheduleTurn" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple
+                                {{-- <input type="hidden" value="" id="productionline_id"> --}}
+                                <label for="days">Frecuencia semanal</label>
+                                <select id="days" name="days[]" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple
                                     required>
                                     {{-- <option selected disabled>Seleccione una opción</option> --}}
                                     <option value="1">Lunes</option>
@@ -427,20 +462,20 @@
                                     <option value="7">Domingo</option>
                                 </select>
                                 <br>
-                                <label for="name">Hora Inicio</label>
-                                {!! Form::time('start_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
+                                <label for="start_time_turn">Hora Inicio</label>
+                                {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
 
-                                <label for="name">Hora Fin</label>
-                                {!! Form::time('end_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
+                                <label for="end_time_turn">Hora Fin</label>
+                                {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioTurno()">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-                {{-- {!! Form::close() !!} --}}
+                {!! Form::close() !!}
 
             </div>
         </div>
@@ -473,39 +508,52 @@
         //         ]
         //     });
         // });
-        function guardarCalendarioBD() {
 
-            let start_time = $("#start_time").val();
-            let end_time = $("#end_time").val();
-            let schedule_id = $("#schedule_id").val();
-            let days = $("#selectSchedule").val();
 
-            let oDatos = {
-                id: schedule_id,
-                start_time: start_time,
-                end_time: end_time,
-                days: days
+
+
+
+
+        // function guardarCalendarioBD() {
+
+        //     let start_time = $("#start_time").val();
+        //     let end_time = $("#end_time").val();
+        //     let schedule_id = $("#schedule_id").val();
+        //     let days = $("#selectSchedule").val();
+
+        //     let oDatos = {
+        //         id: schedule_id,
+        //         start_time: start_time,
+        //         end_time: end_time,
+        //         days: days
+        //     }
+        //     // console.log(oDatos);
+        //     $.ajax({
+        //         url: 'schedules/' + schedule_id,
+        //         type: 'PUT',
+        //         data: oDatos,
+        //         success: function(response) {
+        //             console.log(response);
+        //         },
+        //         statusCode: {},
+        //         error: function(x, xs, xt) {}
+        //     });
+
+        // }
+
+        function editarCalendario(id, turn) {
+            $("#productionline_id").val(id);
+            $("#turn").val(turn);
+
+            var data = {
+                turn: turn,
+                id: id
             }
-            // console.log(oDatos);
+            var b64 = btoa(JSON.stringify(data));
             $.ajax({
-                url: 'schedules/' + schedule_id,
-                type: 'put',
-                data: oDatos,
-                success: function(response) {
-                    console.log(response);
-                },
-                statusCode: {},
-                error: function(x, xs, xt) {}
-            });
-
-        }
-
-        function editarCalendario(id) {
-            // console.log(id);
-            $("#schedule_id").val(id);
-            $.ajax({
-                url: 'schedules/' + id,
+                url: 'schedules/' + b64,
                 type: 'get',
+                // data: data,
                 success: function(response) {
                     var arr = [];
                     response.forEach(function(oSchedule) {
@@ -515,11 +563,14 @@
                     $("#selectSchedule").change();
                     if (response.length > 0) {
                         let oSchedule = response[0];
-                        console.log(oSchedule.start_time);
+                        // console.log(oSchedule.start_time);
                         $("#start_time").val(oSchedule.start_time);
                         $("#start_time").change();
                         $("#end_time").val(oSchedule.end_time);
                         $("#end_time").change();
+                        $("#cLineaEditar").html("Linea: " + oSchedule.name);
+                        $("#cTurnoEditar").html("Turno: " + oSchedule.turn);
+
                     }
                 },
                 statusCode: {},
@@ -527,6 +578,49 @@
             });
             $("#displayModalEditSchedule").click();
             var data = $("#selectSchedule").val();
+            // console.log(data);
+        }
+
+        function borrarCalendario(id, turn) {
+            // $("#productionline_id").val(id);
+            // $("#turn").val(turn);
+
+            var data = {
+                turn: turn,
+                id: id
+            }
+            var b64 = btoa(JSON.stringify(data));
+            $.ajax({
+                url: 'schedules/' + b64,
+                type: 'delete',
+                // data: data,
+                success: function(response) {
+                    
+                    // recargar();
+                    // console.log(response);
+                    // var arr = [];
+                    // response.forEach(function(oSchedule) {
+                    //     arr.push(oSchedule.day);
+                    // });
+                    // $("#selectSchedule").val(arr);
+                    // $("#selectSchedule").change();
+                    // if (response.length > 0) {
+                    //     let oSchedule = response[0];
+                    //     // console.log(oSchedule.start_time);
+                    //     $("#start_time").val(oSchedule.start_time);
+                    //     $("#start_time").change();
+                    //     $("#end_time").val(oSchedule.end_time);
+                    //     $("#end_time").change();
+                    //     $("#cLineaEditar").html("Linea "+oSchedule.name);
+                    //     $("#cTurnoEditar").html("Turno "+oSchedule.turn);
+
+                    // }
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
+            // $("#displayModalEditSchedule").click();
+            // var data = $("#selectSchedule").val();
             // console.log(data);
         }
 
