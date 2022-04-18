@@ -17,6 +17,9 @@
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/cr-1.5.5/date-1.1.2/r-2.2.9/datatables.min.css"/> --}}
+ 
+
     
 @yield('page_css')
 <!-- Template CSS -->
@@ -89,12 +92,14 @@
 <script src="{{ asset('assets/js/custom/custom.js') }}"></script>
 <script src="{{ asset('web/js/clockpicker.js') }}"></script>
 
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 
+{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/cr-1.5.5/date-1.1.2/r-2.2.9/datatables.min.js"></script> --}}
 
 <!-- Template JS File -->
 

@@ -103,6 +103,11 @@ class ScheduleController extends Controller
         $id = $data->id;
         $turn = $data->turn;
         Schedule::deleteScheduleById($id, $turn);
-        return redirect()->route('tab3')->with('eliminar', 'ok');
+        return response()->json([
+
+            'success' => 'Record deleted successfully!'
+    
+        ]);
+        // return redirect()->route('tab3')->with('eliminar', 'ok');
     }
 }
