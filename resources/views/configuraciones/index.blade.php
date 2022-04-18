@@ -230,10 +230,10 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{-- <div class="text-right">
+                                    <div class="text-right">
                                         <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
                                             aria-pressed="true">Siguiente</a>
-                                    </div> --}}
+                                    </div>
                                 </div>
 
                             </div>
