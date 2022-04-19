@@ -336,6 +336,10 @@
                                 <div class="pagination justify-content-end">
                                     {!! $usuarios->links() !!}
                                 </div>
+                                <div class="text-right">
+                                    <a href="{{'orders'}}" class="btn btn-primary" role="button" style="margin-right: 10px;"
+                                        aria-pressed="true">Finalizar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
