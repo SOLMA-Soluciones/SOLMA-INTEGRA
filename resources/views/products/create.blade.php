@@ -33,6 +33,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <label for="description">Descripcion</label>
+                                    {!! Form::text('description', null, array('class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <label for="cost">Costo</label>
                                     {!! Form::number('cost', null, ['class' => 'form-control','step' => '0.02']) !!}
 

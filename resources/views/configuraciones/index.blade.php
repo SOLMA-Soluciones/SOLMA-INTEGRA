@@ -129,6 +129,7 @@
 
                                         <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Num. Parte</th>
+                                        <th style="color:#fff;">Descripción</th>
                                         <th style="color:#fff;">Costo ($)</th>
                                         <th style="color:#fff;">Max.Hora</th>
                                         <th style="color:#fff;">Unidad</th>
@@ -141,6 +142,7 @@
                                             <tr>
                                                 <td style="display: none;">{{ $product->id }}</td>
                                                 <td>{{ $product->part_number }}</td>
+                                                <td>{{ $product->description}}</td>
                                                 <td>{{ $product->cost }}</td>
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>

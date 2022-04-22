@@ -36,6 +36,16 @@
 
                         </div>
                         <div class="form-group">
+                            <label for="description" >Descripcion</label>
+                            {!! Form::text('description',null,array(
+                            'class'=>'form-control',
+                            'required'=>'required',
+                            'placeholder'=>'Descripcion'
+                            ))
+                            !!}
+
+                        </div>
+                        <div class="form-group">
                             <label for="cost" >Costo</label>
                             {!! Form::number('cost', null, ['class' => 'form-control','step' => '0.02']) !!}
 
