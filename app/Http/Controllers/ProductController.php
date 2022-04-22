@@ -41,6 +41,7 @@ class ProductController extends Controller
     {
         $this->validate($request,[
             'part_number' => 'required|unique:tcproducts|max:255',
+            'description' => 'required|max:255',
             'cost' => 'required|max:255',
             'cycle' => 'required|max:255',
             'unit' => 'required|max:255',
@@ -49,11 +50,12 @@ class ProductController extends Controller
              ]);
         
           $data = [
-                    'part_number'        => $request->get('part_number'),
-                    'cost'        => $request->get('cost'),
-                    'cycle'      => $request->get('cycle'), 
-                    'unit'         => $request->get('unit'),
-                    'productionline_id'     => $request->get('productionline_id'),
+                    'part_number'=> $request->get('part_number'),
+                    'description'=> $request->get('description'),
+                    'cost'=> $request->get('cost'),
+                    'cycle'=> $request->get('cycle'), 
+                    'unit'=> $request->get('unit'),
+                    'productionline_id'=> $request->get('productionline_id'),
                 ];
         
                $product= Product::create($data);
@@ -96,6 +98,7 @@ class ProductController extends Controller
     {
              $this->validate($request,[
                 'part_number' => 'required|unique:tcproducts,part_number,'.$id,
+                'description' => 'required|max:255',
                 'cost' => 'required|max:255',
                 'cycle' => 'required|max:255',
                 'unit' => 'required|max:255',
@@ -105,6 +108,7 @@ class ProductController extends Controller
 //Actualizar la informacion
      $products = Product::find($id);
      $products->part_number = $request->get("part_number");
+     $products->description = $request->get("description");
      $products->cost = $request->get("cost");
      $products->cycle = $request->get("cycle");
      $products->unit = $request->get("unit");
