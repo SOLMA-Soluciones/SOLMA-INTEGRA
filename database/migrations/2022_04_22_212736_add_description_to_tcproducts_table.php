@@ -14,7 +14,7 @@ class AddDescriptionToTcproductsTable extends Migration
     public function up()
     {
         Schema::table('tcproducts', function (Blueprint $table) {
-            $table->string('description')->nullable()->after('part_number');
+            //
         });
     }
 
@@ -26,7 +26,7 @@ class AddDescriptionToTcproductsTable extends Migration
     public function down()
     {
         Schema::table('tcproducts', function (Blueprint $table) {
-            $table->dropColumn('description');
+            //
         });
     }
 }
