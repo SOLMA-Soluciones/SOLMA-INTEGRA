@@ -1,6 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .chip {
+            display: inline-block;
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+        }
+
+        .chip img {
+            float: left;
+            margin: 0 10px 0 -25px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+    </style>
     @php
     function replaceDay($string)
     {
@@ -16,12 +36,19 @@
     @endphp
 
     <section class="section">
+
         <div class="section-header">
             <h3 class="page__heading">Configuracion</h3>
+            &nbsp;&nbsp;&nbsp;
+            <div style="display: none;" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
+
         <div class="section-body">
             <div class="container">
                 <div class="row">
+
                     <div class="col-xs-12 ">
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -44,22 +71,7 @@
                             <div class="tab-pane {{ request()->is('tab1') ? 'active' : null }}"
                                 id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="card-body">
-                                    <!--   {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-                                                                                                                            <div class="row">
-                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                                    <div class="form-group">
-                                                                                                                                        <label for="name">Nombre de la Organizacion</label>
-                                                                                                                                        {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                                                                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                                                                                                </div>
-                                                                                                                                
-                                                                                                                            </div>
-                                                                                                                          
-                                                                                                                            {!! Form::close() !!}
-                                                                                                                            -->
+
 
                                     {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
                                     <div class="row">
@@ -117,6 +129,7 @@
 
                                         <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Num. Parte</th>
+                                        <th style="color:#fff;">Descripción</th>
                                         <th style="color:#fff;">Costo ($)</th>
                                         <th style="color:#fff;">Max.Hora</th>
                                         <th style="color:#fff;">Unidad</th>
@@ -129,6 +142,7 @@
                                             <tr>
                                                 <td style="display: none;">{{ $product->id }}</td>
                                                 <td>{{ $product->part_number }}</td>
+                                                <td>{{ $product->description}}</td>
                                                 <td>{{ $product->cost }}</td>
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>
@@ -168,7 +182,7 @@
                                             data-toggle="modal" data-target="#addTurn">Agregar
                                             turno</a>
                                     </div>
-                                    <table class="table table-striped mt-2">
+                                    <table id="tablaCalendario" class="table table-striped mt-2">
                                         <tr>
                                             <th>Linea</th>
                                             <th>Turno</th>
@@ -204,21 +218,24 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a href="#"><span class="material-icons md-48">delete</span></a>
-                                                        <a href="#"
-                                                            onclick="editarCalendario({{ $schedule->productionline_id }})"><span
+                                                        <a href="javascript:void(0)"
+                                                            onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
+                                                                class="material-icons md-48">delete</span></a>
+
+                                                        <a href="javascript:void(0)"
+                                                            onclick="editarCalendario({{ $schedule->productionline_id }},{{ $schedule->turn }})"><span
                                                                 class="material-icons md-48">edit</span></a>
-                                                        
+
 
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{-- <div class="text-right">
+                                    <div class="text-right">
                                         <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
                                             aria-pressed="true">Siguiente</a>
-                                    </div> --}}
+                                    </div>
                                 </div>
 
                             </div>
@@ -303,13 +320,13 @@
                                                     <a class="btn btn-info"
                                                         href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
                                                     @can('borrar-rol')
-                                                        <form action="{{ route('usuarios.destroy', $user->id) }}"
-                                                            class="d-inline" method="POST">
+                                                        <form id="formEliminarUsuario_{{$user->id}}" action="{{ route('usuarios.destroy', $user->id) }}"
+                                                            class="d-inline" method="POST" >
 
                                                             @method('DELETE')
                                                             @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-eliminar">Delete</button>
+                                                            <a class="btn btn-danger btn-eliminar"
+                                                            onclick="confirmarEliminar({{$user->id}},0,2)" >Delete</a>
                                                         </form>
                                                     @endcan
                                                 </td>
@@ -320,6 +337,10 @@
                                 <!-- Centramos la paginacion a la derecha -->
                                 <div class="pagination justify-content-end">
                                     {!! $usuarios->links() !!}
+                                </div>
+                                <div class="text-right">
+                                    <a href="{{'orders'}}" class="btn btn-primary" role="button" style="margin-right: 10px;"
+                                        aria-pressed="true">Finalizar</a>
                                 </div>
                             </div>
                         </div>
@@ -346,15 +367,28 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                {!! Form::open(['route' => ['schedules.update', 1], 'method' => 'PATCH']) !!}
                 <div class="modal-body">
 
                     <div class="row">
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group ">
-                                <input type="hidden" value="" id="schedule_id">
-                                <select id="selectSchedule" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
+                                <input type="hidden" value="" id="productionline_id" name="productionline_id">
+                                <input type="hidden" value="" id="turn" name="productionline_id">
+                                {{-- <input type="hidden" value="" id="productionline_id" name="productionline_id"> --}}
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="chip" id="cLineaEditar">
+
+                                    </div>
+                                    <div class="chip" id="cTurnoEditar">
+
+                                    </div>
+                                </div>
+                                <br>
+                                <label for="selectSchedule">Frecuencia semanal</label>
+                                <select id="selectSchedule" name="selectSchedule[]"
+                                    class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple>
                                     <option value="1">Lunes</option>
                                     <option value="2">Martes</option>
                                     <option value="3">Miércoles</option>
@@ -375,9 +409,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioBD()">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-                {{-- {!! Form::close() !!} --}}
+                {!! Form::close() !!}
 
             </div>
         </div>
@@ -397,25 +431,24 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                {!! Form::open(['route' => 'schedules.store', 'method' => 'POST']) !!}
                 <div class="modal-body">
-
                     <div class="row">
-
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group ">
                                 {{-- @foreach ($lineas as $line) --}}
-                                <label for="select_line">Linea de producción</label>
-                                <select id="select_line" class="selectpicker col-xs-12 col-sm-12 col-md-12" required>
+                                <label for="productionline_id">Linea de producción</label>
+                                <select id="productionline_id" name="productionline_id"
+                                    class="selectpicker col-xs-12 col-sm-12 col-md-12" required>
                                     <option value="" selected disabled>Seleccione una opción</option>
                                     @foreach ($lineas as $line)
                                         <option value="{{ $line->id }}">{{ $line->name }}</option>
                                     @endforeach
                                 </select>
                                 <br>
-                                <input type="hidden" value="" id="schedule_id">
-                                <label for="selectScheduleTurn">Frecuencia semanal</label>
-                                <select id="selectScheduleTurn" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple
+                                {{-- <input type="hidden" value="" id="productionline_id"> --}}
+                                <label for="days">Frecuencia semanal</label>
+                                <select id="days" name="days[]" class="selectpicker col-xs-12 col-sm-12 col-md-12" multiple
                                     required>
                                     {{-- <option selected disabled>Seleccione una opción</option> --}}
                                     <option value="1">Lunes</option>
@@ -427,24 +460,55 @@
                                     <option value="7">Domingo</option>
                                 </select>
                                 <br>
-                                <label for="name">Hora Inicio</label>
-                                {!! Form::time('start_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
+                                <label for="start_time_turn">Hora Inicio</label>
+                                {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
 
-                                <label for="name">Hora Fin</label>
-                                {!! Form::time('end_time_turn', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
+                                <label for="end_time_turn">Hora Fin</label>
+                                {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCalendarioTurno()">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-                {{-- {!! Form::close() !!} --}}
+                {!! Form::close() !!}
 
             </div>
         </div>
     </div>
+
+    {{-- Modal eliminar --}}
+
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Advertencia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <p>¿Desea eliminar el registro?</p>
+                        <input type="hidden" id="idEliminar" value="">
+                        <input type="hidden" id="idTurnoEliminar" value="">
+                        <input type="hidden" id="iTipoEliminar" value="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button onclick="eliminarRegistro()" class="btn btn-primary">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="modalEliminar" role="button" style="display: none;" data-toggle="modal" data-target="#modalDelete"></a>
 @endsection
 @section('js')
     @if (session('eliminar') == 'ok')
@@ -457,52 +521,46 @@
         </script>
     @endif
     <script type="text/javascript">
-        // $(document).ready(function() {
-        //     $('#example').DataTable({
-        //         "ajax": "motivos",
-        //         "columns": [{
-        //                 "data": "name"
-        //             },
-        //             {
-        //                 "data": "status"
-        //             },
-
-        //         ]
-        //     });
-        // });
-        function guardarCalendarioBD() {
-
-            let start_time = $("#start_time").val();
-            let end_time = $("#end_time").val();
-            let schedule_id = $("#schedule_id").val();
-            let days = $("#selectSchedule").val();
-
-            let oDatos = {
-                id: schedule_id,
-                start_time: start_time,
-                end_time: end_time,
-                days: days
+    var form = null;
+        function eliminarRegistro() {
+            var iTipo = parseInt($("#iTipoEliminar").val());
+            $(".spinner-border").show();
+            switch (iTipo) {
+                case 1:
+                    var id = $("#idEliminar").val();
+                    var turno = $("#idTurnoEliminar").val();
+                    borrarCalendario(id, turno);
+                    break;
+                case 2:
+                    // var id = $("#idEliminar").val();
+                    // var turno = $("#idTurnoEliminar").val();
+                    // borrarCalendario(id, turno);
+                    // console.log(form);
+                    // console.log($(form));
+                    // var form = $(form.parent());
+                    // form.submit();
+                    var id = $("#idEliminar").val();
+                    document.getElementById('formEliminarUsuario_'+id).submit();
+                    
+                    break;
             }
-            // console.log(oDatos);
-            $.ajax({
-                url: 'schedules/' + schedule_id,
-                type: 'put',
-                data: oDatos,
-                success: function(response) {
-                    console.log(response);
-                },
-                statusCode: {},
-                error: function(x, xs, xt) {}
-            });
 
+            $('#modalDelete').modal('hide')
         }
 
-        function editarCalendario(id) {
-            // console.log(id);
-            $("#schedule_id").val(id);
+        function editarCalendario(id, turn) {
+            $("#productionline_id").val(id);
+            $("#turn").val(turn);
+
+            var data = {
+                turn: turn,
+                id: id
+            }
+            var b64 = btoa(JSON.stringify(data));
             $.ajax({
-                url: 'schedules/' + id,
+                url: 'schedules/' + b64,
                 type: 'get',
+                // data: data,
                 success: function(response) {
                     var arr = [];
                     response.forEach(function(oSchedule) {
@@ -512,11 +570,14 @@
                     $("#selectSchedule").change();
                     if (response.length > 0) {
                         let oSchedule = response[0];
-                        console.log(oSchedule.start_time);
+                        // console.log(oSchedule.start_time);
                         $("#start_time").val(oSchedule.start_time);
                         $("#start_time").change();
                         $("#end_time").val(oSchedule.end_time);
                         $("#end_time").change();
+                        $("#cLineaEditar").html("Linea: " + oSchedule.name);
+                        $("#cTurnoEditar").html("Turno: " + oSchedule.turn);
+
                     }
                 },
                 statusCode: {},
@@ -525,6 +586,32 @@
             $("#displayModalEditSchedule").click();
             var data = $("#selectSchedule").val();
             // console.log(data);
+        }
+
+        function confirmarEliminar(id, turn, iTipoEliminar) {
+            $("#iTipoEliminar").val(iTipoEliminar);
+            $("#idEliminar").val(id);
+            $("#idTurnoEliminar").val(turn);
+            $("#modalEliminar").click();
+        }
+
+        function borrarCalendario(id, turn) {
+            var data = {
+                turn: turn,
+                id: id
+            }
+            var b64 = btoa(JSON.stringify(data));
+            $.ajax({
+                url: 'schedules/' + b64,
+                type: 'delete',
+                // data: data,
+                success: function(response) {
+                    $(".spinner-border").hide();
+                    location.reload();
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
         }
 
 
