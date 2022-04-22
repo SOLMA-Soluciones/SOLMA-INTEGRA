@@ -53,7 +53,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                 <label for="unit">Unidad</label>
-                                    {!! Form::text('unit', null, array('class' => 'form-control')) !!}
+                                    {{Form::select('unit', ['Toneladas' => 'Toneladas', 'Piezas' => 'Piezas'], null, array('class' => 'form-control', 'placeholder' => 'Elige la Unidad...'))}}
                                    
                                 </div>
                             </div>
@@ -62,7 +62,6 @@
                                 <div class="form-group">
                                     <label for="productionline_id">Linea</label>
                                     {{ Form::select('productionline_id', $lineas , $product->productionline_id, ['class'=>'form-control' . ($errors->has('productionline_id') ? 'is-invalid' : '')]) }}
-                                    
                                 </div>
                             </div>
                             
