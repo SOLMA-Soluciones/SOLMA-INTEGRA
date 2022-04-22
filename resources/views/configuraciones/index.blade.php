@@ -1,5 +1,9 @@
 @extends('layouts.app')
+@section('css')
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" rel="stylesheet">
 
+@endsection
 @section('content')
     <style>
         .chip {
@@ -124,10 +128,10 @@
                                 id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
 
-                                <table class="table table-striped mt-2">
+                                <table id="example" class="table table-striped" style="width: 100%">
                                     <thead style="background-color:#6777ef">
 
-                                        <th style="display: none;">ID</th>
+                                        <th style="color:#fff;">ID</th>
                                         <th style="color:#fff;">Num. Parte</th>
                                         <th style="color:#fff;">Descripción</th>
                                         <th style="color:#fff;">Costo ($)</th>
@@ -140,14 +144,13 @@
                                     <tbody>
                                         @foreach ($products as $product)
                                             <tr>
-                                                <td style="display: none;">{{ $product->id }}</td>
+                                                <td> {{ $product->id }}</td>
                                                 <td>{{ $product->part_number }}</td>
                                                 <td>{{ $product->description}}</td>
                                                 <td>{{ $product->cost }}</td>
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>
                                                 <td>{{ $product->line->name }}</td>
-
                                                 <td>
                                                     <a class="btn btn-info"
                                                         href="{{ route('products.edit', $product->id) }}">Editar</a>
@@ -520,6 +523,17 @@
             )
         </script>
     @endif
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+   <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+   <script>  
+$(document).ready(function() {
+    $('#example').DataTable( {
+    responsive: true
+} );
+} );
+   </script>
     <script type="text/javascript">
     var form = null;
         function eliminarRegistro() {
