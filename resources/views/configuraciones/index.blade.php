@@ -135,7 +135,7 @@
                                 </div>
 
                                 <div class="text-right">
-                                    <a href="{{ route('tab2') }}" class="btn btn-primary" role="button"
+                                    <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
                                         aria-pressed="true">Siguiente</a>
                                 </div>
                             </div>
@@ -194,7 +194,7 @@
                                 </div>
 
                                 <div class="text-right">
-                                    <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
+                                    <a href="{{ route('tab5') }}" class="btn btn-primary" role="button"
                                         aria-pressed="true">Siguiente</a>
                                 </div>
 
@@ -330,7 +330,7 @@
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <a href="{{ route('tab5') }}" class="btn btn-primary" role="button"
+                                    <a href="{{ route('tab2') }}" class="btn btn-primary" role="button"
                                         aria-pressed="true">Siguiente</a>
                                 </div>
                             </div>
@@ -519,7 +519,7 @@
                                 <br><br>
                                 <div class="form-check col-xs-6">
                                     <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)" checked>
+                                        onchange="updateTimeFields(this)">
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
@@ -848,9 +848,6 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
-
-                $("#start_time_turn").prop("required", true);
-                $("#end_time_turn").prop("required", true);
             }
         }
 
@@ -863,11 +860,7 @@
                 $("#end_time").val(null).change();
             } else {
                 $("#start_time").prop("disabled", false);
-                
                 $("#end_time").prop("disabled", false);
-                
-                $("#start_time").prop("required", true);
-                $("#end_time").prop("required", true);
             }
         }
     </script>
