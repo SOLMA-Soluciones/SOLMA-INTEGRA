@@ -211,7 +211,7 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" cellspacing="0"
+                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
                                         width="100%">
                                         <thead>
                                       <tr>
@@ -220,7 +220,7 @@
                                             <th>Dia</th>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
-                                            <th class="d-flex justify-content-center">Acciones</th>
+                                            <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -249,7 +249,7 @@
                                                             No hay Datos
                                                         @endif
                                                     </td>
-                                                    <td class="d-flex justify-content-center">
+                                                    <td>
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
                                                                 class="material-icons md-48">delete</span></a>
