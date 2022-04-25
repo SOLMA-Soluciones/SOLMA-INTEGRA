@@ -147,7 +147,7 @@
 
                                 <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
                                     <thead>
-
+                                    <tr>
                                         <th>ID</th>
                                         <th>Num. Parte</th>
                                         <th>Descripción</th>
@@ -156,7 +156,7 @@
                                         <th>Unidad</th>
                                         <th>Linea</th>
                                         <th class="d-flex justify-content-center">Acciones</th>
-
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $product)
@@ -214,12 +214,14 @@
                                     <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
                                         width="100%">
                                         <thead>
+                                      <tr>
                                             <th>Linea</th>
                                             <th>Turno</th>
                                             <th>Dia</th>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
                                             <th class="d-flex justify-content-center">Acciones</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
@@ -518,7 +520,7 @@
                                 </select>
                                 <br><br>
                                 <div class="form-check col-xs-6">
-                                    <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
+                                    <input checked type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
                                         onchange="updateTimeFields(this)">
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
@@ -623,6 +625,10 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false
+                }]
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
@@ -848,6 +854,8 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
+                $("#start_time_turn").prop("required", true);
+                $("#end_time_turn").prop("required", true);
             }
         }
 
@@ -861,6 +869,8 @@
             } else {
                 $("#start_time").prop("disabled", false);
                 $("#end_time").prop("disabled", false);
+                $("#start_time").prop("required", true);
+                $("#end_time").prop("required", true);
             }
         }
     </script>
