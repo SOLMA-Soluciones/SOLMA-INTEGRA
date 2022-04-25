@@ -39,17 +39,22 @@ class ProductionstopController extends Controller
     public function store(Request $request)
     {
         // $Productos = Productionstop::findOrFail($request->id)->update(['estatus' => $request->estatus]);
-        $productos = Productionstop::find($request->id);
-        $productos->status = $request->get("status");
+        // $productos = Productionstop::find($request->id);
+        // $productos->status = $request->get("status");
 
-        $productos->save();
-        if ($request->status == 0) {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
-        } else {
-            $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
-        }
+        // $productos->save();
+        // if ($request->status == 0) {
+        //     $newStatus = '<br> <button type="button" class="btn btn-sm btn-danger">Inactiva</button>';
+        // } else {
+        //     $newStatus = '<br> <button type="button" class="btn btn-sm btn-success">Activa</button>';
+        // }
 
-        return response()->json(['var' => '' . $newStatus . '']);
+        // return response()->json(['var' => '' . $newStatus . '']);
+
+        Productionstop::updateStoppageLine($request);
+        $stoppage = Productionstop::getStoppageByLineId($request->productionline_id);
+        // var_dump($stoppage);
+        return response()->json($stoppage);
     }
 
     /**
@@ -61,8 +66,14 @@ class ProductionstopController extends Controller
     public function show($id)
     {
         //
-        $productionstoppages = Productionstop::orderBy('id', 'DESC')->get();
-        return response()->json($productionstoppages);
+        // $productionstoppages = Productionstop::orderBy('id', 'DESC')->get();
+        // return response()->json($productionstoppages);
+
+        
+
+        $stoppage = Productionstop::getStoppageByLineId($id);
+        // var_dump($stoppage);
+        return response()->json($stoppage );
     }
 
     /**

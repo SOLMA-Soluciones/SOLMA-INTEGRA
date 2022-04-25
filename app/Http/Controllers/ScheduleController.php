@@ -85,7 +85,9 @@ class ScheduleController extends Controller
             "productionline_id" => $request->productionline_id,
             "days" => $request->selectSchedule,
             "turn" => $request->turn,
+            "fulltime"=>($request->fulltime==null)?false:true,
         ];
+        // var_dump($oDatos);
         $result = Schedule::guardarDatos($oDatos);
         return redirect()->route('tab3');
     }
