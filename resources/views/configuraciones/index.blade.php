@@ -135,17 +135,17 @@
                                 <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
                                 <br><br>
 
-                                <table id="example" class="table table-striped" style="width: 100%">
-                                    <thead style="background-color:#6777ef">
+                                <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                    <thead >
 
-                                        <th style="color:#fff;">ID</th>
-                                        <th style="color:#fff;">Num. Parte</th>
-                                        <th style="color:#fff;">Descripción</th>
-                                        <th style="color:#fff;">Costo ($)</th>
-                                        <th style="color:#fff;">Max.Hora</th>
-                                        <th style="color:#fff;">Unidad</th>
-                                        <th style="color:#fff;">Linea</th>
-                                        <th style="color:#fff;">Acciones</th>
+                                        <th >ID</th>
+                                        <th >Num. Parte</th>
+                                        <th >Descripción</th>
+                                        <th >Costo ($)</th>
+                                        <th >Max.Hora</th>
+                                        <th >Unidad</th>
+                                        <th >Linea</th>
+                                        <th >Acciones</th>
 
                                     </thead>
                                     <tbody>
@@ -201,14 +201,14 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" class="table table-striped mt-2">
-                                        <thead style="background-color:#6777ef">
-                                            <th style="color:#fff;">Linea</th>
-                                            <th style="color:#fff;">Turno</th>
-                                            <th style="color:#fff;">Dia</th>
-                                            <th style="color:#fff;">Hora Inicio</th>
-                                            <th style="color:#fff;">Hora Fin</th>
-                                            <th style="color:#fff;">Acciones</th>
+                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                        <thead >
+                                            <th >Linea</th>
+                                            <th >Turno</th>
+                                            <th >Dia</th>
+                                            <th >Hora Inicio</th>
+                                            <th >Hora Fin</th>
+                                            <th >Acciones</th>
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
