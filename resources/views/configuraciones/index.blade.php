@@ -60,18 +60,18 @@
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link {{ request()->is('tab1') ? 'active' : null }}"
-                                    href="{{ route('tab1') }}" role="tab">1 Datos Basicos</a>
-                                <a class="nav-item nav-link {{ request()->is('tab2') ? 'active' : null }}"
-                                    href="{{ route('tab2') }}" role="tab">2 Productos y Tiempo de Ciclo</a>
+                                    href="{{ route('tab1') }}" role="tab">Datos Basicos</a>
                                 <a class="nav-item nav-link {{ request()->is('tab3') ? 'active' : null }}"
                                     href="{{ route('tab3') }}" role="tab" aria-controls="nav-contact"
-                                    aria-selected="false">3 Calendario</a>
+                                    aria-selected="false">Calendario</a>
                                 <a class="nav-item nav-link {{ request()->is('tab4') ? 'active' : null }}"
                                     href="{{ route('tab4') }}" role="tab" aria-controls="nav-about"
-                                    aria-selected="false">4 Motivos de Detención</a>
+                                    aria-selected="false">Motivos de Detención</a>
+                                <a class="nav-item nav-link {{ request()->is('tab2') ? 'active' : null }}"
+                                    href="{{ route('tab2') }}" role="tab">Productos y Tiempo de Ciclo</a>
                                 <a class="nav-item nav-link {{ request()->is('tab5') ? 'active' : null }}"
                                     href="{{ route('tab5') }}" role="tab" aria-controls="nav-about"
-                                    aria-selected="false">5 Agregar Usuarios</a>
+                                    aria-selected="false">Agregar Usuarios</a>
                             </div>
                         </nav>
                         <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
