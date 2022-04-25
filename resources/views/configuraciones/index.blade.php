@@ -146,7 +146,7 @@
 
                                 <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
                                     <thead>
-                                    <tr>
+
                                         <th>ID</th>
                                         <th>Num. Parte</th>
                                         <th>Descripción</th>
@@ -154,13 +154,8 @@
                                         <th>Max.Hora</th>
                                         <th>Unidad</th>
                                         <th>Linea</th>
-<<<<<<< HEAD
-                                        <th class="d-flex justify-content-center">Acciones</th>
-                                        </tr>
-=======
                                         <th>Acciones</th>
 
->>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $product)
@@ -218,17 +213,12 @@
                                     <table id="tablaCalendario" class="display responsive" cellspacing="0"
                                         width="100%">
                                         <thead>
-                                      <tr>
                                             <th>Linea</th>
                                             <th>Turno</th>
                                             <th>Dia</th>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
                                             <th>Acciones</th>
-<<<<<<< HEAD
-                                            </tr>
-=======
->>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
@@ -256,11 +246,7 @@
                                                             No hay Datos
                                                         @endif
                                                     </td>
-<<<<<<< HEAD
-                                                    <td>
-=======
                                                     <td >
->>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -531,8 +517,8 @@
                                 </select>
                                 <br><br>
                                 <div class="form-check col-xs-6">
-                                    <input checked type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)">
+                                    <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
+                                        onchange="updateTimeFields(this)" checked>
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
@@ -636,10 +622,6 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
-                "columnDefs": [{
-                    "targets": [0],
-                    "visible": false
-                }]
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
@@ -865,6 +847,7 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
+
                 $("#start_time_turn").prop("required", true);
                 $("#end_time_turn").prop("required", true);
             }
@@ -879,7 +862,9 @@
                 $("#end_time").val(null).change();
             } else {
                 $("#start_time").prop("disabled", false);
+                
                 $("#end_time").prop("disabled", false);
+                
                 $("#start_time").prop("required", true);
                 $("#end_time").prop("required", true);
             }
