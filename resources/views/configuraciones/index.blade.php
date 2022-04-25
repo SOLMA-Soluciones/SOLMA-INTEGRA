@@ -27,6 +27,14 @@
             margin: 15px;
         }
 
+        .tab-content {
+            padding: 0 !important;
+        }
+
+        /* .main-content{
+                            padding-left: 15px;
+                        } */
+
     </style>
     @php
     function replaceDay($string)
@@ -74,7 +82,7 @@
                                     aria-selected="false">Agregar Usuarios</a>
                             </div>
                         </nav>
-                        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-content" id="nav-tabContent">
 
                             {{-- lineas de produccion --}}
                             <div class="tab-pane {{ request()->is('tab1') ? 'active' : null }}"
@@ -99,22 +107,24 @@
 
                                     {!! Form::close() !!}
 
-                                    <table class="table table-striped mt-2">
+                                    <table id="tablaLineas" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                        <thead>
+
+                                            <th>Nombre</th>
+                                            <th class="d-flex justify-content-center">Acciones</th>
+
+                                        </thead>
                                         <tbody>
                                             @foreach ($lineas as $line)
                                                 <tr>
 
                                                     <td>{{ $line->name }}</td>
-                                                    <td>
+                                                    <td class="d-flex justify-content-center">
+                                                        <a href="javascript:void(0)"
+                                                            onclick="confirmarEliminar({{ $line->id }},null,4)"><span
+                                                                class="material-icons md-48">delete</span></a>
 
-                                                        {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-
-                                                        {!! Form::close() !!}
-                                                    </td>
-                                                    <td>
-
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['lineas.destroy', $line->id], 'style' => 'display:inline']) !!}
-                                                        {!! Form::submit('Borrar', ['class' => 'btn btn-danger ']) !!}
+                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['lineas.destroy', $line->id], 'style' => 'display:inline', 'id' => 'formeliminarlinea_' . $line->id]) !!}
                                                         {!! Form::close() !!}
                                                     </td>
                                                 </tr>
@@ -136,16 +146,16 @@
                                 <br><br>
 
                                 <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                    <thead >
+                                    <thead>
 
-                                        <th >ID</th>
-                                        <th >Num. Parte</th>
-                                        <th >Descripción</th>
-                                        <th >Costo ($)</th>
-                                        <th >Max.Hora</th>
-                                        <th >Unidad</th>
-                                        <th >Linea</th>
-                                        <th >Acciones</th>
+                                        <th>ID</th>
+                                        <th>Num. Parte</th>
+                                        <th>Descripción</th>
+                                        <th>Costo ($)</th>
+                                        <th>Max.Hora</th>
+                                        <th>Unidad</th>
+                                        <th>Linea</th>
+                                        <th class="d-flex justify-content-center">Acciones</th>
 
                                     </thead>
                                     <tbody>
@@ -158,7 +168,7 @@
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>
                                                 <td>{{ $product->line->name }}</td>
-                                                <td>
+                                                <td class="d-flex justify-content-center">
                                                     <a class=""
                                                         href="{{ route('products.edit', $product->id) }}"><span
                                                             class="material-icons md-48">edit</span></a>
@@ -193,7 +203,7 @@
                             <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                <div class="container">
+                                <div class="">
                                     <br>
                                     <div class="text-right">
                                         <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
@@ -201,14 +211,15 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead >
-                                            <th >Linea</th>
-                                            <th >Turno</th>
-                                            <th >Dia</th>
-                                            <th >Hora Inicio</th>
-                                            <th >Hora Fin</th>
-                                            <th >Acciones</th>
+                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
+                                        width="100%">
+                                        <thead>
+                                            <th>Linea</th>
+                                            <th>Turno</th>
+                                            <th>Dia</th>
+                                            <th>Hora Inicio</th>
+                                            <th>Hora Fin</th>
+                                            <th class="d-flex justify-content-center">Acciones</th>
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
@@ -236,7 +247,7 @@
                                                             No hay Datos
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="d-flex justify-content-center">
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -329,18 +340,18 @@
 
                                 <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
 
-                                <table class="table table-striped mt-2">
-                                    <thead style="background-color:#6777ef">
-                                        <th style="display: none;">ID</th>
-                                        <th style="color:#fff;">Nombre</th>
-                                        <th style="color:#fff;">E-mail</th>
-                                        <th style="color:#fff;">Rol</th>
-                                        <th style="color:#fff;">Acciones</th>
+                                <table id="tablaUsuarios" class="display responsive no-wrap" cellspacing="0" width="100%">
+                                    <thead>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>E-mail</th>
+                                        <th>Rol</th>
+                                        <th class="d-flex justify-content-center">Acciones</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($usuarios as $user)
                                             <tr>
-                                                <td style="display: none;">{{ $user->id }}</td>
+                                                <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>
@@ -352,9 +363,9 @@
                                                     @endif
                                                 </td>
 
-                                                <td>
-                                                    <a class="btn btn-info"
-                                                        href="{{ route('usuarios.edit', $user->id) }}">Editar</a>
+                                                <td class="d-flex justify-content-center">
+                                                    <a href="{{ route('usuarios.edit', $user->id) }}"><span
+                                                            class="material-icons md-48">edit</span></a>
                                                     @can('borrar-rol')
                                                         <form id="formEliminarUsuario_{{ $user->id }}"
                                                             action="{{ route('usuarios.destroy', $user->id) }}"
@@ -362,8 +373,9 @@
 
                                                             @method('DELETE')
                                                             @csrf
-                                                            <a class="btn btn-danger btn-eliminar"
-                                                                onclick="confirmarEliminar({{ $user->id }},0,2)">Delete</a>
+                                                            <a href="javascrip:void(0);" class="btn-eliminar"
+                                                                onclick="confirmarEliminar({{ $user->id }},0,2)"><span
+                                                                    class="material-icons md-48">delete</span></a>
                                                         </form>
                                                     @endcan
                                                 </td>
@@ -617,6 +629,20 @@
                 language: aLanguageDataTable,
                 dom: 'frtip',
             });
+            $('#tablaUsuarios').DataTable({
+                responsive: true,
+                language: aLanguageDataTable,
+                dom: 'frtip',
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false
+                }]
+            });
+            $('#tablaLineas').DataTable({
+                responsive: true,
+                language: aLanguageDataTable,
+                dom: 'frtip',
+            });
         });
     </script>
     <script type="text/javascript">
@@ -632,22 +658,17 @@
                     borrarCalendario(id, turno);
                     break;
                 case 2:
-                    // var id = $("#idEliminar").val();
-                    // var turno = $("#idTurnoEliminar").val();
-                    // borrarCalendario(id, turno);
-                    // console.log(form);
-                    // console.log($(form));
-                    // var form = $(form.parent());
-                    // form.submit();
                     var id = $("#idEliminar").val();
                     document.getElementById('formEliminarUsuario_' + id).submit();
 
                     break;
                 case 3:
-                    console.log("eliminar producto");
                     var id = $("#idEliminar").val();
                     document.getElementById('formeliminarproducto_' + id).submit();
-                    // $("formeliminarproducto_"+id).submit();
+                    break;
+                case 4:
+                    var id = $("#idEliminar").val();
+                    document.getElementById('formeliminarlinea_' + id).submit();
                     break;
             }
 
