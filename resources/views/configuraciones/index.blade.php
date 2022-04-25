@@ -211,7 +211,7 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
+                                    <table id="tablaCalendario" cellspacing="0"
                                         width="100%">
                                         <thead>
                                       <tr>
