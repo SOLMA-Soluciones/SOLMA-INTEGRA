@@ -519,7 +519,7 @@
                                 <br><br>
                                 <div class="form-check col-xs-6">
                                     <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)">
+                                        onchange="updateTimeFields(this)" checked>
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
@@ -848,6 +848,9 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
+
+                $("#start_time_turn").prop("required", true);
+                $("#end_time_turn").prop("required", true);
             }
         }
 
@@ -860,7 +863,11 @@
                 $("#end_time").val(null).change();
             } else {
                 $("#start_time").prop("disabled", false);
+                
                 $("#end_time").prop("disabled", false);
+                
+                $("#start_time").prop("required", true);
+                $("#end_time").prop("required", true);
             }
         }
     </script>
