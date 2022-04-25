@@ -622,11 +622,6 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
-                dom: 'frtip',
-                "columnDefs": [{
-                    "targets": [0],
-                    "visible": false
-                }]
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
