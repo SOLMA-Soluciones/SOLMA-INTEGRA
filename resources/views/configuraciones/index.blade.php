@@ -29,11 +29,10 @@
 
         .tab-content {
             padding: 0 !important;
+            /* width: 100% !important; */
         }
 
-        /* .main-content{
-                            padding-left: 15px;
-                        } */
+        
 
     </style>
     @php
@@ -111,7 +110,7 @@
                                         <thead>
 
                                             <th>Nombre</th>
-                                            <th class="d-flex justify-content-center">Acciones</th>
+                                            <th >Acciones</th>
 
                                         </thead>
                                         <tbody>
@@ -119,7 +118,7 @@
                                                 <tr>
 
                                                     <td>{{ $line->name }}</td>
-                                                    <td class="d-flex justify-content-center">
+                                                    <td>
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $line->id }},null,4)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -155,8 +154,13 @@
                                         <th>Max.Hora</th>
                                         <th>Unidad</th>
                                         <th>Linea</th>
+<<<<<<< HEAD
                                         <th class="d-flex justify-content-center">Acciones</th>
                                         </tr>
+=======
+                                        <th>Acciones</th>
+
+>>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $product)
@@ -168,7 +172,7 @@
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>
                                                 <td>{{ $product->line->name }}</td>
-                                                <td class="d-flex justify-content-center">
+                                                <td >
                                                     <a class=""
                                                         href="{{ route('products.edit', $product->id) }}"><span
                                                             class="material-icons md-48">edit</span></a>
@@ -203,7 +207,7 @@
                             <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                <div class="">
+                                <div >
                                     <br>
                                     <div class="text-right">
                                         <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
@@ -211,7 +215,7 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
+                                    <table id="tablaCalendario" class="display responsive" cellspacing="0"
                                         width="100%">
                                         <thead>
                                       <tr>
@@ -221,7 +225,10 @@
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
                                             <th>Acciones</th>
+<<<<<<< HEAD
                                             </tr>
+=======
+>>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
@@ -249,7 +256,11 @@
                                                             No hay Datos
                                                         @endif
                                                     </td>
+<<<<<<< HEAD
                                                     <td>
+=======
+                                                    <td >
+>>>>>>> b8da328318a2eac2a443af2ba5a5f4aa588784d1
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -348,7 +359,7 @@
                                         <th>Nombre</th>
                                         <th>E-mail</th>
                                         <th>Rol</th>
-                                        <th class="d-flex justify-content-center">Acciones</th>
+                                        <th >Acciones</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($usuarios as $user)
@@ -365,7 +376,7 @@
                                                     @endif
                                                 </td>
 
-                                                <td class="d-flex justify-content-center">
+                                                <td >
                                                     <a href="{{ route('usuarios.edit', $user->id) }}"><span
                                                             class="material-icons md-48">edit</span></a>
                                                     @can('borrar-rol')
