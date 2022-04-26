@@ -302,7 +302,7 @@
                                     </div>
                                     <br>
 
-                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%">
+                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%" style="display: noneq">
                                         <thead>
                                             <th class="all">id</th>
                                             <th class="all">Nombre</th>
