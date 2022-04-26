@@ -35,20 +35,21 @@
         @media (max-width: 768px) {
 
             /* Los estilos aquí contenidos solo se aplicarán a partir
-            del tamaño de pantalla indicado */
+                        del tamaño de pantalla indicado */
             .nav-item.nav-link {
                 display: none;
             }
+
             .nav-item.nav-link.active {
                 display: flex;
             }
         }
-        /* @media (min-width: 768px) {
-            .nav-item.nav-link {
-                display: flex;
-            }
-        } */
 
+        /* @media (min-width: 768px) {
+                        .nav-item.nav-link {
+                            display: flex;
+                        }
+                    } */
 
     </style>
     @php
@@ -148,13 +149,14 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
+                                    <div class="text-right">
+                                        <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
+                                            aria-pressed="true">Siguiente</a>
+                                    </div>
+                                    <br><br>
                                 </div>
 
-                                <div class="text-right">
-                                    <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
-                                </div>
+
                             </div>
                             {{-- productos --}}
                             <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
@@ -205,14 +207,14 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
-                                    {!! $products->links() !!}
-                                </div>
 
-                                <div class="text-right">
-                                    <a href="{{ route('tab5') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <a href="{{ route('tab4') }}" class="btn btn-primary float-left " role="button"
+                                            aria-pressed="true">Anterior</a>
+                                        <a href="{{ route('tab5') }}" class="btn btn-primary float-right " role="button"
+                                            aria-pressed="true">Siguiente</a>
+                                    </div>
                                 </div>
 
                             </div>
@@ -220,7 +222,7 @@
                             <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                <div>
+                                <div class="card-body">
                                     <br>
                                     <div class="text-right">
                                         <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
@@ -233,8 +235,8 @@
                                             <th class="all">Linea</th>
                                             <th class="all">Turno</th>
                                             <th class="min-tablet">Dia</th>
-                                            <th class="all">Hora Inicio</th>
-                                            <th class="all">Hora Fin</th>
+                                            <th class="min-tablet">Hora Inicio</th>
+                                            <th class="min-tablet">Hora Fin</th>
                                             <th class="all">Acciones</th>
                                         </thead>
                                         <tbody>
@@ -278,9 +280,13 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="text-right">
-                                        <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
-                                            aria-pressed="true">Siguiente</a>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <a href="{{ route('tab1') }}" class="btn btn-primary float-left "
+                                                role="button" aria-pressed="true">Anterior</a>
+                                            <a href="{{ route('tab4') }}" class="btn btn-primary float-right "
+                                                role="button" aria-pressed="true">Siguiente</a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -302,7 +308,8 @@
                                     </div>
                                     <br>
 
-                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%" style="display: noneq">
+                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%"
+                                        style="display: none">
                                         <thead>
                                             <th class="all">id</th>
                                             <th class="all">Nombre</th>
@@ -312,7 +319,7 @@
                                         <tbody>
                                             @foreach ($motivos as $stop)
                                                 <tr>
-                                                    <td >{{ $stop->id }}</td>
+                                                    <td>{{ $stop->id }}</td>
                                                     <td>{{ $stop->name }}</td>
                                                     <td id="resp{{ $stop->id }}">
                                                         <button id="btnstoppagetext_{{ $stop->id }}" type="button"
@@ -342,11 +349,16 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <a href="{{ route('tab3') }}" class="btn btn-primary float-left "
+                                                role="button" aria-pressed="true">Anterior</a>
+                                            <a href="{{ route('tab2') }}" class="btn btn-primary float-right "
+                                                role="button" aria-pressed="true">Siguiente</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-right">
-                                    <a href="{{ route('tab2') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
-                                </div>
+
                             </div>
                             {{-- usuarios --}}
                             <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
@@ -398,13 +410,19 @@
                                     </tbody>
                                 </table>
                                 <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
+                                {{-- <div class="pagination justify-content-end">
                                     {!! $usuarios->links() !!}
+                                </div> --}}
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <a href="{{ route('tab2') }}" class="btn btn-primary float-left "
+                                            role="button" aria-pressed="true">Anterior</a>
+                                        <a href="{{ 'orders' }}" class="btn btn-primary float-right "
+                                            role="button" aria-pressed="true">Finalizar</a>
+                                    </div>
                                 </div>
-                                <div class="text-right">
-                                    <a href="{{ 'orders' }}" class="btn btn-primary" role="button"
-                                        style="margin-right: 10px;" aria-pressed="true">Finalizar</a>
-                                </div>
+                              
                             </div>
 
 
@@ -671,7 +689,7 @@
                     "visible": false
                 }]
             });
-            
+
         });
     </script>
     <script type="text/javascript">
