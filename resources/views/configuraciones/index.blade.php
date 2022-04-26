@@ -611,15 +611,6 @@
     <a href="#" id="modalEliminar" role="button" style="display: none;" data-toggle="modal" data-target="#modalDelete"></a>
 @endsection
 @section('js')
-    @if (session('eliminar') == 'ok')
-        <script>
-            Swal.fire(
-                'Eliminado!',
-                'El usuario ha sido eliminado.',
-                'con exito'
-            )
-        </script>
-    @endif
 
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
