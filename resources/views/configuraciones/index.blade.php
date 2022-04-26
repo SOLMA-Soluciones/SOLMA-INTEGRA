@@ -29,25 +29,27 @@
 
         .tab-content {
             padding: 0 !important;
+            /* width: 100% !important; */
         }
 
         @media (max-width: 768px) {
 
             /* Los estilos aquí contenidos solo se aplicarán a partir
-            del tamaño de pantalla indicado */
+                        del tamaño de pantalla indicado */
             .nav-item.nav-link {
                 display: none;
             }
+
             .nav-item.nav-link.active {
                 display: flex;
             }
         }
-        /* @media (min-width: 768px) {
-            .nav-item.nav-link {
-                display: flex;
-            }
-        } */
 
+        /* @media (min-width: 768px) {
+                        .nav-item.nav-link {
+                            display: flex;
+                        }
+                    } */
 
     </style>
     @php
@@ -92,13 +94,7 @@
                                     href="{{ route('tab4') }}" role="tab" aria-controls="nav-about"
                                     aria-selected="false">Motivos de Detención</a>
                                 <a class="nav-item nav-link {{ request()->is('tab2') ? 'active' : null }}"
-                                    href="{{ route('tab2') }}" role="tab" aria-controls="nav-contact"
-                                    aria-selected="false">Calendario</a>
-                                <a class="nav-item nav-link {{ request()->is('tab3') ? 'active' : null }}"
-                                    href="{{ route('tab3') }}" role="tab" aria-controls="nav-about"
-                                    aria-selected="false">Motivos de Detención</a>
-                                <a class="nav-item nav-link {{ request()->is('tab4') ? 'active' : null }}"
-                                    href="{{ route('tab4') }}" role="tab">Productos y Tiempo de Ciclo</a>
+                                    href="{{ route('tab2') }}" role="tab">Productos y Tiempo de Ciclo</a>
                                 <a class="nav-item nav-link {{ request()->is('tab5') ? 'active' : null }}"
                                     href="{{ route('tab5') }}" role="tab" aria-controls="nav-about"
                                     aria-selected="false">Agregar Usuarios</a>
@@ -141,7 +137,7 @@
                                                 <tr>
 
                                                     <td>{{ $line->name }}</td>
-                                                    <td class="d-flex justify-content-center">
+                                                    <td>
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $line->id }},null,4)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -153,13 +149,14 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
+                                    <div class="text-right">
+                                        <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
+                                            aria-pressed="true">Siguiente</a>
+                                    </div>
+                                    <br><br>
                                 </div>
 
-                                <div class="text-right">
-                                    <a href="{{ route('tab2') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
-                                </div>
+
                             </div>
                             {{-- productos --}}
                             <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
@@ -210,22 +207,22 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
-                                    {!! $products->links() !!}
-                                </div>
 
-                                <div class="text-right">
-                                    <a href="{{ route('tab5') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <a href="{{ route('tab4') }}" class="btn btn-primary float-left " role="button"
+                                            aria-pressed="true">Anterior</a>
+                                        <a href="{{ route('tab5') }}" class="btn btn-primary float-right " role="button"
+                                            aria-pressed="true">Siguiente</a>
+                                    </div>
                                 </div>
 
                             </div>
                             {{-- calendario --}}
-                            <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
-                                id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
+                                id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                <div>
+                                <div class="card-body">
                                     <br>
                                     <div class="text-right">
                                         <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
@@ -238,8 +235,8 @@
                                             <th class="all">Linea</th>
                                             <th class="all">Turno</th>
                                             <th class="min-tablet">Dia</th>
-                                            <th class="all">Hora Inicio</th>
-                                            <th class="all">Hora Fin</th>
+                                            <th class="min-tablet">Hora Inicio</th>
+                                            <th class="min-tablet">Hora Fin</th>
                                             <th class="all">Acciones</th>
                                         </thead>
                                         <tbody>
@@ -283,16 +280,20 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="text-right">
-                                        <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
-                                            aria-pressed="true">Siguiente</a>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <a href="{{ route('tab1') }}" class="btn btn-primary float-left "
+                                                role="button" aria-pressed="true">Anterior</a>
+                                            <a href="{{ route('tab4') }}" class="btn btn-primary float-right "
+                                                role="button" aria-pressed="true">Siguiente</a>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
                             {{-- paros de produccion --}}
-                            <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
-                                id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-about-tab">
+                            <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
+                                id="{{ route('tab4') }}" role="tabpanel" aria-labelledby="nav-about-tab">
                                 <div class="col-md-9" class="text-center">
                                     <div class="col-md-6 col-sm-12" style="max-width: 300px">
                                         <label for="stoppage_productionline_id">Linea de producción</label>
@@ -307,7 +308,8 @@
                                     </div>
                                     <br>
 
-                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%" style="display: noneq">
+                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%"
+                                        style="display: none">
                                         <thead>
                                             <th class="all">id</th>
                                             <th class="all">Nombre</th>
@@ -317,7 +319,7 @@
                                         <tbody>
                                             @foreach ($motivos as $stop)
                                                 <tr>
-                                                    <td >{{ $stop->id }}</td>
+                                                    <td>{{ $stop->id }}</td>
                                                     <td>{{ $stop->name }}</td>
                                                     <td id="resp{{ $stop->id }}">
                                                         <button id="btnstoppagetext_{{ $stop->id }}" type="button"
@@ -347,74 +349,17 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="text-right">
-                                    <a href="{{ route('tab4') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
-                                </div>
-                            </div>
-                            {{-- productos --}}
-                            <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
-                                id="{{ route('tab4') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
-                                <br><br>
-
-                                <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                    <thead>
-
-                                        <th>ID</th>
-                                        <th>Num. Parte</th>
-                                        <th>Descripción</th>
-                                        <th>Costo ($)</th>
-                                        <th>Max.Hora</th>
-                                        <th>Unidad</th>
-                                        <th>Linea</th>
-                                        <th>Acciones</th>
-
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($products as $product)
-                                            <tr>
-                                                <td> {{ $product->id }}</td>
-                                                <td>{{ $product->part_number }}</td>
-                                                <td>{{ $product->description }}</td>
-                                                <td>{{ $product->cost }}</td>
-                                                <td>{{ $product->cycle }}</td>
-                                                <td>{{ $product->unit }}</td>
-                                                <td>{{ $product->line->name }}</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <a class=""
-                                                        href="{{ route('products.edit', $product->id) }}"><span
-                                                            class="material-icons md-48">edit</span></a>
-
-                                                    <a href="javascript:void(0)"
-                                                        onclick="confirmarEliminar({{ $product->id }},null,3)"><span
-                                                            class="material-icons md-48">delete</span></a>
-
-                                                    @can('borrar-rol')
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline', 'id' => 'formeliminarproducto_' . $product->id]) !!}
-                                                        {{-- {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!} --}}
-
-                                                        {!! Form::close() !!}
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
-                                    {!! $products->links() !!}
-                                </div>
-
-                                <div class="text-right">
-                                    <a href="{{ route('tab5') }}" class="btn btn-primary" role="button"
-                                        aria-pressed="true">Siguiente</a>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <a href="{{ route('tab3') }}" class="btn btn-primary float-left "
+                                                role="button" aria-pressed="true">Anterior</a>
+                                            <a href="{{ route('tab2') }}" class="btn btn-primary float-right "
+                                                role="button" aria-pressed="true">Siguiente</a>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
-                            
-                            
                             {{-- usuarios --}}
                             <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
                                 id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
@@ -465,13 +410,19 @@
                                     </tbody>
                                 </table>
                                 <!-- Centramos la paginacion a la derecha -->
-                                <div class="pagination justify-content-end">
+                                {{-- <div class="pagination justify-content-end">
                                     {!! $usuarios->links() !!}
+                                </div> --}}
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <a href="{{ route('tab2') }}" class="btn btn-primary float-left "
+                                            role="button" aria-pressed="true">Anterior</a>
+                                        <a href="{{ 'orders' }}" class="btn btn-primary float-right "
+                                            role="button" aria-pressed="true">Finalizar</a>
+                                    </div>
                                 </div>
-                                <div class="text-right">
-                                    <a href="{{ 'orders' }}" class="btn btn-primary" role="button"
-                                        style="margin-right: 10px;" aria-pressed="true">Finalizar</a>
-                                </div>
+                              
                             </div>
 
 
@@ -600,7 +551,7 @@
                                 <br><br>
                                 <div class="form-check col-xs-6">
                                     <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)">
+                                        onchange="updateTimeFields(this)" checked>
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
@@ -660,15 +611,6 @@
     <a href="#" id="modalEliminar" role="button" style="display: none;" data-toggle="modal" data-target="#modalDelete"></a>
 @endsection
 @section('js')
-    @if (session('eliminar') == 'ok')
-        <script>
-            Swal.fire(
-                'Eliminado!',
-                'El usuario ha sido eliminado.',
-                'con exito'
-            )
-        </script>
-    @endif
 
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
@@ -704,6 +646,11 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
+                dom: 'frtip',
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false
+                }]
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
@@ -733,7 +680,7 @@
                     "visible": false
                 }]
             });
-            
+
         });
     </script>
     <script type="text/javascript">
@@ -939,6 +886,9 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
+
+                $("#start_time_turn").prop("required", true);
+                $("#end_time_turn").prop("required", true);
             }
         }
 
