@@ -14,7 +14,6 @@
             border-radius: 25px;
             background-color: #f1f1f1;
         }
-
         .chip img {
             float: left;
             margin: 0 10px 0 -25px;
@@ -22,19 +21,14 @@
             width: 50px;
             border-radius: 50%;
         }
-
         .tab-pane {
             margin: 15px;
         }
-
         .tab-content {
             padding: 0 !important;
+            /* width: 100% !important; */
         }
-
-        /* .main-content{
-                            padding-left: 15px;
-                        } */
-
+        
     </style>
     @php
     function replaceDay($string)
@@ -111,7 +105,7 @@
                                         <thead>
 
                                             <th>Nombre</th>
-                                            <th class="d-flex justify-content-center">Acciones</th>
+                                            <th >Acciones</th>
 
                                         </thead>
                                         <tbody>
@@ -119,7 +113,7 @@
                                                 <tr>
 
                                                     <td>{{ $line->name }}</td>
-                                                    <td class="d-flex justify-content-center">
+                                                    <td>
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $line->id }},null,4)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -155,7 +149,7 @@
                                         <th>Max.Hora</th>
                                         <th>Unidad</th>
                                         <th>Linea</th>
-                                        <th class="d-flex justify-content-center">Acciones</th>
+                                        <th>Acciones</th>
 
                                     </thead>
                                     <tbody>
@@ -168,7 +162,7 @@
                                                 <td>{{ $product->cycle }}</td>
                                                 <td>{{ $product->unit }}</td>
                                                 <td>{{ $product->line->name }}</td>
-                                                <td class="d-flex justify-content-center">
+                                                <td >
                                                     <a class=""
                                                         href="{{ route('products.edit', $product->id) }}"><span
                                                             class="material-icons md-48">edit</span></a>
@@ -203,7 +197,7 @@
                             <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                 id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                <div class="">
+                                <div >
                                     <br>
                                     <div class="text-right">
                                         <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
@@ -211,7 +205,7 @@
                                             turno</a>
                                     </div>
                                     <br>
-                                    <table id="tablaCalendario" class="display responsive no-wrap" cellspacing="0"
+                                    <table id="tablaCalendario" class="display responsive" cellspacing="0"
                                         width="100%">
                                         <thead>
                                             <th>Linea</th>
@@ -219,7 +213,7 @@
                                             <th>Dia</th>
                                             <th>Hora Inicio</th>
                                             <th>Hora Fin</th>
-                                            <th class="d-flex justify-content-center">Acciones</th>
+                                            <th>Acciones</th>
                                         </thead>
                                         <tbody>
                                             @foreach ($schedules as $schedule)
@@ -247,7 +241,7 @@
                                                             No hay Datos
                                                         @endif
                                                     </td>
-                                                    <td class="d-flex justify-content-center">
+                                                    <td >
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
                                                                 class="material-icons md-48">delete</span></a>
@@ -346,7 +340,7 @@
                                         <th>Nombre</th>
                                         <th>E-mail</th>
                                         <th>Rol</th>
-                                        <th class="d-flex justify-content-center">Acciones</th>
+                                        <th >Acciones</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($usuarios as $user)
@@ -363,7 +357,7 @@
                                                     @endif
                                                 </td>
 
-                                                <td class="d-flex justify-content-center">
+                                                <td >
                                                     <a href="{{ route('usuarios.edit', $user->id) }}"><span
                                                             class="material-icons md-48">edit</span></a>
                                                     @can('borrar-rol')
@@ -519,7 +513,7 @@
                                 <br><br>
                                 <div class="form-check col-xs-6">
                                     <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)">
+                                        onchange="updateTimeFields(this)" checked>
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
@@ -617,12 +611,16 @@
                 "sortDescending": ": Activar para ordenar la columna de forma descendente"
             }
         };
-
         $(document).ready(function() {
             $('#example').DataTable({
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
+                dom: 'frtip',
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false
+                }]
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
@@ -647,7 +645,6 @@
     </script>
     <script type="text/javascript">
         var form = null;
-
         function eliminarRegistro() {
             var iTipo = parseInt($("#iTipoEliminar").val());
             $(".spinner-border").show();
@@ -660,7 +657,6 @@
                 case 2:
                     var id = $("#idEliminar").val();
                     document.getElementById('formEliminarUsuario_' + id).submit();
-
                     break;
                 case 3:
                     var id = $("#idEliminar").val();
@@ -671,14 +667,11 @@
                     document.getElementById('formeliminarlinea_' + id).submit();
                     break;
             }
-
             $('#modalDelete').modal('hide')
         }
-
         function editarCalendario(id, turn) {
             $("#productionline_id_edit").val(id);
             $("#turn_edit").val(turn);
-
             var data = {
                 turn: turn,
                 id: id
@@ -698,7 +691,6 @@
                     if (response.length > 0) {
                         let oSchedule = response[0];
                         // console.log(oSchedule.start_time);
-
                         $("#cLineaEditar").html("Linea: " + oSchedule.name);
                         $("#cTurnoEditar").html("Turno: " + oSchedule.turn);
                         if (oSchedule.fulltime == 1) {
@@ -712,7 +704,6 @@
                             $("#end_time").val(oSchedule.end_time);
                             $("#end_time").change();
                         }
-
                     }
                 },
                 statusCode: {},
@@ -722,14 +713,12 @@
             var data = $("#selectSchedule").val();
             // console.log(data);
         }
-
         function confirmarEliminar(id, turn, iTipoEliminar) {
             $("#iTipoEliminar").val(iTipoEliminar);
             $("#idEliminar").val(id);
             $("#idTurnoEliminar").val(turn);
             $("#modalEliminar").click();
         }
-
         function borrarCalendario(id, turn) {
             var data = {
                 turn: turn,
@@ -748,15 +737,10 @@
                 error: function(x, xs, xt) {}
             });
         }
-
-
-
-
         function actualizarEstatus(element) {
             let id = $(element).attr("data-id");
             let status = ($(element).is(':checked')) ? 1 : 0;
             let productionline_id = $("#stoppage_productionline_id").val();
-
             var data = {
                 id: id,
                 status: status,
@@ -797,7 +781,6 @@
                 }
             });
         }
-
         function actualizarParosProduccion(select) {
             console.log($(select).val());
             var id = $(select).val();
@@ -808,7 +791,6 @@
                 success: function(response) {
                     // alert(response);
                     console.log(response);
-
                     response.forEach(function(oStop) {
                         if (oStop.iEstatus == 1) {
                             $("#btnstoppage_" + oStop.id).attr("checked", true);
@@ -837,7 +819,6 @@
                 }
             });
         }
-
         function updateTimeFields(check) {
             console.log($(check).prop("checked"));
             if ($(check).prop("checked")) {
@@ -848,9 +829,10 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
+                $("#start_time_turn").prop("required", true);
+                $("#end_time_turn").prop("required", true);
             }
         }
-
         function updateTimeFieldsEdit(check) {
             console.log($(check).prop("checked"));
             if ($(check).prop("checked")) {
@@ -860,7 +842,11 @@
                 $("#end_time").val(null).change();
             } else {
                 $("#start_time").prop("disabled", false);
+                
                 $("#end_time").prop("disabled", false);
+                
+                $("#start_time").prop("required", true);
+                $("#end_time").prop("required", true);
             }
         }
     </script>
