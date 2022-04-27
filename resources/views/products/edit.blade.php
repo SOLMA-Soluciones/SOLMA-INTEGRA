@@ -63,7 +63,8 @@
 
                         <div class="form-group">
                             <label for="unit" >Unidad</label>
-                            {{Form::select('unit', ['Toneladas' => 'Toneladas', 'Piezas' => 'Piezas'], null, array('class' => 'form-control', 'placeholder' => 'Elige la Unidad...'))}}
+                            {{Form::select('unit', ['Toneladas' => 'Toneladas', 'Piezas' => 'Piezas', 'Metros' => 'Metros', 'Kilogramos' => 'Kilogramos'], null, array('class' => 'form-control', 'placeholder' => 'Elige la Unidad...'))}}
+
                                    
 
                         </div>

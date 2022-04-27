@@ -55,11 +55,16 @@
                                     {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
                                 </div>
                             </div>
+                            
+                        </div>
+                        <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-primary float-right" style="margin-left:8px">Guardar</button>
+                                <a href="{{ route('tab5') }}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Cancelar</a>
                             </div>
                         </div>
                         {!! Form::close() !!}
+                        
                         </div>
                     </div>
                 </div>
