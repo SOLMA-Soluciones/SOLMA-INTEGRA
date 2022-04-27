@@ -49,6 +49,12 @@ class Schedule extends Model
                 $oDatos->end_time = "24:00:00";
                 $fulltime = 1;
             }
+            $daysdb = DB::select("SELECT day FROM tdschedules WHERE productionline_id = $id and turn = $turn");
+            $days_database = [];
+            foreach ($daysdb as $key => $day) {
+              array_push($days_database,$day->day);
+            }
+
             foreach ($days as $key => $day) {
                 $ids = DB::select("SELECT id FROM tdschedules WHERE productionline_id = $id and day = $day and turn = $turn");
                 if (count($ids) > 0) {
@@ -58,7 +64,14 @@ class Schedule extends Model
                 } else {
                     DB::insert('insert into tdschedules (productionline_id, day,start_time,end_time,turn,fulltime) values (?, ?,?,?,?,?)', [$id, $day, $oDatos->start_time, $oDatos->end_time, $turn,$fulltime]);
                 }
+                // var_dump(json_encode($days_database));
+                $days_database = array_diff($days_database, [$day] );
             }
+            foreach ($days_database as $key => $day) {
+                DB::select("DELETE FROM tdschedules where productionline_id = $id AND turn = $turn and day = $day");
+            }
+
+
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -69,7 +82,7 @@ class Schedule extends Model
             $fulltime=0;
             $days = $oDatos->days;
             $id = (int)$oDatos->productionline_id;
-            $turns = DB::select("SELECT max(turn) as max_turn FROM tdschedules WHERE productionline_id = $id");
+            $turns = DB::select("SELECT max(turn) as max_turn FROM tdschedules WHERE productionline_id = $id");/**Verifica el orden siguiente */
             if (count($turns) > 0) {
                 $turns = $turns[0];
                 $turn = $turns->max_turn;
@@ -82,6 +95,7 @@ class Schedule extends Model
                 $oDatos->end_time = "24:00:00";
                 $fulltime = 1;
             }
+           
             foreach ($days as $key => $day) {
                 DB::insert('insert into tdschedules (productionline_id, day,start_time,end_time,turn,fulltime) values (?, ?,?,?,?,?)', [$id, $day, $oDatos->start_time, $oDatos->end_time, $turn,$fulltime]);
             }

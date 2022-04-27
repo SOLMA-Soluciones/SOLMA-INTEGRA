@@ -35,7 +35,7 @@
         @media (max-width: 768px) {
 
             /* Los estilos aquí contenidos solo se aplicarán a partir
-                        del tamaño de pantalla indicado */
+                                    del tamaño de pantalla indicado */
             .nav-item.nav-link {
                 display: none;
             }
@@ -46,10 +46,10 @@
         }
 
         /* @media (min-width: 768px) {
-                        .nav-item.nav-link {
-                            display: flex;
-                        }
-                    } */
+                                    .nav-item.nav-link {
+                                        display: flex;
+                                    }
+                                } */
 
     </style>
     @php
@@ -76,255 +76,266 @@
             </div>
         </div>
 
-        <div class="section-body">
-            <div class="container">
+        <div class="section-body" style="">
+            <div class="container" style="padding-right: 0 !important; padding-left: 0 !important;">
                 <div class="row">
 
-                    <div class="col-xs-12 ">
-                        <nav>
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link {{ request()->is('tab1') ? 'active' : null }}"
-                                    href="{{ route('tab1') }}" role="tab">Datos Basicos</a>
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body" style="padding: 0 !important;">
 
-                                <a class="nav-item nav-link {{ request()->is('tab3') ? 'active' : null }}"
-                                    href="{{ route('tab3') }}" role="tab" aria-controls="nav-contact"
-                                    aria-selected="false">Calendario</a>
+                                <div class="col-xs-12 ">
+                                    <nav>
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link {{ request()->is('tab1') ? 'active' : null }}"
+                                                href="{{ route('tab1') }}" role="tab">Datos Basicos</a>
 
-                                <a class="nav-item nav-link {{ request()->is('tab4') ? 'active' : null }}"
-                                    href="{{ route('tab4') }}" role="tab" aria-controls="nav-about"
-                                    aria-selected="false">Motivos de Detención</a>
-                                <a class="nav-item nav-link {{ request()->is('tab2') ? 'active' : null }}"
-                                    href="{{ route('tab2') }}" role="tab">Productos y Tiempo de Ciclo</a>
-                                <a class="nav-item nav-link {{ request()->is('tab5') ? 'active' : null }}"
-                                    href="{{ route('tab5') }}" role="tab" aria-controls="nav-about"
-                                    aria-selected="false">Agregar Usuarios</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
+                                            <a class="nav-item nav-link {{ request()->is('tab3') ? 'active' : null }}"
+                                                href="{{ route('tab3') }}" role="tab" aria-controls="nav-contact"
+                                                aria-selected="false">Calendario</a>
 
-                            {{-- lineas de produccion --}}
-                            <div class="tab-pane {{ request()->is('tab1') ? 'active' : null }}"
-                                id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <div class="card-body">
-                                    {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="name">Agregue Lineas de Fabricacion</label>
-                                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-
-                                            </div>
-
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                            <a class="nav-item nav-link {{ request()->is('tab4') ? 'active' : null }}"
+                                                href="{{ route('tab4') }}" role="tab" aria-controls="nav-about"
+                                                aria-selected="false">Motivos de Detención</a>
+                                            <a class="nav-item nav-link {{ request()->is('tab2') ? 'active' : null }}"
+                                                href="{{ route('tab2') }}" role="tab">Productos y Tiempo de Ciclo</a>
+                                            <a class="nav-item nav-link {{ request()->is('tab5') ? 'active' : null }}"
+                                                href="{{ route('tab5') }}" role="tab" aria-controls="nav-about"
+                                                aria-selected="false">Agregar Usuarios</a>
                                         </div>
-                                        {{-- <div class="col-xs-6 col-sm-6 col-md-6">
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+
+                                        {{-- lineas de produccion --}}
+                                        <div class="tab-pane {{ request()->is('tab1') ? 'active' : null }}"
+                                            id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="card-body">
+                                                {!! Form::open(['route' => 'lineas.store', 'method' => 'POST']) !!}
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="name">Agregue Lineas de Fabricacion</label>
+                                                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    </div>
+                                                    {{-- <div class="col-xs-6 col-sm-6 col-md-6">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
                                         </div> --}}
 
-                                    </div>
+                                                </div>
 
-                                    {!! Form::close() !!}
+                                                {!! Form::close() !!}
 
-                                    <table id="tablaLineas" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                        <thead>
+                                                <table id="tablaLineas" class="display responsive no-wrap" cellspacing="0"
+                                                    width="100%">
+                                                    <thead>
 
-                                            <th>Nombre</th>
-                                            <th>Acciones</th>
+                                                        <th>Nombre</th>
+                                                        <th>Acciones</th>
 
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($lineas as $line)
-                                                <tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($lineas as $line)
+                                                            <tr>
 
-                                                    <td>{{ $line->name }}</td>
-                                                    <td>
-                                                        <a href="javascript:void(0)"
-                                                            onclick="confirmarEliminar({{ $line->id }},null,4)"><span
-                                                                class="material-icons md-48">delete</span></a>
+                                                                <td>{{ $line->name }}</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)"
+                                                                        onclick="confirmarEliminar({{ $line->id }},null,4)"><span
+                                                                            class="material-icons md-48">delete</span></a>
 
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['lineas.destroy', $line->id], 'style' => 'display:inline', 'id' => 'formeliminarlinea_' . $line->id]) !!}
-                                                        {!! Form::close() !!}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="text-right">
-                                        <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
-                                            aria-pressed="true">Siguiente</a>
-                                    </div>
-                                    <br><br>
-                                </div>
-
-
-                            </div>
-                            {{-- productos --}}
-                            <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
-                                id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
-                                <br><br>
-
-                                <table id="example" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                    <thead>
-
-                                        <th>ID</th>
-                                        <th class="all">Num. Parte</th>
-                                        <th class="min-tablet">Descripción</th>
-                                        <th class="min-tablet">Costo ($)</th>
-                                        <th class="min-tablet">Max.Hora</th>
-                                        <th class="all">Unidad</th>
-                                        <th class="all">Linea</th>
-                                        <th class="all">Acciones</th>
-
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($products as $product)
-                                            <tr>
-                                                <td> {{ $product->id }}</td>
-                                                <td>{{ $product->part_number }}</td>
-                                                <td>{{ $product->description }}</td>
-                                                <td>{{ $product->cost }}</td>
-                                                <td>{{ $product->cycle }}</td>
-                                                <td>{{ $product->unit }}</td>
-                                                <td>{{ $product->line->name }}</td>
-                                                <td>
-                                                    <a class=""
-                                                        href="{{ route('products.edit', $product->id) }}"><span
-                                                            class="material-icons md-48">edit</span></a>
-
-                                                    <a href="javascript:void(0)"
-                                                        onclick="confirmarEliminar({{ $product->id }},null,3)"><span
-                                                            class="material-icons md-48">delete</span></a>
-
-                                                    @can('borrar-rol')
-                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline', 'id' => 'formeliminarproducto_' . $product->id]) !!}
-                                                        {{-- {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!} --}}
-
-                                                        {!! Form::close() !!}
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <a href="{{ route('tab4') }}" class="btn btn-primary float-left " role="button"
-                                            aria-pressed="true">Anterior</a>
-                                        <a href="{{ route('tab5') }}" class="btn btn-primary float-right " role="button"
-                                            aria-pressed="true">Siguiente</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            {{-- calendario --}}
-                            <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
-                                id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
-
-                                <div class="card-body">
-                                    <br>
-                                    <div class="text-right">
-                                        <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
-                                            data-toggle="modal" data-target="#addTurn">Agregar
-                                            turno</a>
-                                    </div>
-                                    <br>
-                                    <table id="tablaCalendario" class="display responsive" cellspacing="0" width="100%">
-                                        <thead>
-                                            <th class="all">Linea</th>
-                                            <th class="all">Turno</th>
-                                            <th class="min-tablet">Dia</th>
-                                            <th class="min-tablet">Hora Inicio</th>
-                                            <th class="min-tablet">Hora Fin</th>
-                                            <th class="all">Acciones</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($schedules as $schedule)
-                                                <tr>
-                                                    <td>{{ $schedule->line }}</td>
-                                                    <td>{{ $schedule->turn }}</td>
-                                                    <td>
-                                                        @if ($schedule->day != null)
-                                                            {{ replaceDay($schedule->day) }}
-                                                        @else
-                                                            Sin datos
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($schedule->start_time != null)
-                                                            {{ $schedule->start_time }}
-                                                        @else
-                                                            No hay Datos
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if ($schedule->end_time != null)
-                                                            {{ $schedule->end_time }}
-                                                        @else
-                                                            No hay Datos
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:void(0)"
-                                                            onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
-                                                                class="material-icons md-48">delete</span></a>
-
-                                                        <a href="javascript:void(0)"
-                                                            onclick="editarCalendario({{ $schedule->productionline_id }},{{ $schedule->turn }})"><span
-                                                                class="material-icons md-48">edit</span></a>
+                                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['lineas.destroy', $line->id], 'style' => 'display:inline', 'id' => 'formeliminarlinea_' . $line->id]) !!}
+                                                                    {!! Form::close() !!}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="text-right">
+                                                    <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
+                                                        aria-pressed="true">Siguiente</a>
+                                                </div>
+                                                <br><br>
+                                            </div>
 
 
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-12">
-                                            <a href="{{ route('tab1') }}" class="btn btn-primary float-left "
-                                                role="button" aria-pressed="true">Anterior</a>
-                                            <a href="{{ route('tab4') }}" class="btn btn-primary float-right "
-                                                role="button" aria-pressed="true">Siguiente</a>
                                         </div>
-                                    </div>
-                                </div>
+                                        {{-- productos --}}
+                                        <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
+                                            id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
+                                            <br><br>
 
-                            </div>
-                            {{-- paros de produccion --}}
-                            <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
-                                id="{{ route('tab4') }}" role="tabpanel" aria-labelledby="nav-about-tab">
-                                <div class="col-md-9" class="text-center">
-                                    <div class="col-md-6 col-sm-12" style="max-width: 300px">
-                                        <label for="stoppage_productionline_id">Linea de producción</label>
-                                        <select id="stoppage_productionline_id" name="stoppage_productionline_id"
-                                            class="selectpicker col-xs-12 col-sm-12 col-md-12"
-                                            onchange="actualizarParosProduccion(this)" required>
-                                            <option value="" selected disabled>Seleccione una opción</option>
-                                            @foreach ($lineas as $line)
-                                                <option value="{{ $line->id }}">{{ $line->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <br>
+                                            <table id="example" class="display responsive no-wrap" cellspacing="0"
+                                                width="100%">
+                                                <thead>
 
-                                    <table id="tableStoppage" class="display responsive" cellspacing="0" width="100%"
-                                        style="display: none">
-                                        <thead>
-                                            <th class="all">id</th>
-                                            <th class="all">Nombre</th>
-                                            <th class="all">Estatus</th>
-                                            <th class="all">Acciones</th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($motivos as $stop)
-                                                <tr>
-                                                    <td>{{ $stop->id }}</td>
-                                                    <td>{{ $stop->name }}</td>
-                                                    <td id="resp{{ $stop->id }}">
-                                                        <button id="btnstoppagetext_{{ $stop->id }}" type="button"
-                                                            class="stoppage{{ $stop->id }} btn btn-sm btn-danger">Inactiva</button>
-                                                        {{-- @if ($stop->status == 1)
+                                                    <th>ID</th>
+                                                    <th class="all">Num. Parte</th>
+                                                    <th class="min-tablet">Descripción</th>
+                                                    <th class="min-tablet">Costo ($)</th>
+                                                    <th class="min-tablet">Max.Hora</th>
+                                                    <th class="all">Unidad</th>
+                                                    <th class="all">Linea</th>
+                                                    <th class="all">Acciones</th>
+
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($products as $product)
+                                                        <tr>
+                                                            <td> {{ $product->id }}</td>
+                                                            <td>{{ $product->part_number }}</td>
+                                                            <td>{{ $product->description }}</td>
+                                                            <td>{{ $product->cost }}</td>
+                                                            <td>{{ $product->cycle }}</td>
+                                                            <td>{{ $product->unit }}</td>
+                                                            <td>{{ $product->line->name }}</td>
+                                                            <td>
+                                                                <a class=""
+                                                                    href="{{ route('products.edit', $product->id) }}"><span
+                                                                        class="material-icons md-48">edit</span></a>
+
+                                                                <a href="javascript:void(0)"
+                                                                    onclick="confirmarEliminar({{ $product->id }},null,3)"><span
+                                                                        class="material-icons md-48">delete</span></a>
+
+                                                                @can('borrar-rol')
+                                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline', 'id' => 'formeliminarproducto_' . $product->id]) !!}
+                                                                    {{-- {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!} --}}
+
+                                                                    {!! Form::close() !!}
+                                                                @endcan
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12">
+                                                    <a href="{{ route('tab4') }}" class="btn btn-primary float-left "
+                                                        role="button" aria-pressed="true">Anterior</a>
+                                                    <a href="{{ route('tab5') }}" class="btn btn-primary float-right "
+                                                        role="button" aria-pressed="true">Siguiente</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {{-- calendario --}}
+                                        <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
+                                            id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                                            <div class="card-body">
+                                                <br>
+                                                <div class="text-right">
+                                                    <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
+                                                        data-toggle="modal" data-target="#addTurn">Agregar
+                                                        turno</a>
+                                                </div>
+                                                <br>
+                                                <table id="tablaCalendario" class="display responsive" cellspacing="0"
+                                                    width="100%">
+                                                    <thead>
+                                                        <th class="all">Linea</th>
+                                                        <th class="all">Turno</th>
+                                                        <th class="min-tablet">Dia</th>
+                                                        <th class="min-tablet">Hora Inicio</th>
+                                                        <th class="min-tablet">Hora Fin</th>
+                                                        <th class="all">Acciones</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($schedules as $schedule)
+                                                            <tr>
+                                                                <td>{{ $schedule->line }}</td>
+                                                                <td>{{ $schedule->turn }}</td>
+                                                                <td>
+                                                                    @if ($schedule->day != null)
+                                                                        {{ replaceDay($schedule->day) }}
+                                                                    @else
+                                                                        Sin datos
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($schedule->start_time != null)
+                                                                        {{ $schedule->start_time }}
+                                                                    @else
+                                                                        No hay Datos
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($schedule->end_time != null)
+                                                                        {{ $schedule->end_time }}
+                                                                    @else
+                                                                        No hay Datos
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)"
+                                                                        onclick="confirmarEliminar({{ $schedule->productionline_id }},{{ $schedule->turn }},1)"><span
+                                                                            class="material-icons md-48">delete</span></a>
+
+                                                                    <a href="javascript:void(0)"
+                                                                        onclick="editarCalendario({{ $schedule->productionline_id }},{{ $schedule->turn }})"><span
+                                                                            class="material-icons md-48">edit</span></a>
+
+
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <a href="{{ route('tab1') }}" class="btn btn-primary float-left "
+                                                            role="button" aria-pressed="true">Anterior</a>
+                                                        <a href="{{ route('tab4') }}"
+                                                            class="btn btn-primary float-right " role="button"
+                                                            aria-pressed="true">Siguiente</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {{-- paros de produccion --}}
+                                        <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
+                                            id="{{ route('tab4') }}" role="tabpanel" aria-labelledby="nav-about-tab">
+                                            <div class="col-md-9" class="text-center">
+                                                <div class="col-md-6 col-sm-12" style="max-width: 300px">
+                                                    <label for="stoppage_productionline_id">Linea de producción</label>
+                                                    <select id="stoppage_productionline_id"
+                                                        name="stoppage_productionline_id"
+                                                        class="selectpicker col-xs-12 col-sm-12 col-md-12"
+                                                        onchange="actualizarParosProduccion(this)" required>
+                                                        {{-- <option value="" selected disabled>Seleccione una opción</option> --}}
+                                                        @foreach ($lineas as $line)
+                                                            <option value="{{ $line->id }}">{{ $line->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <br>
+
+                                                <table id="tableStoppage" class="display responsive" cellspacing="0"
+                                                    width="100%" style="display: none">
+                                                    <thead>
+                                                        <th class="all">id</th>
+                                                        <th class="all">Nombre</th>
+                                                        <th class="all">Estatus</th>
+                                                        <th class="all">Acciones</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($motivos as $stop)
+                                                            <tr>
+                                                                <td>{{ $stop->id }}</td>
+                                                                <td>{{ $stop->name }}</td>
+                                                                <td id="resp{{ $stop->id }}">
+                                                                    <button id="btnstoppagetext_{{ $stop->id }}"
+                                                                        type="button"
+                                                                        class="stoppage{{ $stop->id }} btn btn-sm btn-danger">Inactiva</button>
+                                                                    {{-- @if ($stop->status == 1)
                                                             <button type="button"
                                                                 class="stoppage{{ $stop->id }} btn btn-sm btn-success">Activa</button>
                                                         @else
@@ -332,102 +343,109 @@
                                                                 class="stoppage{{ $stop->id }} btn btn-sm btn-danger">Inactiva</button>
                                                         @endif --}}
 
-                                                    </td>
-                                                    <td>
-                                                        <label class="switch">
+                                                                </td>
+                                                                <td>
+                                                                    <label class="switch">
 
-                                                            <input id="btnstoppage_{{ $stop->id }}"
-                                                                onchange="actualizarEstatus(this)"
-                                                                data-id="{{ $stop->id }}" class="mi_checkbox"
-                                                                type="checkbox" data-onstyle="success"
-                                                                data-offstyle="danger" data-toggle="toggle" data-on="Active"
-                                                                data-off="InActive" {{ $stop->status ? 'checked' : '' }}>
-                                                            <span class="slider round"></span>
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-12">
-                                            <a href="{{ route('tab3') }}" class="btn btn-primary float-left "
-                                                role="button" aria-pressed="true">Anterior</a>
-                                            <a href="{{ route('tab2') }}" class="btn btn-primary float-right "
-                                                role="button" aria-pressed="true">Siguiente</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            {{-- usuarios --}}
-                            <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
-                                id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
-
-                                <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
-
-                                <table id="tablaUsuarios" class="display responsive no-wrap" cellspacing="0" width="100%">
-                                    <thead>
-                                        <th>ID</th>
-                                        <th class="all">Nombre</th>
-                                        <th class="min-tablet">E-mail</th>
-                                        <th class="all">Rol</th>
-                                        <th class="all">Acciones</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($usuarios as $user)
-                                            <tr>
-                                                <td>{{ $user->id }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>
-                                                    @if (!empty($user->getRoleNames()))
-                                                        @foreach ($user->getRoleNames() as $rolNombre)
-                                                            <h5><span class="badge badge-dark">{{ $rolNombre }}</span>
-                                                            </h5>
+                                                                        <input id="btnstoppage_{{ $stop->id }}"
+                                                                            onchange="actualizarEstatus(this)"
+                                                                            data-id="{{ $stop->id }}"
+                                                                            class="mi_checkbox" type="checkbox"
+                                                                            data-onstyle="success" data-offstyle="danger"
+                                                                            data-toggle="toggle" data-on="Active"
+                                                                            data-off="InActive"
+                                                                            {{ $stop->status ? 'checked' : '' }}>
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
                                                         @endforeach
-                                                    @endif
-                                                </td>
+                                                    </tbody>
+                                                </table>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <a href="{{ route('tab3') }}" class="btn btn-primary float-left "
+                                                            role="button" aria-pressed="true">Anterior</a>
+                                                        <a href="{{ route('tab2') }}"
+                                                            class="btn btn-primary float-right " role="button"
+                                                            aria-pressed="true">Siguiente</a>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <td>
-                                                    <a href="{{ route('usuarios.edit', $user->id) }}"><span
-                                                            class="material-icons md-48">edit</span></a>
-                                                    @can('borrar-rol')
-                                                        <form id="formEliminarUsuario_{{ $user->id }}"
-                                                            action="{{ route('usuarios.destroy', $user->id) }}"
-                                                            class="d-inline" method="POST">
+                                        </div>
+                                        {{-- usuarios --}}
+                                        <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
+                                            id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
 
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <a href="javascrip:void(0);" class="btn-eliminar"
-                                                                onclick="confirmarEliminar({{ $user->id }},0,2)"><span
-                                                                    class="material-icons md-48">delete</span></a>
-                                                        </form>
-                                                    @endcan
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- Centramos la paginacion a la derecha -->
-                                {{-- <div class="pagination justify-content-end">
-                                    {!! $usuarios->links() !!}
-                                </div> --}}
-                                
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <a href="{{ route('tab2') }}" class="btn btn-primary float-left "
-                                            role="button" aria-pressed="true">Anterior</a>
-                                        <a href="{{ 'orders' }}" class="btn btn-primary float-right "
-                                            role="button" aria-pressed="true">Finalizar</a>
+                                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+
+                                            <table id="tablaUsuarios" class="display responsive no-wrap" cellspacing="0"
+                                                width="100%">
+                                                <thead>
+                                                    <th>ID</th>
+                                                    <th class="all">Nombre</th>
+                                                    <th class="min-tablet">E-mail</th>
+                                                    <th class="all">Rol</th>
+                                                    <th class="all">Acciones</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($usuarios as $user)
+                                                        <tr>
+                                                            <td>{{ $user->id }}</td>
+                                                            <td>{{ $user->name }}</td>
+                                                            <td>{{ $user->email }}</td>
+                                                            <td>
+                                                                @if (!empty($user->getRoleNames()))
+                                                                    @foreach ($user->getRoleNames() as $rolNombre)
+                                                                        <h5><span
+                                                                                class="badge badge-dark">{{ $rolNombre }}</span>
+                                                                        </h5>
+                                                                    @endforeach
+                                                                @endif
+                                                            </td>
+
+                                                            <td>
+                                                                <a href="{{ route('usuarios.edit', $user->id) }}"><span
+                                                                        class="material-icons md-48">edit</span></a>
+                                                                @can('borrar-rol')
+                                                                    <form id="formEliminarUsuario_{{ $user->id }}"
+                                                                        action="{{ route('usuarios.destroy', $user->id) }}"
+                                                                        class="d-inline" method="POST">
+
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <a href="javascrip:void(0);" class="btn-eliminar"
+                                                                            onclick="confirmarEliminar({{ $user->id }},0,2)"><span
+                                                                                class="material-icons md-48">delete</span></a>
+                                                                    </form>
+                                                                @endcan
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-12">
+                                                    <a href="{{ route('tab2') }}" class="btn btn-primary float-left "
+                                                        role="button" aria-pressed="true">Anterior</a>
+                                                    <a href="{{ 'orders' }}" class="btn btn-primary float-right "
+                                                        role="button" aria-pressed="true">Finalizar</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
                                     </div>
                                 </div>
-                              
+
                             </div>
-
-
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -557,13 +575,13 @@
                                 <br>
                                 <div class="col-xs-6">
                                     <label for="start_time_turn">Hora Inicio</label>
-                                    {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn']) !!}
+                                    {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn', 'disabled' => 'disabled']) !!}
                                 </div>
 
 
                                 <div class="col-xs-6">
                                     <label for="end_time_turn">Hora Fin</label>
-                                    {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn']) !!}
+                                    {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn', 'disabled' => 'disabled']) !!}
                                 </div>
                             </div>
                         </div>
@@ -580,7 +598,6 @@
     </div>
 
     {{-- Modal eliminar --}}
-
     <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -611,7 +628,6 @@
     <a href="#" id="modalEliminar" role="button" style="display: none;" data-toggle="modal" data-target="#modalDelete"></a>
 @endsection
 @section('js')
-
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
@@ -680,6 +696,14 @@
                     "visible": false
                 }]
             });
+            // var myDDL = $('stoppage_productionline_id'); 
+            // myDDL[0].selectedIndex = 0;
+            // $('stoppage_productionline_id').change();
+
+            $("#stoppage_productionline_id").change();
+
+
+
 
         });
     </script>
@@ -787,9 +811,6 @@
             });
         }
 
-
-
-
         function actualizarEstatus(element) {
             let id = $(element).attr("data-id");
             let status = ($(element).is(':checked')) ? 1 : 0;
@@ -886,7 +907,6 @@
             } else {
                 $("#start_time_turn").prop("disabled", false);
                 $("#end_time_turn").prop("disabled", false);
-
                 $("#start_time_turn").prop("required", true);
                 $("#end_time_turn").prop("required", true);
             }

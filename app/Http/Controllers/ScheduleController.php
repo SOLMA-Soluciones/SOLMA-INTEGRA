@@ -89,6 +89,7 @@ class ScheduleController extends Controller
         ];
         // var_dump($oDatos);
         $result = Schedule::guardarDatos($oDatos);
+        // var_dump($result);
         return redirect()->route('tab3');
     }
 
