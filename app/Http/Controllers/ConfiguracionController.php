@@ -30,8 +30,8 @@ class ConfiguracionController extends Controller
     {
         $lineas = Line::all();
         $motivos = Productionstop::all();
-        $products = Product::paginate(5);;
-        $usuarios = User::paginate(5);
+        $products = Product::all();;
+        $usuarios = User::all();
         $schedules = Schedule::getSchedules();
         return view('configuraciones.index',compact('lineas','usuarios','products','motivos','schedules'));
     }

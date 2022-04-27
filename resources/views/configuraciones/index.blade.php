@@ -120,6 +120,7 @@
                                                         </div>
 
                                                         <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        <br/>
                                                     </div>
                                                     {{-- <div class="col-xs-6 col-sm-6 col-md-6">
                                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -166,53 +167,50 @@
                                         {{-- productos --}}
                                         <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
                                             id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                            <a class="btn btn-warning" href="{{ route('products.create') }}">Nuevo</a>
-                                            <br><br>
+                                                <a class="btn btn-warning float-left" href="{{ route('products.create') }}">Nuevo</a>
+                                               
 
-                                            <table id="example" class="display responsive no-wrap" cellspacing="0"
-                                                width="100%">
-                                                <thead>
+                                                <table id="example" class="display responsive" cellspacing="0"
+                                                    width="100%">
+                                                    <thead>
 
-                                                    <th>ID</th>
-                                                    <th class="all">Num. Parte</th>
-                                                    <th class="min-tablet">Descripción</th>
-                                                    <th class="min-tablet">Costo ($)</th>
-                                                    <th class="min-tablet">Max.Hora</th>
-                                                    <th class="all">Unidad</th>
-                                                    <th class="all">Linea</th>
-                                                    <th class="all">Acciones</th>
+                                                        <th class="all">Num. Parte</th>
+                                                        <th class="min-tablet">Descripción</th>
+                                                        <th class="min-tablet">Costo ($)</th>
+                                                        <th class="min-tablet">Max.Hora</th>
+                                                        <th class="all">Unidad</th>
+                                                        <th class="all">Linea</th>
+                                                        <th class="all">Acciones</th>
 
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($products as $product)
-                                                        <tr>
-                                                            <td> {{ $product->id }}</td>
-                                                            <td>{{ $product->part_number }}</td>
-                                                            <td>{{ $product->description }}</td>
-                                                            <td>{{ $product->cost }}</td>
-                                                            <td>{{ $product->cycle }}</td>
-                                                            <td>{{ $product->unit }}</td>
-                                                            <td>{{ $product->line->name }}</td>
-                                                            <td>
-                                                                <a class=""
-                                                                    href="{{ route('products.edit', $product->id) }}"><span
-                                                                        class="material-icons md-48">edit</span></a>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($products as $product)
+                                                            <tr>
+                                                                <td>{{ $product->part_number}}</td>
+                                                                <td>{{ $product->description }}</td>
+                                                                <td>{{ $product->cost }}</td>
+                                                                <td>{{ $product->cycle }}</td>
+                                                                <td>{{ $product->unit }}</td>
+                                                                <td>{{ $product->line->name }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('products.edit', $product->id) }}"><span
+                                                                            class="material-icons md-48">edit</span></a>
 
-                                                                <a href="javascript:void(0)"
-                                                                    onclick="confirmarEliminar({{ $product->id }},null,3)"><span
-                                                                        class="material-icons md-48">delete</span></a>
+                                                                    <a href="javascript:void(0)"
+                                                                        onclick="confirmarEliminar({{ $product->id }},null,3)"><span
+                                                                            class="material-icons md-48">delete</span></a>
 
-                                                                @can('borrar-rol')
-                                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline', 'id' => 'formeliminarproducto_' . $product->id]) !!}
-                                                                    {{-- {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!} --}}
+                                                                    @can('borrar-rol')
+                                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline', 'id' => 'formeliminarproducto_' . $product->id]) !!}
+                                                                        {{-- {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!} --}}
 
-                                                                    {!! Form::close() !!}
-                                                                @endcan
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                                        {!! Form::close() !!}
+                                                                    @endcan
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
 
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-12">
@@ -228,14 +226,13 @@
                                         <div class="tab-pane {{ request()->is('tab3') ? 'active' : null }}"
                                             id="{{ route('tab3') }}" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                                            <div class="card-body">
-                                                <br>
+                                                
                                                 <div class="text-right">
-                                                    <a href="#" class="btn btn-primary" role="button" aria-pressed="true"
+                                                    <a href="#" class="btn btn-primary float-left" role="button" aria-pressed="true"
                                                         data-toggle="modal" data-target="#addTurn">Agregar
                                                         turno</a>
                                                 </div>
-                                                <br>
+                                                
                                                 <table id="tablaCalendario" class="display responsive" cellspacing="0"
                                                     width="100%">
                                                     <thead>
@@ -296,15 +293,16 @@
                                                             aria-pressed="true">Siguiente</a>
                                                     </div>
                                                 </div>
-                                            </div>
 
                                         </div>
                                         {{-- paros de produccion --}}
                                         <div class="tab-pane {{ request()->is('tab4') ? 'active' : null }}"
                                             id="{{ route('tab4') }}" role="tabpanel" aria-labelledby="nav-about-tab">
-                                            <div class="col-md-9" class="text-center">
-                                                <div class="col-md-6 col-sm-12" style="max-width: 300px">
-                                                    <label for="stoppage_productionline_id">Linea de producción</label>
+                                            <div class="row d-flex justify-content-center">
+                                            <div class="col-sm-6 col-md-6">
+                                            <div class="row d-flex justify-content-center text-center">
+                                                <div class="col-sm-8 col-md-8">
+                                                    <label for="stoppage_productionline_id">  Linea de producción</label>
                                                     <select id="stoppage_productionline_id"
                                                         name="stoppage_productionline_id"
                                                         class="selectpicker col-xs-12 col-sm-12 col-md-12"
@@ -315,6 +313,7 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                </div>
                                                 </div>
                                                 <br>
 
@@ -362,7 +361,11 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
-                                                <div class="row">
+                                                
+                                            </div>
+                                            
+                                            </div>
+                                            <div class="row">
                                                     <div class="col-sm-12 col-md-12">
                                                         <a href="{{ route('tab3') }}" class="btn btn-primary float-left "
                                                             role="button" aria-pressed="true">Anterior</a>
@@ -371,14 +374,14 @@
                                                             aria-pressed="true">Siguiente</a>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            
 
                                         </div>
                                         {{-- usuarios --}}
                                         <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
                                             id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
 
-                                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+                                            <a class="btn btn-warning float-left" href="{{ route('usuarios.create') }}">Nuevo</a>
 
                                             <table id="tablaUsuarios" class="display responsive no-wrap" cellspacing="0"
                                                 width="100%">
@@ -648,8 +651,8 @@
             "paginate": {
                 "first": "Primero",
                 "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
+                "next": ">",
+                "previous": "<"
             },
             "aria": {
                 "sortAscending": ": Activar para ordenar la columna de forma ascendente",
@@ -661,7 +664,6 @@
             $('#example').DataTable({
                 responsive: true,
                 language: aLanguageDataTable,
-                dom: 'frtip',
                 dom: 'frtip',
                 "columnDefs": [{
                     "targets": [0],
