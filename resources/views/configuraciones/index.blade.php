@@ -116,19 +116,13 @@
                                                         <div class="form-group">
                                                             <label for="name">Agregue Lineas de Fabricacion</label>
                                                             {!! Form::text('name', null, ['class' => 'form-control']) !!}
-
+                                                            <br/>
+                                                            <button type="submit" class="btn btn-primary">Guardar</button>
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                                        <br/>
                                                     </div>
-                                                    {{-- <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </div> --}}
-
-                                                </div>
-
                                                 {!! Form::close() !!}
+                                                </div>
 
                                                 <table id="tablaLineas" class="display responsive no-wrap" cellspacing="0"
                                                     width="100%">
@@ -168,7 +162,8 @@
                                         <div class="tab-pane {{ request()->is('tab2') ? 'active' : null }}"
                                             id="{{ route('tab2') }}" role="tabpanel" aria-labelledby="nav-profile-tab">
                                                 <a class="btn btn-warning float-left" href="{{ route('products.create') }}">Nuevo</a>
-                                               
+                                                </br>
+                                                    </br>
 
                                                 <table id="example" class="display responsive" cellspacing="0"
                                                     width="100%">
@@ -231,6 +226,8 @@
                                                     <a href="#" class="btn btn-primary float-left" role="button" aria-pressed="true"
                                                         data-toggle="modal" data-target="#addTurn">Agregar
                                                         turno</a>
+                                                    </br>
+                                                    </br>
                                                 </div>
                                                 
                                                 <table id="tablaCalendario" class="display responsive" cellspacing="0"
@@ -382,6 +379,8 @@
                                             id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
 
                                             <a class="btn btn-warning float-left" href="{{ route('usuarios.create') }}">Nuevo</a>
+                                            </br>
+                                                    </br>
 
                                             <table id="tablaUsuarios" class="display responsive no-wrap" cellspacing="0"
                                                 width="100%">
