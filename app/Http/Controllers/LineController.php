@@ -79,6 +79,10 @@ class LineController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $products = Line::find($request->id);
+        $products->name = $request->get("name");
+        $products->save();
+        return redirect()->route('tab1');
     }
 
     /**
