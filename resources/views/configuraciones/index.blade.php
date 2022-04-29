@@ -28,6 +28,7 @@
         }
 
         .tab-content {
+
             padding: 0 !important;
             /* width: 100% !important; */
         }
@@ -76,15 +77,15 @@
             </div>
         </div>
 
-        <div class="section-body" style="">
-            <div class="container" style="padding-right: 0 !important; padding-left: 0 !important;">
+        <div class="section-body">
+            <div class="container" style="padding-right: 0px !important; padding-left: 0px !important;"  >
                 <div class="row">
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12" style="padding: 0px;">
                         <div class="card">
-                            <div class="card-body" style="padding: 0 !important;">
+                            <div class="card-body" style="padding: 0px !important;">
 
-                                <div class="col-xs-12 ">
+                                <div class="col-xs-12">
                                     <nav>
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                             <a class="nav-item nav-link {{ request()->is('tab1') ? 'active' : null }}"
@@ -109,9 +110,9 @@
                                         {{-- lineas de produccion --}}
                                         <div class="tab-pane {{ request()->is('tab1') ? 'active' : null }}"
                                             id="{{ route('tab1') }}" role="tabpanel" aria-labelledby="nav-home-tab">
-                                            <div class="card-body">
+                                           
                                                 <a class="btn btn-warning float-left" href="#" data-toggle="modal"
-                                                    data-target="#modalAddLine">Nuevo</a><br>
+                                                    data-target="#modalAddLine">Nuevo</a><br><br>
 
 
 
@@ -143,12 +144,13 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                                <br>
                                                 <div class="text-right">
                                                     <a href="{{ route('tab3') }}" class="btn btn-primary" role="button"
                                                         aria-pressed="true">Siguiente</a>
                                                 </div>
-                                                <br><br>
-                                            </div>
+                                               
+                                          
 
 
                                         </div>
@@ -162,6 +164,7 @@
 
                                             <table id="example" class="display responsive" cellspacing="0" width="100%">
                                                 <thead>
+                                                <tr>
 
                                                     <th class="all">Num. Parte</th>
                                                     <th class="min-tablet">Descripción</th>
@@ -170,6 +173,7 @@
                                                     <th class="all">Unidad</th>
                                                     <th class="all">Linea</th>
                                                     <th class="all">Acciones</th>
+                                                    </tr>
 
                                                 </thead>
                                                 <tbody>
@@ -736,10 +740,7 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
-                "columnDefs": [{
-                    "targets": [0],
-                    "visible": false
-                }]
+              
             });
             $('#tablaCalendario').DataTable({
                 responsive: true,
