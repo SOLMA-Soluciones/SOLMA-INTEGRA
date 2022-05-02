@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="part_number">Numero</label>
+                                    <label for="part_number">Numero de Parte</label>
                                     {!! Form::text('part_number', null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
@@ -65,8 +65,6 @@
 
                                 </div>
                             </div>
-                            
-                            
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">

@@ -49,7 +49,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- {!! Form::open(['route' => 'schedules.update', 'method' => 'POST']) !!} --}}
+                {{-- {!! Form::open(['route' => 'schedules.store', 'method' => 'POST']) !!} --}}
                 <div class="modal-body">
 
                     <div class="row">
