@@ -375,9 +375,19 @@
                                         {{-- usuarios --}}
                                         <div class="tab-pane {{ request()->is('tab5') ? 'active' : null }}"
                                             id="{{ route('tab5') }}" role="tabpanel" aria-labelledby="nav-about-tab">
-
+                                           @can('operador-user')
                                             <a class="btn btn-warning float-left"
-                                                href="{{ route('usuarios.create') }}">Nuevo</a>
+                                                href="{{ route('settings.create') }}">Agregar Operador</a>
+                                                @endcan
+
+
+                                                
+                                               @can('borrar-user')
+                                                <a class="btn btn-warning float-left"
+                                                href="{{ route('usuarios.create') }}">Agregar Supervisor</a>
+                                               @endcan
+
+                                                
                                             </br>
                                             </br>
 
@@ -409,7 +419,7 @@
                                                             <td>
                                                                 <a href="{{ route('usuarios.edit', $user->id) }}"><span
                                                                         class="material-icons md-48">edit</span></a>
-                                                                @can('borrar-rol')
+                                                                @can('borrar-user')
                                                                     <form id="formEliminarUsuario_{{ $user->id }}"
                                                                         action="{{ route('usuarios.destroy', $user->id) }}"
                                                                         class="d-inline" method="POST">

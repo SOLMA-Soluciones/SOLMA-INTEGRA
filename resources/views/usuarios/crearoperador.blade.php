@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Alta de Supervisor</h3>
+            <h3 class="page__heading">Alta Operador</h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
+                                <div class="form-group">
 						            <label for="roles">Roles</label>
                                     <select id="roles" name="roles" class="form-control">
                                         <option value="roles" disabled selected>Seleccione una opción</option>

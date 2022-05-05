@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         //usuario Super Admin
         
         Gate::before(function ($user, $ability) {
-            return $user->email == 'contacto@solmasoluciones.com' ?? null;
+            return $user->email == 'superadmin@solmasoluciones.com' ?? null;
         });
     }
 }

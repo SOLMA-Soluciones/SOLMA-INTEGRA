@@ -33,10 +33,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        // $roles=Role::select('name')
-        //            ->where('id','3')
-        //            ->get();
-        $roles = Role::pluck('name','name')->all();
+        $roles=Role::select('name')
+                   ->where('id','2')
+                   ->get();
         return view('usuarios.crear',compact('roles'));
     }
 
@@ -52,7 +51,7 @@ class UsuarioController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+           
         ]);
     
         $input = $request->all();
