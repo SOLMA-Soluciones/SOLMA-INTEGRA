@@ -20,7 +20,7 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {      
+    {
         //Sin paginación
         /* $usuarios = User::all();
         return view('usuarios.index',compact('usuarios')); */
@@ -33,10 +33,10 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $roles=Role::select('name')
-                   ->where('id','2')
-                   ->get();
-        return view('usuarios.crear',compact('roles'));
+        $roles = Role::select('name')
+            ->where('id', '2')
+            ->get()->pluck("name", "name");;
+        return view('usuarios.crear', compact('roles'));
     }
 
     /**
@@ -51,15 +51,15 @@ class UsuarioController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-           
+            'roles' => 'required'
         ]);
-    
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-    
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('tab5');
     }
 
@@ -83,12 +83,12 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('usuarios.editar',compact('user','roles','userRole'));
+        return view('usuarios.editar', compact('user', 'roles', 'userRole'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -101,24 +101,24 @@ class UsuarioController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-    
+
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));    
+        } else {
+            $input = Arr::except($input, array('password'));
         }
-    
+
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('tab5');
     }
 
@@ -133,5 +133,4 @@ class UsuarioController extends Controller
         User::find($id)->delete();
         return redirect()->route('tab5')->with('eliminar', 'ok');
     }
-
 }

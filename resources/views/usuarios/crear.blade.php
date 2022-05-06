@@ -50,15 +50,22 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
 						            <label for="roles">Roles</label>
                                     <select id="roles" name="roles" class="form-control">
-                                        <option value="roles" disabled selected>Seleccione una opción</option>
+                                        <option value="" disabled selected>Seleccione una opción</option>
                                         @foreach($roles as $role)
                                         <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endforeach
                                     </select>
 					            </div>
+                            </div> --}}
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="">Roles</label>
+                                    {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
+                                </div>
                             </div>
                             
                         </div>
