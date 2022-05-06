@@ -67,6 +67,8 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+        $order= Order::find($id);
+        return response()->json($order);
     }
 
     /**
@@ -90,6 +92,13 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $order = Order::find($request->id);
+        $order->productionline_id = $request->get("productionline_id");
+        $order->schedule_id = $request->get("schedule_id");
+        $order->product_id = $request->get("product_id");
+        $order->total = $request->get("total");
+        $order->save();
+        return redirect()->route('orders.index');
     }
 
     /**

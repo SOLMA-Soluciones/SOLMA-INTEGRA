@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Alta de Productos y Tiempo de Ciclo</h3>
+            <h3 class="page__heading">Alta Operador</h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -23,56 +23,53 @@
                             </div>
                         @endif
 
-                        {!! Form::open(array('route' => 'products.store','method'=>'POST')) !!}
+                        {!! Form::open(array('route' => 'usuarios.store','method'=>'POST')) !!}
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="part_number">Numero de Parte</label>
-                                    {!! Form::text('part_number', null, array('class' => 'form-control')) !!}
+                                    <label for="name">Nombre</label>
+                                    {!! Form::text('name', null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="description">Descripcion</label>
-                                    {!! Form::text('description', null, array('class' => 'form-control')) !!}
+                                    <label for="email">E-mail</label>
+                                    {!! Form::text('email', null, array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="cost">Costo</label>
-                                    {!! Form::number('cost', null, ['class' => 'form-control','step' => '0.02']) !!}
-
+                                    <label for="password">Contraseña</label>
+                                    {!! Form::password('password', array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="cycle">Max. Hora</label>
-                                    {!! Form::number('cycle', null, array('class' => 'form-control')) !!}
+                                    <label for="confirm-password">Confirmar Contraseña</label>
+                                    {!! Form::password('confirm-password', array('class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                <label for="unit">Unidad</label>
-                                    {{Form::select('unit', ['Toneladas' => 'Toneladas', 'Piezas' => 'Piezas', 'Metros' => 'Metros', 'Kilogramos' => 'Kilogramos'], null, array('class' => 'form-control', 'placeholder' => 'Elige la Unidad...'))}}
-                                   
-                                </div>
+						            <label for="roles">Roles</label>
+                                    <select id="roles" name="roles" class="form-control">
+                                        <option value="roles" disabled selected>Seleccione una opción</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+					            </div>
                             </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <label for="productionline_id">Linea</label>
-                                    {{ Form::select('productionline_id', $lineas , $product->productionline_id, ['class'=>'form-control' . ($errors->has('productionline_id') ? 'is-invalid' : ''), 'placeholder' => 'Seleccione la linea de produccion...']) }}
-
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <button type="submit" class="btn btn-primary float-right" style="margin-left:8px">Guardar</button>
-                                <a href="{{ route('tab2') }}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Cancelar</a>
+                                <a href="{{ route('tab5') }}" class="btn btn-secondary float-right" role="button" aria-pressed="true">Cancelar</a>
                             </div>
                         </div>
-                        {!! Form::close() !!} 
+                        {!! Form::close() !!}
+                        
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,11 @@ class ConfiguracionController extends Controller
      */
     public function create()
     {
+        $roles=Role::select('name')
+                   ->where('id','3')
+                   ->get();
+        //$roles = Role::pluck('name','name')->all();
+        return view('usuarios.crearoperador',compact('roles'));
         
     }
     /**

@@ -152,6 +152,92 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal editar ordenar --}}
+    <div class="modal fade" id="modalEditarOrden" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Orden</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    {!! Form::open(['route' => ['orders.update', 1], 'method' => 'PATCH']) !!}
+                    <input type="hidden" name="id" value="" id="idOrderUpdate">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="selectLinesUpdate">Lineas de producción</label>
+                                    <select class="form-control" id="selectLinesUpdate"
+                                        onchange="actualizarSelectsUpdate(this)" name="productionline_id" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                        @foreach ($lineas as $line)
+                                            <option value="{{ $line->id }}">{{ $line->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="selectTurnUpdate">Turno</label>
+                                    <select class="form-control" id="selectTurnUpdate" name="schedule_id" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="selectProductsUpdate">Productos</label>
+                                    <select class="form-control" id="selectProductsUpdate"
+                                        onchange="asignarTiempoCicloUpdate(this)" name="product_id" required>
+                                        <option value="" selected disabled>Seleccione una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="tiempo_cicloUpdate">Tiempo de ciclo</label>
+                                    <input type="number" class="form-control" id="tiempo_cicloUpdate" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="cantidadUpdate">Cantidad</label>
+                                    <input type="number" class="form-control" id="cantidadUpdate"
+                                        onchange="calcularTiempoPlanificadoUpdate(this)"
+                                        onkeyup="calcularTiempoPlanificadoUpdate(this)" name="total" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="tplanificadoUpdate">Tiempo planificado(HH:MM)</label>
+                                    <input type="text" class="form-control" id="tplanificadoUpdate" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+
+                    {!! Form::close() !!}
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -291,9 +377,76 @@
 
         }
 
+        function buscarTurnoUpdate(element) {
+            var id = $(element).val();
+            $.ajax({
+                url: 'turns/' + id,
+                // data: data,
+                type: 'get',
+                success: function(response) {
+                    // alert(response);
+                    console.log(response);
+                    response.forEach(function(Turn) {
+                        $('#selectTurnUpdate').append($('<option>', {
+                            value: Turn.id,
+                            text: Turn.turn
+                        }));
+                    });
+
+
+                },
+                statusCode: {
+                    // 404: function() {
+                    //     alert('web not found');
+                    // }
+                },
+                error: function(x, xs, xt) {
+                    // window.open(JSON.stringify(x));
+                    //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+                }
+            });
+        }
+
+        function buscarProductosUpdate(element) {
+            var id = $(element).val();
+            $.ajax({
+                url: 'productsfiltered/' + id,
+                // data: data,
+                type: 'get',
+                success: function(response) {
+                    // alert(response);
+                    console.log(response);
+                    response.forEach(function(Product) {
+                        $('#selectProductsUpdate').append($('<option>', {
+                            value: Product.id,
+                            text: Product.part_number,
+                            cycle: Product.cycle
+                        })).change();
+                    });
+
+
+                },
+                statusCode: {
+                    // 404: function() {
+                    //     alert('web not found');
+                    // }
+                },
+                error: function(x, xs, xt) {
+                    // window.open(JSON.stringify(x));
+                    //alert('error: ' + JSON.stringify(x) +"\n error string: "+ xs + "\n error throwed: " + xt);
+                }
+            });
+
+        }
+
         function actualizarSelects(select) {
             buscarTurno(select);
             buscarProductos(select);
+        }
+
+        function actualizarSelectsUpdate(select) {
+            buscarTurnoUpdate(select);
+            buscarProductosUpdate(select);
         }
 
         function asignarTiempoCiclo(element) {
@@ -303,6 +456,13 @@
             $("#tiempo_ciclo").val(ciclo);
         }
 
+        function asignarTiempoCicloUpdate(element) {
+            var ciclo = $(element).find("option:selected").attr("cycle");
+            // $( "#myselect option:selected" ).text();
+            console.log(ciclo);
+            $("#tiempo_cicloUpdate").val(ciclo);
+        }
+
         function calcularTiempoPlanificado(element) {
             var cantidad = $(element).val();
             var tCiclo = $("#tiempo_ciclo").val();
@@ -310,6 +470,15 @@
             var tPlanificado = convertMinsToHrsMins((cantidad / tCiclo) * 60);
             console.log(tPlanificado);
             $("#tplanificado").val(tPlanificado);
+        }
+
+        function calcularTiempoPlanificadoUpdate(element) {
+            var cantidad = $(element).val();
+            var tCiclo = $("#tiempo_cicloUpdate").val();
+
+            var tPlanificado = convertMinsToHrsMins((cantidad / tCiclo) * 60);
+            console.log(tPlanificado);
+            $("#tplanificadoUpdate").val(tPlanificado);
         }
         const convertMinsToHrsMins = (mins) => {
             let h = Math.floor(mins / 60);
@@ -346,6 +515,33 @@
             }
 
             $('#modalDelete').modal('hide');
+        }
+
+        function editarOrden(id) {
+            console.log(id);
+            $.ajax({
+                url: 'orders/' + id,
+                type: 'get',
+                // data: data,
+                success: function(response) {
+                    console.log(response);
+                    $("#idOrderUpdate").val(response.id);
+                    $("#selectLinesUpdate").val(response.productionline_id).change();
+                    $("#selectTurnUpdate").val(response.schedule_id).change();
+                    $("#selectProductsUpdate").val(response.product_id).change();
+
+                    setTimeout(() => {
+                        $("#cantidadUpdate").val(response.total).change();
+                    }, 500);
+
+                    // var tPlanificado = convertMinsToHrsMins((response.total / ) * 60);
+                    // $("#tplanificadoUpdate").val(tPlanificado);
+                    //selectTurnUpdate//cantidadUpdate
+                    $('#modalEditarOrden').modal('show');
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
         }
     </script>
 @endsection
