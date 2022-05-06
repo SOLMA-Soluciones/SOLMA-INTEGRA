@@ -51,7 +51,6 @@ class UsuarioController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
            
         ]);
     
@@ -59,8 +58,7 @@ class UsuarioController extends Controller
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
-        $user->assignRole($request->get('roles'));
-    
+        $user->assignRole($request->input('roles'));
     
         return redirect()->route('tab5');
     }

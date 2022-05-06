@@ -49,7 +49,7 @@
                                     {!! Form::password('confirm-password', array('class' => 'form-control')) !!}
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
+                            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
 						            <label for="roles">Roles</label>
                                     <select id="roles" name="roles" class="form-control">
@@ -59,6 +59,12 @@
                                         @endforeach
                                     </select>
 					            </div>
+                            </div> --}}
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="">Roles</label>
+                                    {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
+                                </div>
                             </div>
                             
                         </div>
