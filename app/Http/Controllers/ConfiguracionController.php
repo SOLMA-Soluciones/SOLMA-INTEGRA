@@ -44,8 +44,8 @@ class ConfiguracionController extends Controller
     public function create()
     {
         $roles=Role::select('name')
-                   ->where('id','3')
-                   ->get();
+                   ->where('id','1')
+                   ->get()->pluck('name','name');
         //$roles = Role::pluck('name','name')->all();
         return view('usuarios.crearoperador',compact('roles'));
         
