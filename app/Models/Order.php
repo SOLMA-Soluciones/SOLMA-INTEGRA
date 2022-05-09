@@ -41,7 +41,7 @@ class Order extends Model
 
         $turns = DB::select("SELECT B.id,B.part_number,B.description,B.cost,B.cycle,B.unit FROM tcproductionline A
         INNER JOIN tcproducts B ON A.id = B.productionline_id
-        INNER JOIN tdschedules C ON A.id = C.productionline_id WHERE A.id = $id GROUP BY C.turn ORDER BY A.name");
+        INNER JOIN tdschedules C ON A.id = C.productionline_id WHERE A.id = $id GROUP BY B.id  ORDER BY A.name");
 
         return $turns;
     }

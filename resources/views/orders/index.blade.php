@@ -324,6 +324,7 @@
                 success: function(response) {
                     // alert(response);
                     console.log(response);
+                    $('#selectTurn').empty();
                     response.forEach(function(Turn) {
                         $('#selectTurn').append($('<option>', {
                             value: Turn.id,
@@ -354,6 +355,7 @@
                 success: function(response) {
                     // alert(response);
                     console.log(response);
+                    $('#selectProducts').empty();
                     response.forEach(function(Product) {
                         $('#selectProducts').append($('<option>', {
                             value: Product.id,
