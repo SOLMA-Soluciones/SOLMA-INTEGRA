@@ -35,7 +35,7 @@ class UsuarioController extends Controller
     {
         $roles=Role::select('name')
                    ->where('id','2')
-                   ->get();
+                   ->get()->pluck('name','name');
         return view('usuarios.crear',compact('roles'));
     }
 
@@ -83,7 +83,10 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles=Role::select('name')
+                   ->where('id','2')
+                   ->get()->pluck('name','name');
+        return view('usuarios.crear',compact('roles'));
         $userRole = $user->roles->pluck('name','name')->all();
 
         return view('usuarios.editar',compact('user','roles','userRole'));

@@ -417,9 +417,15 @@
                                                             </td>
 
                                                             <td>
-                                                                <a href="{{ route('usuarios.edit', $user->id) }}"><span
+                                                            @can('operador-user')
+                                                                <a href="{{ route('settings.edit', $user->id) }}"><span
                                                                         class="material-icons md-48">edit</span></a>
-                                                                @can('borrar-user')
+                                                                        @endcan
+                                                                        @can('borrar-user')
+                                                                        <a href="{{ route('usuarios.edit', $user->id) }}"><span
+                                                                        class="material-icons md-48">edit</span></a>
+
+                                                                
                                                                     <form id="formEliminarUsuario_{{ $user->id }}"
                                                                         action="{{ route('usuarios.destroy', $user->id) }}"
                                                                         class="d-inline" method="POST">
