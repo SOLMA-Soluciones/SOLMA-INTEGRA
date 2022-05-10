@@ -388,6 +388,7 @@
                 success: function(response) {
                     // alert(response);
                     console.log(response);
+                    $('#selectTurnUpdate').empty();
                     response.forEach(function(Turn) {
                         $('#selectTurnUpdate').append($('<option>', {
                             value: Turn.id,
@@ -418,6 +419,7 @@
                 success: function(response) {
                     // alert(response);
                     console.log(response);
+                    $('#selectProductsUpdate').empty();
                     response.forEach(function(Product) {
                         $('#selectProductsUpdate').append($('<option>', {
                             value: Product.id,
