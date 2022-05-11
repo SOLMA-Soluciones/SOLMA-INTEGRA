@@ -84,7 +84,6 @@ class ConfiguracionController extends Controller
         $roles=Role::select('name')
                    ->where('id','1')
                    ->get()->pluck('name','name');
-        return view('usuarios.crear',compact('roles'));
         $userRole = $user->roles->pluck('name','name')->all();
 
         return view('usuarios.editaroperador',compact('user','roles','userRole'));
