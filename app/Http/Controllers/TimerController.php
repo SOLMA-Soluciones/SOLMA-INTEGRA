@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\Productionstop;
 
 class TimerController extends Controller
 {
@@ -45,7 +47,11 @@ class TimerController extends Controller
      */
     public function show($id)
     {
-        //
+        // $stoppages = Productionstop::getStoppageByLineId($id);
+        $order = Order::getOrderById($id);
+        $order = $order[0];
+        $stoppages = Productionstop::getStoppageByOrderId($id);
+        return view('timer.index',compact('stoppages','order'));
     }
 
     /**

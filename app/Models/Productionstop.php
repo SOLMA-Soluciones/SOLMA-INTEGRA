@@ -19,6 +19,13 @@ class Productionstop extends Model
         $aStoppages = DB::select("SELECT  A.id,A.name,IF(B.id IS NOT NULL,1,0) AS iEstatus FROM tcproductionstoppages A LEFT JOIN trproductionlinestoppages B  ON A.id = B.productionstoppage_id AND B.productionline_id = $id");
         return $aStoppages;
     }
+    public static function getStoppageByOrderId($id){
+        $aStoppages = DB::select("SELECT  A.id,A.name,IF(B.id IS NOT NULL,1,0) AS iEstatus 
+        FROM tcproductionstoppages A 
+        INNER JOIN trproductionlinestoppages B  ON A.id = B.productionstoppage_id 
+        INNER JOIN tdproductionorder C ON B.productionline_id=C.productionline_id AND C.id = $id;");
+        return $aStoppages;
+    }
     public static function updateStoppageLine($data)
     {
         try {
