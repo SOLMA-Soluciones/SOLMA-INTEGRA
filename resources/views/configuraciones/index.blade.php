@@ -587,19 +587,19 @@
                                 <br><br>
                                 <div class="form-check col-xs-6">
                                     <input type="checkbox" class="form-check-input" id="checkbox_24hrs" name="fulltime"
-                                        onchange="updateTimeFields(this)" checked>
+                                        onchange="updateTimeFields(this)" >
                                     <label class="form-check-label" for="checkbox_24hrs">24 Horas</label>
                                 </div>
                                 <br>
                                 <div class="col-xs-6">
                                     <label for="start_time_turn">Hora Inicio</label>
-                                    {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn', 'disabled' => 'disabled']) !!}
+                                    {!! Form::time('start_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'start_time_turn',"required"=>"required"]) !!}
                                 </div>
 
 
                                 <div class="col-xs-6">
                                     <label for="end_time_turn">Hora Fin</label>
-                                    {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn', 'disabled' => 'disabled']) !!}
+                                    {!! Form::time('end_time', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'end_time_turn',"required"=>"required"]) !!}
                                 </div>
                             </div>
                         </div>

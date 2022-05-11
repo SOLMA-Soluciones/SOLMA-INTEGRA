@@ -50,6 +50,9 @@
                                                         <a href="javascript:void(0)"
                                                             onclick="editarOrden({{ $order->id }})"><span
                                                                 class="material-icons md-48">edit</span></a>
+                                                                <a href="timers/{{$order->id}}"
+                                                            ><span
+                                                                class="material-icons md-48">play_arrow</span></a>
 
 
                                                     </td>
