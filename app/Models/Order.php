@@ -64,4 +64,21 @@ class Order extends Model
         INNER JOIN  tcproducts D ON A.product_id = D.id WHERE A.id = $id;");
         return $orders;
     }
+
+    public static function getStoppagesExecuted($data){
+        
+    }
+
+    public static function startStoppage($data){
+        
+    }
+    public static function endStoppage($data){
+        
+    }
+    public static function startOrder($data){
+        
+    }
+    public static function endOrder($data){
+        
+    }
 }
