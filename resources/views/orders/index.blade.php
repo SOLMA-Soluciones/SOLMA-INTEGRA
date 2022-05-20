@@ -14,8 +14,10 @@
                     <div class="col-lg-12" style="padding: 0px;">
                         <div class="card">
                             <div class="card-body">
+                            @can('ver-user')
                                 <a href="#" class="btn btn-warning" role="button" aria-pressed="true" data-toggle="modal"
                                     data-target="#addTurn">Nueva Orden</a><br><br>
+                                    @endcan
                                 <div class="col-sm-12">
                                     <table id="tablaOrdenes" class="display responsive no-wrap" cellspacing="0"
                                         width="100%">
@@ -41,20 +43,19 @@
                                                     <td>Programado</td>
 
                                                     <td>
+                                                        @can('ver-user')
                                                         <a href="javascript:void(0)"
                                                             onclick="confirmarEliminar({{ $order->id }},null,1)"><span
                                                                 class="material-icons md-48">delete</span></a>
                                                         {!! Form::open(['method' => 'DELETE', 'route' => ['orders.destroy', $order->id], 'style' => 'display:inline', 'id' => 'formEliminarOrden_' . $order->id]) !!}
                                                         {!! Form::close() !!}
-
+                                                        
                                                         <a href="javascript:void(0)"
                                                             onclick="editarOrden({{ $order->id }})"><span
                                                                 class="material-icons md-48">edit</span></a>
-                                                                <a href="timers/{{$order->id}}"
-                                                            ><span
-                                                                class="material-icons md-48">play_arrow</span></a>
-
-
+                                                                @endcan
+                                                                <a href="timers/{{$order->id}}">
+                                                            <span class="material-icons md-48">play_arrow</span></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
