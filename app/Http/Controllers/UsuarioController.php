@@ -86,7 +86,6 @@ class UsuarioController extends Controller
         $roles=Role::select('name')
                    ->where('id','2')
                    ->get()->pluck('name','name');
-        return view('usuarios.crear',compact('roles'));
         $userRole = $user->roles->pluck('name','name')->all();
 
         return view('usuarios.editar',compact('user','roles','userRole'));
@@ -106,7 +105,6 @@ class UsuarioController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
         ]);
     
         $input = $request->all();
@@ -118,10 +116,8 @@ class UsuarioController extends Controller
     
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
-        $user->assignRole($request->input('roles'));
-    
+        // DB::table('model_has_roles')->where('model_id', $id)->delete();
+        // $user->assignRole($request->input('roles'));
         return redirect()->route('tab5');
     }
 
