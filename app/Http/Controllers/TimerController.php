@@ -48,10 +48,11 @@ class TimerController extends Controller
     public function show($id)
     {
         // $stoppages = Productionstop::getStoppageByLineId($id);
+        $colors = ["#80cbc4","#80deea","#81d4fa","#90caf9","#9fa8da","#b39ddb","#a5d6a7","#c5e1a5","#a5d6a7","#ffcc80","#ffe082","#fff59d"];
         $order = Order::getOrderById($id);
         $order = $order[0];
         $stoppages = Productionstop::getStoppageByOrderId($id);
-        return view('timer.index',compact('stoppages','order'));
+        return view('timer.index',compact('stoppages','order','colors'));
     }
 
     /**
