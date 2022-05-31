@@ -5,7 +5,7 @@
         <i class=" fas fa-building"></i><span>Panel OEE</span>
     </a>
     @endcan
-    <a class="nav-link" href="{{'orders'}}">
+    <a class="nav-link" href="{{route('orders.index')}}">
         <i class=" fas fa-plus-circle"></i><span>Orden de Produccion</span>
     </a>
     
