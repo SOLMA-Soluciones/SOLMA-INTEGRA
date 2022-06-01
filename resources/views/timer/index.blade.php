@@ -611,7 +611,6 @@
                 type: 'get',
                 success: function(dataset) {
                     console.log(dataset);
-                    // dataset = JSON.parse(dataset)
                     tblParos.clear();
                     tblParos.rows.add(dataset);
                     tblParos.draw();
