@@ -73,7 +73,7 @@
             <h3 class="page__heading">Configuracion</h3>
             &nbsp;&nbsp;&nbsp;
             <div style="display: none;" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Loading....</span>
             </div>
         </div>
 
