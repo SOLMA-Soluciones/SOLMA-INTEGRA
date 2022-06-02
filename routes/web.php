@@ -61,6 +61,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('orders', OrderController::class);
     Route::get('/turns/{id}', [OrderController::class, 'turns'])->name('turns');
     Route::get('/productsfiltered/{id}', [OrderController::class, 'products'])->name('productsfiltered');
+    Route::post('/startOrder', [TimerController::class, 'startOrder'])->name('startOrder');
+    Route::post('/endOrder', [TimerController::class, 'endOrder'])->name('endOrder');
+    Route::post('/startStoppage', [TimerController::class, 'startStoppage'])->name('startStoppage');
+    Route::post('/stopStoppage', [TimerController::class, 'stopStoppage'])->name('stopStoppage');
+    Route::get('/stoppages_executed/{id}', [TimerController::class, 'getStoppageExecuted'])->name('stoppages_executed');
+    //getStoppageExecuted
     
 });
 

@@ -118,10 +118,12 @@
                                             <div id="collapseGeneric" class="collapse show"
                                                 aria-labelledby="headingGeneric" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <div class="col-12 header-info">
+                                                    <div class="col-12 header-info" id="header-info">
                                                         <span
                                                             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
                                                             <label><b>Linea:</b> {{ $order->name_line }}</label>
+                                                            <input type="hidden" id="order_id" name="order_id"
+                                                                value="{{ $id }}">
                                                         </span>
                                                         <span
                                                             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
@@ -135,55 +137,70 @@
                                                             class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
                                                             <label><b>Estatus:</b> Programado</label>
                                                         </span>
+                                                        <span style="display: none" id="spanHoraInicio"
+                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
+                                                            <label><b>Hora inicio:</b> <span
+                                                                    id="lblHoraInicio">00:00:00</span></label>
+                                                        </span>
+                                                        <span style="display: none" id="spanHoraFin"
+                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
+                                                            <label><b>Hora fin:</b><span id="lblHoraFin">00:00:00</span>
+                                                            </label>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                             {{-- paros produccion --}}
-                                            <div class="collapse-header" id="headingParos" data-toggle="collapse"
-                                                data-target="#collapseParos" aria-expanded="true"
+                                            <div class="collapse-header paro-container" id="headingParos"
+                                                data-toggle="collapse" data-target="#collapseParos" aria-expanded="true"
                                                 aria-controls="collapseParos">
                                                 <h6>Paros de producción</h6>
                                             </div>
-                                            <div id="collapseParos" class="collapse show" aria-labelledby="headingParos"
-                                                data-parent="#accordion">
+                                            <div id="collapseParos" class="collapse show paro-container"
+                                                aria-labelledby="headingParos" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
+                                                        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                                                            @if ($order->productionorderstatus_id == 1)
+                                                                <button id="btnIniciarOrden"
+                                                                    class="btn btn-success stoppage"
+                                                                    onclick="iniciarDetenerProceso(this)"
+                                                                    style="width: 100%">Iniciar</button>
+                                                            @elseif($order->productionorderstatus_id == 2)
+                                                                <button id="btnIniciarOrden" class="btn btn-danger stoppage"
+                                                                    onclick="iniciarDetenerProceso(this)"
+                                                                    style="width: 100%">Finalizar</button>
+                                                            @endif
+
+
+                                                        </div>
+                                                        @php
+                                                            $index = 0;
+                                                        @endphp
                                                         @foreach ($stoppages as $stoppage)
                                                             @if ($stoppage->iEstatus == '1')
                                                                 <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-                                                                    <button class="btn btn-success stoppage"
-                                                                        style="width: 100%" onclick="ejecutarParo(this)"
-                                                                        data="{{ $stoppage->id }}">{{ $stoppage->name }}</button>
+                                                                    <button class="btn stoppage"
+                                                                        style="width: 100%; background-color: {{ $colors[$index] }}"
+                                                                        onclick="iniciarParo(this)"
+                                                                        data="{{ $stoppage->id }}" status="stopped"
+                                                                        disabled>{{ $stoppage->name }}</button>
                                                                 </div>
+                                                                @php
+                                                                    $index++;
+                                                                @endphp
                                                             @endif
                                                         @endforeach
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            {{-- Acciones --}}
-                                            <div class="collapse-header" id="headingAcciones" data-toggle="collapse"
-                                                data-target="#collapseAcciones" aria-expanded="true"
-                                                aria-controls="collapseAcciones">
-                                                <h6>Acciones</h6>
-                                            </div>
-                                            <div id="collapseAcciones" class="collapse show"
-                                                aria-labelledby="headingAcciones" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <div class="col-12">
-                                                        <button class="btn btn-success"
-                                                            onclick="iniciarProceso(this)">Iniciar</button>
-                                                        <button class="btn btn-danger"
-                                                            onclick="finalizarProceso(this)">Finalizar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+
 
                                             <div class="collapse-header" id="headingOne" data-toggle="collapse"
                                                 data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                 <h6>Historial</h6>
                                             </div>
-
                                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                                 data-parent="#accordion">
                                                 <div class="card-body">
@@ -196,28 +213,21 @@
                                                             <th>Tiempo</th>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Falta de material</td>
-                                                                <td>09:40 am</td>
-                                                                <td>10:30 am</td>
-                                                                <td>00:50:00</td>
-                                                            </tr>
+                                                            @foreach ($StoppagesExecuted as $SE)
+                                                                <tr>
+                                                                    <td>{{ $SE->name_stoppage }}</td>
+                                                                    <td>{{ $SE->start_time }}</td>
+                                                                    <td>{{ $SE->end_time }}</td>
+                                                                    <td>---</td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-
-
-
-
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -232,37 +242,60 @@
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h5 class="modal-title text-light" id="modalStoppageTitle"></h5>
-                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> --}}
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
-                        <div>Hora de Inicio: <span id="horaInicioCron"></span></div>
-                        <div id="cronometro">
-                            <span id="Horas">00</span>
-                            <span id="Minutos">:00</span>
-                            <span id="Segundos">:00</span>
-                            <span id="Centesimas">:00</span>
-                            {{-- <div class="reloj" id="Horas">00</div>
-                            <div class="reloj" id="Minutos">:00</div>
-                            <div class="reloj" id="Segundos">:00</div>
-                            <div class="reloj" id="Centesimas">:00</div> --}}
-                            {{-- <input type="button" class="boton" id="inicio" value="Start &#9658;"
-                                onclick="inicio();">
-                            <input type="button" class="boton" id="parar" value="Stop &#8718;" onclick="parar();"
-                                disabled>
-                            <input type="button" class="boton" id="continuar" value="Resume &#8634;"
-                                onclick="inicio();" disabled>
-                            <input type="button" class="boton" id="reinicio" value="Reset &#8635;"
-                                onclick="reinicio();" disabled> --}}
+                        <input type="hidden" name="productionstoppage_id" id="productionstoppage_id" value="">
+                        <div class="col-12">
+                            <p>Hora de Inicio: <b id="horaInicioCron"></b></p>
+                        </div>
+                        <div class="col-12">
+                            <p>Tiempo transcurrido: <b id="cronometro"></b></p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ocultar</button>
-                    <button onclick="parar()" class="btn btn-primary">Detener</button>
+                    <button onclick="detenerParo(this)" class="btn btn-primary">Detener</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalConfirmarInicioOrden" tabindex="-1" role="dialog" aria-labelledby=""
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #6777ef">
+                    <h5 class="modal-title text-light">Iniciar</h5>
+                </div>
+
+                <div class="modal-body">
+                    <p>Confirma si desea iniciar la orden de producción, una vez realizada esta acción, solo se podrá
+                        generar un paro de producción o finalizar la orden.</p>
+                    <p>Hora actual: <b class="hora_actual"></b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button onclick="registrarInicioOrden();" class="btn btn-primary">Iniciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalConfirmarFinOrden" tabindex="-1" role="dialog" aria-labelledby=""
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #6777ef">
+                    <h5 class="modal-title text-light">Finalizar</h5>
+                </div>
+
+                <div class="modal-body">
+                    <p>Confirma si desea finalizar la orden de producción, una vez realizada esta acción ya no se podrá
+                        reiniciar.</p>
+                    <p>Hora actual: <b class="hora_actual"></b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button onclick="registrarFinOrden();" class="btn btn-danger">Finalizar</button>
                 </div>
             </div>
         </div>
@@ -272,7 +305,12 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+        integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
+        var iEstatusStoppage = 0;
+        var tblParos = null;
         var aLanguageDataTable = {
             "decimal": ".",
             "emptyTable": "No hay datos disponibles",
@@ -299,122 +337,287 @@
         };
 
         $(document).ready(function() {
-            $('#tablaParos').DataTable({
+            tblParos =  $('#tablaParos').DataTable({
                 responsive: true,
+                order: [
+                    [1, "desc"]
+                ],
+                dom: 'frtip',
                 language: aLanguageDataTable,
-                dom: 'rtip',
+                columns: [{
+                        "data": "name_stoppage"
+                    },
+                    {
+                        "data": "start_time"
+                    },
+
+                    {
+                        "data": "end_time"
+                    },
+                    {
+                        "data": "id",
+                        "render": function(data, type, row, meta) {
+                            var start_time = row.start_time;
+                            var end_time = row.end_time;
+                            var date_start = new Date(start_time).getTime();
+                            var date_end = new Date(end_time).getTime();
+                            var diff = date_end - date_start;
+                            return msToTime(diff);
+                        }
+                    },
+
+                ]
             });
+
+            setInterval(() => {
+                var date = new Date();
+                datetext = date.toTimeString();
+                datetext = datetext.split(' ')[0];
+                $(".hora_actual").html(datetext);
+            }, 1000);
+            @if ($order->productionorderstatus_id == 2)
+                $(".stoppage").attr("disabled", false);
+                $("#spanHoraInicio").show();
+                $("#lblHoraInicio").html("{{ $order->start_time }}");
+            @endif
+            @if ($order->productionorderstatus_id == 3)
+                $("#spanHoraInicio").show();
+                $("#lblHoraInicio").html("{{ $order->start_time }}");
+                $("#spanHoraFin").show();
+                $("#lblHoraFin").html("{{ $order->end_time }}");
+                $(".paro-container").hide();
+            @endif
+
+            @foreach ($StoppagesExecuted as $SE)
+                @if ($SE->end_time == null)
+                    var start_time = "{{ $SE->start_time }}";
+                    start_time = new Date(start_time);
+                    $("#modalStoppageTitle").html("{{ $SE->name_stoppage }}");
+                    $('#modalStoppage').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $("#horaInicioCron").html(moment(start_time, moment.HTML5_FMT.DATETIME_LOCAL).format(
+                        "YYYY-MM-DD HH:mm:ss"), );
+                    iEstatusStoppage = 1;
+                    tiempoTranscurrido(start_time);
+                    $(".stoppage").prop("disabled", true);
+                    $("#productionstoppage_id").val("{{ $SE->productionstoppage_id }}");
+                @endif
+            @endforeach
         });
 
-        function iniciarProceso(element) {
-            console.log("click");
+        function msToTime(s) {
+            function pad(n, z) {
+                z = z || 2;
+                return ('00' + n).slice(-z);
+            }
 
-            $("#ContainerParosProduccion").show();
+            var ms = s % 1000;
+            s = (s - ms) / 1000;
+            var secs = s % 60;
+            s = (s - secs) / 60;
+            var mins = s % 60;
+            var hrs = (s - mins) / 60;
 
+            return pad(hrs) + ':' + pad(mins) + ':' + pad(secs);
         }
 
-        function finalizarProceso(element) {
-            console.log("click");
-            $("#ContainerParosProduccion").hide();
-        }
-
-        function ejecutarParo(element) {
+        function iniciarDetenerProceso(element) {
             if ($(element).hasClass("btn-success")) {
-                $(element).removeClass("btn-success");
-                $(element).addClass("btn-danger");
+                $("#modalConfirmarInicioOrden").modal("show");
+            } else {
+                $("#modalConfirmarFinOrden").modal("show");
+            }
+        }
 
+        function getNowTime() {
+            var date = new Date();
+            datetext = date.toTimeString();
+            datetext = datetext.split(' ')[0];
+            return datetext;
+        }
+
+        function registrarInicioOrden() {
+            $(".stoppage").attr("disabled", false);
+            $("#modalConfirmarInicioOrden").modal("hide");
+            $("#btnIniciarOrden").removeClass("btn-success");
+            $("#btnIniciarOrden").text("Finalizar");
+            $("#btnIniciarOrden").addClass("btn-danger");
+
+            $("#spanHoraInicio").show();
+            var id = $("#order_id").val();
+            var date = new Date();
+
+            var data = {
+                "id": id,
+                "start_time": moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("YYYY-MM-DD HH:mm:ss"),
+            }
+            $.ajax({
+                //route('profile', ['id' => 1]);
+                url: "{{ route('startOrder') }}",
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                    $("#lblHoraInicio").html(response.start_time)
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
+        }
+
+        function registrarFinOrden() {
+            $(".stoppage").attr("disabled", true);
+            $("#modalConfirmarFinOrden").modal("hide");
+            // $("#lblHoraFin").html(getNowTime);
+            $("#spanHoraFin").show();
+            $(".paro-container").hide();
+            var id = $("#order_id").val();
+            var date = new Date();
+            var data = {
+                "id": id,
+                "end_time": moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("YYYY-MM-DD HH:mm:ss"),
+            }
+            $.ajax({
+                //route('profile', ['id' => 1]);
+                url: "{{ route('endOrder') }}",
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log(response);
+                    $("#lblHoraFin").html(response.end_time)
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
+        }
+
+        function detenerParo(element) {
+
+            $(".stoppage").attr("disabled", false);
+            iEstatusStoppage = 0;
+            $('#modalStoppage').modal('hide');
+            $("#modalStoppageTitle").html("");
+            $("#horaInicioCron").html("");
+            $(".stoppage").attr("status", "stopped");
+            var productionstoppage_id = $("#productionstoppage_id").val();
+            var productionorder_id = $("#order_id").val();
+            var date = new Date();
+            var mysqldate = moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("YYYY-MM-DD HH:mm:ss");
+            var dataPost = {
+                productionorder_id: productionorder_id,
+                productionstoppage_id: productionstoppage_id,
+                end_time: mysqldate
+            }
+            console.log(dataPost);
+            $.ajax({
+                //route('profile', ['id' => 1]);
+                url: "{{ route('stopStoppage') }}",
+                type: 'POST',
+                data: dataPost,
+                success: function(response) {
+                    console.log(response);
+                    $("#lblHoraFin").html(response.end_time);
+                    // location.reload();
+                    updateTable(productionorder_id);
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
+        }
+
+        function iniciarParo(element) {
+            var data = $(element).attr("status");
+            // var date = new Date();
+            // console.log(moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("YYYY-MM-DD HH:mm:ss"));
+
+            if (data == "stopped") {
+                iEstatusStoppage = 1;
+                $(element).attr("status", "started");
+                $("#btnIniciarOrden").prop("disabled", true);
                 $("#modalStoppageTitle").html($(element).html());
-                // $('#modalStoppage').modal('show');
                 $('#modalStoppage').modal({
                     backdrop: 'static',
                     keyboard: false
                 });
-                $('#modalStoppage').modal('show');
-                $("#horaInicioCron").html(new Date().toString());
-                // $('#modalStoppage').modal({
-                //     backdrop: 'static'
-                // })
-                inicio();
-
+                // $('#modalStoppage').modal('show');
+                var date = new Date();
+                // console.log(date.toLocaleString());
+                // datetext = date.toTimeString();
+                // datetext = datetext.split(' ')[0];
+                $("#horaInicioCron").html(moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("HH:mm:ss"));
+                tiempoTranscurrido(date);
+                $(".stoppage").prop("disabled", true);
+                var productionstoppage_id = $(element).attr("data");
+                $("#productionstoppage_id").val(productionstoppage_id);
+                var productionorder_id = $("#order_id").val();
+                var mysqldate = moment(date, moment.HTML5_FMT.DATETIME_LOCAL).format("YYYY-MM-DD HH:mm:ss");
+                var dataPost = {
+                    productionorder_id: productionorder_id,
+                    productionstoppage_id: productionstoppage_id,
+                    start_time: mysqldate
+                }
+                $.ajax({
+                    //route('profile', ['id' => 1]);
+                    url: "{{ route('startStoppage') }}",
+                    type: 'POST',
+                    data: dataPost,
+                    success: function(response) {
+                        console.log(response);
+                        $("#lblHoraFin").html(response.end_time);
+                        updateTable(productionorder_id);
+                    },
+                    statusCode: {},
+                    error: function(x, xs, xt) {}
+                });
             } else {
-                $(element).removeClass("btn-danger");
-                $(element).addClass("btn-success");
+                $(".stoppage").attr("disabled", false);
+                iEstatusStoppage = 0;
             }
         }
 
-        var centesimas = 0;
-        var segundos = 0;
-        var minutos = 0;
-        var horas = 0;
-
-        function inicio() {
-            control = setInterval(cronometro, 10);
-            // document.getElementById("inicio").disabled = true;
-            // document.getElementById("parar").disabled = false;
-            // document.getElementById("continuar").disabled = true;
-            // document.getElementById("reinicio").disabled = false;
+        function tiempoTranscurrido(date) {
+            if (iEstatusStoppage == 0) {
+                return;
+            }
+            var now = new Date();
+            var difference = date.getTime() - now.getTime();
+            console.log(difference);
+            $("#cronometro").html(msToTime(Math.abs(difference)));
+            setTimeout(() => {
+                tiempoTranscurrido(date);
+            }, 1000);
         }
 
-        function parar() {
-            clearInterval(control);
-            // document.getElementById("parar").disabled = true;
-            // document.getElementById("continuar").disabled = false;
+        function msToTime(s) {
+            function pad(n, z) {
+                z = z || 2;
+                return ('00' + n).slice(-z);
+            }
+            var ms = s % 1000;
+            s = (s - ms) / 1000;
+            var secs = s % 60;
+            s = (s - secs) / 60;
+            var mins = s % 60;
+            var hrs = (s - mins) / 60;
+
+            return pad(hrs) + ':' + pad(mins) + ':' + pad(secs);
         }
 
-        function reinicio() {
-            clearInterval(control);
-            centesimas = 0;
-            segundos = 0;
-            minutos = 0;
-            horas = 0;
-            Centesimas.innerHTML = ":00";
-            Segundos.innerHTML = ":00";
-            Minutos.innerHTML = ":00";
-            Horas.innerHTML = "00";
-            document.getElementById("inicio").disabled = false;
-            document.getElementById("parar").disabled = true;
-            document.getElementById("continuar").disabled = true;
-            document.getElementById("reinicio").disabled = true;
-        }
-
-        function cronometro() {
-            if (centesimas < 99) {
-                centesimas++;
-                if (centesimas < 10) {
-                    centesimas = "0" + centesimas
-                }
-                Centesimas.innerHTML = ":" + centesimas;
-            }
-            if (centesimas == 99) {
-                centesimas = -1;
-            }
-            if (centesimas == 0) {
-                segundos++;
-                if (segundos < 10) {
-                    segundos = "0" + segundos
-                }
-                Segundos.innerHTML = ":" + segundos;
-            }
-            if (segundos == 59) {
-                segundos = -1;
-            }
-            if ((centesimas == 0) && (segundos == 0)) {
-                minutos++;
-                if (minutos < 10) {
-                    minutos = "0" + minutos
-                }
-                Minutos.innerHTML = ":" + minutos;
-            }
-            if (minutos == 59) {
-                minutos = -1;
-            }
-            if ((centesimas == 0) && (segundos == 0) && (minutos == 0)) {
-                horas++;
-                if (horas < 10) {
-                    horas = "0" + horas
-                }
-                Horas.innerHTML = horas;
-            }
+        function updateTable(id) {
+            $.ajax({
+                url: "{{ route('stoppages_executed', [$id]) }}",
+                type: 'get',
+                success: function(dataset) {
+                    console.log(dataset);
+                    tblParos.clear();
+                    tblParos.rows.add(dataset);
+                    tblParos.draw();
+                },
+                statusCode: {},
+                error: function(x, xs, xt) {}
+            });
         }
     </script>
 @endsection

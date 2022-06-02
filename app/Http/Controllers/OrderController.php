@@ -52,6 +52,7 @@ class OrderController extends Controller
             'schedule_id'=> $request->get('schedule_id'),
             'total'=> $request->get('total'),
             'product_id'=>$request->get('product_id'),
+            'productionorderstatus_id'=> 1
         ];
         $product= Order::create($data);
         // var_dump($request->total);
@@ -122,5 +123,7 @@ class OrderController extends Controller
         $turns = Order::getProductsByLineId($id);
         return $turns;
     }
+
+       
     
 }
