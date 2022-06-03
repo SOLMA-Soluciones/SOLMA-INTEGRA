@@ -24,8 +24,8 @@
                                         <thead>
                                             <th>Id_Orden</th>
                                             <th class="all">Linea</th>
-                                            <th class="all">Producto</th>
-                                            <th class=" min-tablet">Cantidad</th>
+                                            <th class="min-tablet">Producto</th>
+                                            <th class="min-tablet">Cantidad</th>
                                             <th class="min-tablet">Ciclo</th>
                                             <th class="min-tablet">Tiempo Planificado</th>
                                             <th class="all">Estado</th>
