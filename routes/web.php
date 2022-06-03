@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/stopStoppage', [TimerController::class, 'stopStoppage'])->name('stopStoppage');
     Route::get('/stoppages_executed/{id}', [TimerController::class, 'getStoppageExecuted'])->name('stoppages_executed');
     //getStoppageExecuted
-    Route::get('/orderproces', [App\Http\Controllers\OrderController::class, 'order'])->name('orderproces');
+    Route::get('/ordproces', [App\Http\Controllers\OrderController::class, 'order'])->name('ordproces');
 
     
 });
