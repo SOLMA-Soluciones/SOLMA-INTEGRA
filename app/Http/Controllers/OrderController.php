@@ -28,6 +28,12 @@ class OrderController extends Controller
         return view('orders.index',compact('lineas','usuarios','products','motivos','schedules','orders'));
     }
 
+    public function order()
+    {
+        $orders = Order::getOrders();
+        return view('orders.ordersproces',compact('orders'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
