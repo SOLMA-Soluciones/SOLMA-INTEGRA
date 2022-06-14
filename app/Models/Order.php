@@ -52,7 +52,7 @@ class Order extends Model
         INNER JOIN tcproductionline B ON A.productionline_id = B.id
         INNER JOIN  tdschedules C ON A.schedule_id = C.id
         INNER JOIN  tcproducts D ON A.product_id = D.id
-        INNER JOIN tcproductionorderstatus E ON A.productionorderstatus_id = E.id");
+        INNER JOIN tcproductionorderstatus E ON A.productionorderstatus_id = E.id Order by A.id desc");
         return $orders;
     }
     public static function getOrdersInProcess()

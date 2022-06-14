@@ -19,6 +19,8 @@
 
         .stoppage {
             margin-top: 15px;
+            border-radius: 40px;
+            ;
         }
 
         .chips>.chip {
@@ -27,17 +29,24 @@
 
 
         .header-info {
-            border: 2px solid gray;
-            border-radius: 5px;
-            padding: 5px;
-            padding-top: 10px;
+            /* border: 2px solid gray;
+                border-radius: 5px;
+                padding: 5px;
+                padding-top: 10px; */
+
         }
 
         .header-item {
-            border: 1px solid gray;
-            padding: 5px;
-            font-size: 16px;
+            /* border: 1px solid gray;
+                padding: 5px;
+                font-size: 16px; */
             /* padding-top: 10px !important; */
+            background-color: #00838f;
+            border-radius: 40px;
+            padding: 8px;
+            margin: 10px;
+            color: #ffffff;
+            margin-top: 40px !important;
         }
 
         .card-header {
@@ -52,7 +61,6 @@
             color: #ffffff;
 
         }
-
     </style>
 @endsection
 
@@ -87,7 +95,7 @@
                                     {{-- <div class="col-12">
                                         <h3>Infomación</h3>
                                     </div>
-                                    <div class="col-sm-12">
+                                     {{-- <div class="col-sm-12">
 
                                         <ul class="list-group">
                                             <li class="list-group-item"><b>Total:</b>100 piezas</li>
@@ -108,12 +116,11 @@
 
                                     <div id="accordion">
                                         <div class="card">
-                                            @if ($order->productionorderstatus_id == 3)
-                                                <div class="col-12">
-                                                    <button type="button" class="btn btn-success"
-                                                        onclick="capturarTotalScrap()">Total & Scrap</button>
-                                                </div><br>
-                                            @endif
+                                            <div class="col-12" id="capturarScrap" style="display: none">
+                                                <button type="button" class="btn btn-success"
+                                                    onclick="capturarTotalScrap()">Total & Scrap</button>
+                                            </div><br>
+
                                             <div class="collapse-header" id="headingGeneric" data-toggle="collapse"
                                                 data-target="#collapseGeneric" aria-expanded="true"
                                                 aria-controls="collapseGeneric">
@@ -151,21 +158,22 @@
                                                             <label><b>Hora fin:</b><span id="lblHoraFin">00:00:00</span>
                                                             </label>
                                                         </span>
-                                                        @if($order->scrap != null || $order->scrap != 0)
-                                                        <span 
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Scrap:</b><span >{{$order->scrap}}</span>
-                                                            </label>
-                                                        </span>
+                                                        @if ($order->scrap != null || $order->scrap != 0)
+                                                            <span
+                                                                class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
+                                                                <label><b>Scrap:</b><span>{{ $order->scrap }}</span>
+                                                                </label>
+                                                            </span>
                                                         @endif
-                                                        @if($order->total_produced != null || $order->total_produced != 0)
-                                                        <span 
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Total producido:</b><span >{{$order->total_produced}}</span>
-                                                            </label>
-                                                        </span>
+                                                        @if ($order->total_produced != null || $order->total_produced != 0)
+                                                            <span
+                                                                class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
+                                                                <label><b>Total
+                                                                        producido:</b><span>{{ $order->total_produced }}</span>
+                                                                </label>
+                                                            </span>
                                                         @endif
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,7 +187,7 @@
                                                 aria-labelledby="headingParos" data-parent="#accordion">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                                                        <div class="col-6 col-sm-6 col-md-3 col-lg-2">
                                                             @if ($order->productionorderstatus_id == 1)
                                                                 <button id="btnIniciarOrden"
                                                                     class="btn btn-success stoppage"
@@ -198,7 +206,7 @@
                                                         @endphp
                                                         @foreach ($stoppages as $stoppage)
                                                             @if ($stoppage->iEstatus == '1')
-                                                                <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                                                                <div class="col-6 col-sm-6 col-md-3 col-lg-2">
                                                                     <button class="btn stoppage"
                                                                         style="width: 100%; background-color: {{ $colors[$index] }}"
                                                                         onclick="iniciarParo(this)"
@@ -326,17 +334,17 @@
                     <h5 class="modal-title text-light">Capturar datos finales</h5>
                 </div>
 
-                {!! Form::open(['route' => ['savetotalscrap',[$id]], 'method' => 'POST']) !!}
+                {!! Form::open(['route' => ['savetotalscrap', [$id]], 'method' => 'POST']) !!}
                 <div class="modal-body">
-                    
-                        <label for="total_finish">Total producido</label>
-                        {!! Form::number('total_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'total_finish']) !!}
 
-                    
-                        <label for="scrap_finish">Scrap</label>
-                        {!! Form::number('scrap_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'scrap_finish']) !!}
+                    <label for="total_finish">Total producido</label>
+                    {!! Form::number('total_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'total_finish']) !!}
 
-                    
+
+                    <label for="scrap_finish">Scrap</label>
+                    {!! Form::number('scrap_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'scrap_finish']) !!}
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -451,6 +459,9 @@
                     $("#productionstoppage_id").val("{{ $SE->productionstoppage_id }}");
                 @endif
             @endforeach
+            @if ($order->productionorderstatus_id == 3)
+            $("#capturarScrap").show();
+            @endif
         });
 
         function msToTime(s) {
@@ -532,7 +543,10 @@
                 data: data,
                 success: function(response) {
                     console.log(response);
-                    $("#lblHoraFin").html(response.end_time)
+                    $("#lblHoraFin").html(response.end_time);
+                    $("#capturarScrap").show();
+                    $("#modalTotalScrap").modal("show");
+
                 },
                 statusCode: {},
                 error: function(x, xs, xt) {}

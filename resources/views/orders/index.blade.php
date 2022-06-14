@@ -309,6 +309,7 @@
                 responsive: true,
                 language: aLanguageDataTable,
                 dom: 'frtip',
+                order: false,
                 "columnDefs": [{
                     "targets": [0],
                     "visible": false
