@@ -42,11 +42,10 @@
                 font-size: 16px; */
             /* padding-top: 10px !important; */
             background-color: #00838f;
-            border-radius: 40px;
-            padding: 8px;
-            margin: 10px;
+            border-radius: 20px;
+            padding: 5px;
+            margin: 2px;
             color: #ffffff;
-            margin-top: 40px !important;
         }
 
         .card-header {
@@ -115,7 +114,6 @@
 
 
                                     <div id="accordion">
-                                        <div class="card">
                                             <div class="col-12" id="capturarScrap" style="display: none">
                                                 <button type="button" class="btn btn-success"
                                                     onclick="capturarTotalScrap()">Total & Scrap</button>
@@ -129,52 +127,51 @@
                                             <div id="collapseGeneric" class="collapse show"
                                                 aria-labelledby="headingGeneric" data-parent="#accordion">
                                                 <div class="card-body">
-                                                    <div class="col-12 header-info" id="header-info">
-                                                        <span
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Linea:</b> {{ $order->name_line }}</label>
-                                                            <input type="hidden" id="order_id" name="order_id"
-                                                                value="{{ $id }}">
-                                                        </span>
-                                                        <span
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Turno:</b> {{ $order->turn }}</label>
-                                                        </span>
-                                                        <span
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Producto:</b> {{ $order->part_number }}</label>
-                                                        </span>
-                                                        <span
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Estatus:</b> Programado</label>
-                                                        </span>
-                                                        <span style="display: none" id="spanHoraInicio"
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Hora inicio:</b> <span
-                                                                    id="lblHoraInicio">00:00:00</span></label>
-                                                        </span>
-                                                        <span style="display: none" id="spanHoraFin"
-                                                            class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                            <label><b>Hora fin:</b><span id="lblHoraFin">00:00:00</span>
-                                                            </label>
-                                                        </span>
-                                                        @if ($order->scrap != null || $order->scrap != 0)
+                                                    <div class="row">
                                                             <span
-                                                                class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                                <label><b>Scrap:</b><span>{{ $order->scrap }}</span>
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Linea:</b> {{ $order->name_line }}</label>
+                                                                <input type="hidden" id="order_id" name="order_id"
+                                                                    value="{{ $id }}">
+                                                            </span>
+                                                            <span
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Turno:</b> {{ $order->turn }}</label>
+                                                            </span>
+                                                            <span
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Producto:</b> {{ $order->part_number }}</label>
+                                                            </span>
+                                                            <span
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Estatus:</b> Programado</label>
+                                                            </span>
+                                                            <span style="display: none" id="spanHoraInicio"
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Hora inicio:</b> <span
+                                                                        id="lblHoraInicio">00:00:00</span></label>
+                                                            </span>
+                                                            <span style="display: none" id="spanHoraFin"
+                                                                class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                <label><b>Hora fin:</b><span id="lblHoraFin">00:00:00</span>
                                                                 </label>
                                                             </span>
-                                                        @endif
-                                                        @if ($order->total_produced != null || $order->total_produced != 0)
-                                                            <span
-                                                                class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 header-item">
-                                                                <label><b>Total
-                                                                        producido:</b><span>{{ $order->total_produced }}</span>
-                                                                </label>
-                                                            </span>
-                                                        @endif
-
-                                                    </div>
+                                                            @if ($order->scrap != null || $order->scrap != 0)
+                                                                <span
+                                                                    class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                    <label><b>Scrap:</b><span>{{ $order->scrap }}</span>
+                                                                    </label>
+                                                                </span>
+                                                            @endif
+                                                            @if ($order->total_produced != null || $order->total_produced != 0)
+                                                                <span
+                                                                    class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-3 header-item">
+                                                                    <label><b>Total
+                                                                            producido:</b><span>{{ $order->total_produced }}</span>
+                                                                    </label>
+                                                                </span>
+                                                            @endif
+                                                        </div>
                                                 </div>
                                             </div>
                                             {{-- paros produccion --}}
@@ -252,7 +249,6 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
