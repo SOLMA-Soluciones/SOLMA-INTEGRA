@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Productionstop;
+use App\Models\Timer;
 use stdClass;
 
 class TimerController extends Controller
@@ -16,7 +17,8 @@ class TimerController extends Controller
      */
     public function index()
     {
-        
+        $orders = Order::getOrdersInProcess();
+        return view('timer.timer',compact('orders'));
     }
 
     /**
@@ -138,6 +140,16 @@ class TimerController extends Controller
     public function getStoppageExecuted($idOrder){
         $Stoppages =  Order::getStoppagesExecuted($idOrder);
         return response()->json($Stoppages);
+    }
+    public function savetotalscrap(Request $request,$id){
+        $total = $request->post("total_finish");
+        $scrap = $request->post("scrap_finish");
+        $order = Order::find($id);
+        $order->total_produced = $total;
+        $order->scrap = $scrap;
+        $order->save();
+        // return response()->json($order);
+        return redirect()->route('timers.show',[$id]);
     }
    
 }

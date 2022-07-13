@@ -30,7 +30,7 @@ class OrderController extends Controller
 
     public function order()
     {
-        $orders = Order::getOrders();
+        $orders = Order::getOrdersInProcess();
         return view('orders.ordersproces',compact('orders'));
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriaTable extends Migration
+class AddTotalproducedToTdproductionorderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCategoriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoria', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->timestamps();
+        Schema::table('tdproductionorder', function (Blueprint $table) {
+            //
+            $table->integer('total_produced')->nullable();
         });
+        
     }
 
     /**
@@ -27,6 +27,9 @@ class CreateCategoriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria');
+        Schema::table('tdproductionorder', function (Blueprint $table) {
+            //
+            $table->dropColumn('total_produced');
+        });
     }
 }

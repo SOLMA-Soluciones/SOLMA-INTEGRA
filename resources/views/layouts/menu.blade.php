@@ -8,11 +8,11 @@
     <a class="nav-link" href="{{route('orders.index')}}">
         <i class=" fas fa-plus-circle"></i><span>Orden de Produccion</span>
     </a>
-    <a class="nav-link" href="/ordproces">
+    {{-- <a class="nav-link" href="/ordproces">
         <i class=" fas fa-clock"></i><span>Ordenes en proceso</span>
-    </a>
+    </a> --}}
     
-    <a class="nav-link" href="{{ route('tab1') }}">
+    <a class="nav-link" href="{{ route('timers.index') }}">
         <i class=" fas fa-clock"></i><span>Timer</span>
     </a>
 
