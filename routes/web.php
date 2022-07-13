@@ -12,6 +12,8 @@ use App\Http\Controllers\ProductionstopController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductoController;
+
 
 
 
@@ -67,7 +69,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/stoppages_executed/{id}', [TimerController::class, 'getStoppageExecuted'])->name('stoppages_executed');
     //getStoppageExecuted
     Route::get('/ordproces', [App\Http\Controllers\OrderController::class, 'order'])->name('ordproces');
-
+    Route::resource('productos', ProductoController::class);
     
 });
 
