@@ -15,6 +15,9 @@
     <a class="nav-link" href="{{ route('timers.index') }}">
         <i class=" fas fa-clock"></i><span>Timer</span>
     </a>
+    <a class="nav-link" href="{{ route('reportes.index') }}">
+        <i class=" fas fa-clock"></i><span>Reportes</span>
+    </a>
 
     @can('ver-user')
     <a class="nav-link" href="{{ route('tab1') }}">

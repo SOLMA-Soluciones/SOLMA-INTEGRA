@@ -13,6 +13,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ReporteController;
 
 
 
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('machines', MachineController::class);
     Route::resource('schedules', ScheduleController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('reportes', ReporteController::class);
     Route::get('/turns/{id}', [OrderController::class, 'turns'])->name('turns');
     Route::get('/productsfiltered/{id}', [OrderController::class, 'products'])->name('productsfiltered');
     Route::post('/startOrder', [TimerController::class, 'startOrder'])->name('startOrder');
