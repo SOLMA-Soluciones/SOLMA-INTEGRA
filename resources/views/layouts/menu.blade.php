@@ -16,7 +16,7 @@
         <i class=" fas fa-clock"></i><span>Timer</span>
     </a>
     <a class="nav-link" href="{{ route('reportes.index') }}">
-        <i class=" fas fa-clock"></i><span>Reportes</span>
+    <i class="fas fa-chart-line"></i><span>Reportes</span>
     </a>
 
     @can('ver-user')
