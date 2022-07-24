@@ -53,7 +53,7 @@ class TimerController extends Controller
     public function show($id)
     {
         // $stoppages = Productionstop::getStoppageByLineId($id);
-        $colors = ["#80cbc4","#80deea","#81d4fa","#90caf9","#9fa8da","#b39ddb","#a5d6a7","#c5e1a5","#a5d6a7","#ffcc80","#ffe082","#fff59d"];
+        $colors = ["#80cbc4","#80deea","#FFC300","#808080","#FF00FF","#FF00FF","#FF00FF","#FF00FF","#a5d6a7","#ffcc80","#ffe082","#fff59d"];
         $order = Order::getOrderById($id);
         $order = $order[0];
         $stoppages = Productionstop::getStoppageByOrderId($id);
@@ -83,9 +83,13 @@ class TimerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // var_dump("update");
-        return "update";
+        $total = $request->post("total_produced");
+        $scrap = $request->post("scrap");
+        $order = Order::find($id);
+        $order->total_produced = $total;
+        $order->scrap = $scrap;
+        $order->save();
+        return redirect()->route('timers.show',[$id]);
     }
 
     /**
@@ -141,6 +145,7 @@ class TimerController extends Controller
         $Stoppages =  Order::getStoppagesExecuted($idOrder);
         return response()->json($Stoppages);
     }
+    
     public function savetotalscrap(Request $request,$id){
         $total = $request->post("total_finish");
         $scrap = $request->post("scrap_finish");

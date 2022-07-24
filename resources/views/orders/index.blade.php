@@ -132,7 +132,7 @@
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidad"
+                                    <input type="number" class="form-control" id="cantidad" min="0"
                                         onchange="calcularTiempoPlanificado(this)" onkeyup="calcularTiempoPlanificado(this)"
                                         name="total" required>
                                 </div>
@@ -218,7 +218,7 @@
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label for="cantidadUpdate">Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidadUpdate"
+                                    <input type="number" class="form-control" id="cantidadUpdate" min="0" pattern="^[0-9]+"
                                         onchange="calcularTiempoPlanificadoUpdate(this)"
                                         onkeyup="calcularTiempoPlanificadoUpdate(this)" name="total" required>
                                 </div>

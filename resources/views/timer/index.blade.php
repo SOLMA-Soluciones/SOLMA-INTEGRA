@@ -68,11 +68,17 @@
         <div class="section-header">
             <h3 class="page__heading">Timer</h3>
         </div>
+
+
+
+
         <div class="section-body">
+        <div class="container" style="padding-right: 0px !important; padding-left: 0px !important;"  >
+
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" style="padding: 0px;">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body"style="padding: 0px !important;">
                             <div class="row">
                                 <div class="panel-body col-12">
                                     {{-- <div class="col-sm-12 chips">
@@ -258,6 +264,7 @@
             </div>
         </div>
         </div>
+        </div>
     </section>
 
     <div class="modal fade" id="modalStoppage" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -334,11 +341,15 @@
                 <div class="modal-body">
 
                     <label for="total_finish">Total producido</label>
-                    {!! Form::number('total_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'total_finish']) !!}
+                    {!! Form::number('total_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'total_finish', 'min'=>'0',
+                                    'required'=>'required',
+                                    'placeholder'=>'Agregar Total producido']) !!}
 
 
                     <label for="scrap_finish">Scrap</label>
-                    {!! Form::number('scrap_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'scrap_finish']) !!}
+                    {!! Form::number('scrap_finish', null, ['class' => 'form-control col-xs-6 col-sm-6 col-md-6', 'id' => 'scrap_finish', 'min'=>'0',
+                                    'required'=>'required',
+                                    'placeholder'=>'Agregar Scrap']) !!}
 
 
                 </div>
@@ -350,6 +361,43 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalTotalScrapUp" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #6777ef">
+                    <h5 class="modal-title text-light">Capturar datos finales</h5>
+                </div>
+
+                {!! Form::model($order, ['route'=>['timers.update',$order->id]]) !!}
+                            <input type="hidden" name="_method" value="PUT">
+                                <div class="modal-body">
+                                    <label for="total_produced" >Total producido</label>
+                                    {!! Form::number('total_produced',null,array(
+                                    'class'=>'form-control col-xs-6 col-sm-6 col-md-6', 'min'=>'0',
+                                    'required'=>'required',
+                                    'placeholder'=>'Agregar Total producido'
+                                    ))
+                                    !!}
+                                    <label for="scrap" >Scrap</label>
+                                    {!! Form::number('scrap',null,array(
+                                    'class'=>'form-control col-xs-6 col-sm-6 col-md-6', 'min'=>'0',
+                                    'required'=>'required',
+                                    'placeholder'=>'Agregar Scrap'
+                                    ))
+                                    !!}
+                                </div>
+
+                                <div class="modal-footer">
+                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-info">Guardar</button>
+                                </div>
+                                
+                            {!! Form::close()!!}
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('js')
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -677,7 +725,7 @@
         }
 
         function capturarTotalScrap() {
-            $('#modalTotalScrap').modal('show');
+            $('#modalTotalScrapUp').modal('show');
         }
     </script>
 @endsection
