@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = 'tdproductionorder';
-    protected $fillable = ["id", "productionorderstatus_id", "product_id", "start_time", "scrap", "total", "productionline_id", "schedule_id","total_produced"];
+    protected $fillable = ["id", "productionorderstatus_id", "product_id", "start_time", "scrap", "total", "productionline_id", "schedule_id","total_produced","datetime"];
 
 
 

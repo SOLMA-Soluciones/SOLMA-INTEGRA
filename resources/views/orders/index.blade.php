@@ -144,6 +144,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                                <div class="form-group">
+                                    <label for="datetime">Fecha de entrega</label>
+                                    <input type="datetime-local" class="form-control" name="datetime" required>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
